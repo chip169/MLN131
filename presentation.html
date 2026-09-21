@@ -612,7 +612,7 @@
       z-index: 22;
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-end;
       pointer-events: none;
     }
 
@@ -826,10 +826,6 @@
 
   <!-- BOTTOM DOCK CONTROLS -->
   <div id="bottom-dock">
-    <div class="nav-controls">
-      <button class="dock-btn btn-prev" id="btn-prev" onclick="prevStation()" disabled>← Trạm Trước</button>
-      <button class="dock-btn btn-next" id="btn-next" onclick="nextStation()">Tiếp Theo: Trạm 02 →</button>
-    </div>
 
     <div class="key-hints">
       <kbd>←</kbd> <kbd>→</kbd> <kbd>Space</kbd> <span>Chuyển trạm</span>
@@ -1481,9 +1477,11 @@
         d.classList.toggle('active', i === targetIndex);
       });
 
-      // 6. Dock Controls Update
-      document.getElementById('btn-prev').disabled = (targetIndex === 0);
-      document.getElementById('btn-next').textContent = (targetIndex === STATIONS.length - 1) ? 'Khởi Động Lại' : `Tiếp Theo: Trạm 0${targetIndex + 2} →`;
+      // 6. Dock Controls Update (Navigation buttons removed)
+      const btnPrev = document.getElementById('btn-prev');
+      const btnNext = document.getElementById('btn-next');
+      if (btnPrev) btnPrev.disabled = (targetIndex === 0);
+      if (btnNext) btnNext.textContent = (targetIndex === STATIONS.length - 1) ? 'Khởi Động Lại' : `Tiếp Theo: Trạm 0${targetIndex + 2} →`;
 
       // 7. Update Primary Card (Top-Left)
       document.getElementById('p-tag').innerHTML = sData.tag;
