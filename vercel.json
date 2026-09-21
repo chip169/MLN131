@@ -5,11 +5,19 @@
   "trailingSlash": false,
   "routes": [
     {
-      "src": "/(.*\\.(?:jpg|jpeg|png|webp|svg|gif|ico|woff2?|ttf))$",
+      "src": "/(.*\\.(?:jpg|jpeg|png|webp|svg|gif|ico|woff2?|ttf|js|css|json|txt|csv))$",
       "headers": {
         "cache-control": "public, max-age=31536000, immutable"
       },
       "continue": true
+    },
+    {
+      "src": "/presentation",
+      "dest": "/presentation.html"
+    },
+    {
+      "src": "/presentation.html",
+      "dest": "/presentation.html"
     },
     {
       "src": "/(.*)",

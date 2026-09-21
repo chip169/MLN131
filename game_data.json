@@ -1,0 +1,606 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "question": "Cơ cấu xã hội được định nghĩa là gì?",
+      "options": [
+        "Tổng thể các giai cấp và tầng lớp tồn tại trong một chế độ xã hội.",
+        "Mối liên hệ vững chắc của các thành tố trong hệ thống xã hội.",
+        "Hệ thống các chính sách phát triển kinh tế - xã hội của Nhà nước.",
+        "Tập hợp các cộng đồng dân cư theo địa giới hành chính."
+      ],
+      "correct": 1,
+      "stage": 1
+    },
+    {
+      "id": 2,
+      "question": "Yếu tố nào là căn cứ cơ bản để xây dựng chính sách phát triển kinh tế, văn hóa, xã hội trong từng giai đoạn lịch sử cụ thể?",
+      "options": [
+        "Cơ cấu xã hội – dân cư.",
+        "Cơ cấu xã hội – nghề nghiệp.",
+        "Cơ cấu xã hội – giai cấp.",
+        "Cơ cấu xã hội – tôn giáo."
+      ],
+      "correct": 2,
+      "stage": 1
+    },
+    {
+      "id": 3,
+      "question": "Cơ cấu xã hội – giai cấp là tổng thể các giai cấp, tầng lớp xã hội tồn tại khách quan thông qua những mối quan hệ nào?",
+      "options": [
+        "Mối quan hệ về sở hữu tư liệu sản xuất, tổ chức quản lý sản xuất và địa vị chính trị – xã hội.",
+        "Mối quan hệ về thu nhập, mức sống và hoàn cảnh gia đình.",
+        "Mối quan hệ về địa lý cư trú, ngôn ngữ và tập quán sinh hoạt.",
+        "Mối quan hệ về trình độ chuyên môn và bằng cấp giáo dục."
+      ],
+      "correct": 0,
+      "stage": 1
+    },
+    {
+      "id": 4,
+      "question": "Xu hướng biến đổi chủ yếu của cơ cấu xã hội – giai cấp trong thời kỳ quá độ lên chủ nghĩa xã hội là gì?",
+      "options": [
+        "Sự phân hóa ngày càng sâu sắc giữa các tầng lớp xã hội.",
+        "Sự xích lại gần nhau từng bước giữa các giai cấp, tầng lớp về mối quan hệ với tư liệu sản xuất.",
+        "Sự biến mất ngay lập tức của tất cả các tầng lớp bóc thợ.",
+        "Sự cô lập vai trò của giai cấp công nhân đối với các giai cấp khác."
+      ],
+      "correct": 1,
+      "stage": 1
+    },
+    {
+      "id": 5,
+      "question": "Sự biến đổi của cơ cấu xã hội – giai cấp trong thời kỳ quá độ gắn liền và bị quy định bởi yếu tố nào?",
+      "options": [
+        "Cơ cấu chính trị của nhà nước.",
+        "Cơ cấu kinh tế của thời kỳ quá độ lên chủ nghĩa xã hội.",
+        "Trình độ phát triển văn hóa và giáo dục.",
+        "Tình hình quan hệ quốc tế."
+      ],
+      "correct": 1,
+      "stage": 1
+    },
+    {
+      "id": 6,
+      "question": "Trong thời kỳ quá độ lên chủ nghĩa xã hội, sự biến đổi phức tạp, đa dạng của cơ cấu xã hội – giai cấp làm xuất hiện thêm các tầng lớp xã hội mới nào?",
+      "options": [
+        "Doanh nhân, tiểu chủ, tầng lớp người giàu có và trung lưu.",
+        "Địa chủ, phong kiến, tư sản mại bản.",
+        "Tăng ni, phật tử, giáo dân.",
+        "Quý tộc, thương gia nước ngoài."
+      ],
+      "correct": 0,
+      "stage": 1
+    },
+    {
+      "id": 7,
+      "question": "Theo C. Mác và Ph. Ăngghen, nguyên nhân chủ yếu khiến các cuộc đấu tranh của công nhân ở Châu Âu cuối thế kỷ XIX thất bại là gì?",
+      "options": [
+        "Thiếu nguồn tài chính và vũ khí.",
+        "Không tổ chức liên minh với \"người bạn đồng minh tự nhiên\" là nông dân.",
+        "Bị giai cấp tư sản mua chuộc.",
+        "Chưa có tổ chức Đảng Cộng sản lãnh đạo."
+      ],
+      "correct": 1,
+      "stage": 1
+    },
+    {
+      "id": 8,
+      "question": "C. Mác và Ph. Ăngghen đã ví cách mạng vô sản trở thành \"bài ca ai điếu\" khi rơi vào tình cảnh nào?",
+      "options": [
+        "Bị thất bại trước sự can thiệp của nước ngoài.",
+        "Giai cấp công nhân đơn độc do không liên minh với nông dân.",
+        "Khối liên minh công nông bị chia rẽ bởi tư sản.",
+        "Giai cấp công nhân bị suy giảm về số lượng."
+      ],
+      "correct": 1,
+      "stage": 1
+    },
+    {
+      "id": 9,
+      "question": "V.I. Lênin đã vận dụng và phát triển lý luận liên minh giai cấp để tổ chức khối liên minh công nông trong sự kiện lịch sử nào?",
+      "options": [
+        "Công xã Pari 1871.",
+        "Cách mạng Tháng Mười Nga.",
+        "Cách mạng Tư sản Pháp 1789.",
+        "Phong trào Hiến chương Anh."
+      ],
+      "correct": 1,
+      "stage": 1
+    },
+    {
+      "id": 10,
+      "question": "Xét dưới góc độ chính trị – xã hội, liên minh giai cấp, tầng lớp được xác định là gì?",
+      "options": [
+        "Nguyên tắc cao nhất của chuyên chính vô sản.",
+        "Giải pháp tình thế trong giai đoạn giành chính quyền.",
+        "Sự thỏa thuận tạm thời về mặt lợi ích kinh tế.",
+        "Biện pháp duy nhất để quản lý xã hội."
+      ],
+      "correct": 0,
+      "stage": 1
+    },
+    {
+      "id": 11,
+      "question": "Xét dưới góc độ kinh tế, sự cần thiết của liên minh giai cấp, tầng lớp xuất phát từ yêu cầu nào?",
+      "options": [
+        "Xây dựng nền kinh tế quốc dân thống nhất (nông nghiệp, công nghiệp, dịch vụ) và đẩy mạnh CNH, HĐH.",
+        "Tăng cường xuất khẩu tài nguyên thô ra thị trường quốc tế.",
+        "Xóa bỏ hoàn toàn thành phần kinh tế tư nhân.",
+        "Tập trung phát triển độc tôn ngành công nghiệp nặng."
+      ],
+      "correct": 0,
+      "stage": 2
+    },
+    {
+      "id": 12,
+      "question": "Nhằm thỏa mãn nhu cầu, lợi ích kinh tế của giai cấp công nhân, nông dân, trí thức và các tầng lớp khác là mục tiêu của nội dung liên minh nào?",
+      "options": [
+        "Nội dung chính trị.",
+        "Nội dung kinh tế.",
+        "Nội dung văn hóa – xã hội.",
+        "Nội dung an ninh – quốc phòng."
+      ],
+      "correct": 1,
+      "stage": 2
+    },
+    {
+      "id": 13,
+      "question": "Nội dung chính trị của khối liên minh giữa giai cấp công nhân với giai cấp nông dân và tầng lớp trí thức tạo cơ sở vững chắc cho điều gì?",
+      "options": [
+        "Khối đại đoàn kết toàn dân, củng cố nhà nước XHCN và bảo vệ vai trò lãnh đạo của Đảng Cộng sản.",
+        "Sự giải thể của các tổ chức xã hội phi chính phủ.",
+        "Việc thay thế hoàn toàn nền kinh tế thị trường bằng kinh tế bao cấp.",
+        "Sự độc tôn tuyệt đối của giai cấp nông dân trong quản lý nhà nước."
+      ],
+      "correct": 0,
+      "stage": 2
+    },
+    {
+      "id": 14,
+      "question": "Trong nội dung văn hóa – xã hội của liên minh, nhiệm vụ quan trọng đối với công tác tư tưởng là đấu tranh khắc phục các tư tưởng nào?",
+      "options": [
+        "Tư tưởng tiến bộ và hội nhập.",
+        "Tư tưởng lạc hậu, bảo thủ, trì trệ, thói cửa quyền, quan liêu.",
+        "Tinh thần tiếp thu giá trị văn hóa nhân loại.",
+        "Yêu cầu nâng cao dân trí và pháp luật."
+      ],
+      "correct": 1,
+      "stage": 2
+    },
+    {
+      "id": 15,
+      "question": "Đặc điểm của cơ cấu xã hội – giai cấp ở Việt Nam trong thời kỳ quá độ lên chủ nghĩa xã hội là gì?",
+      "options": [
+        "Vừa đảm bảo tính quy luật phổ biến, vừa mang tính đặc thù chuyển từ đơn giản sang phức tạp hơn.",
+        "Hoàn toàn giống hệt cơ cấu xã hội – giai cấp của các nước tư bản phát triển.",
+        "Chỉ bao gồm duy nhất hai giai cấp là công nhân và nông dân.",
+        "Không chịu sự chi phối của các biến đổi trong cơ cấu kinh tế."
+      ],
+      "correct": 0,
+      "stage": 2
+    },
+    {
+      "id": 16,
+      "question": "Giai cấp nào ở Việt Nam đóng vai trò là lực lượng lãnh đạo cách mạng và là lực lượng nòng cốt trong khối liên minh?",
+      "options": [
+        "Giai cấp nông dân.",
+        "Tầng lớp trí thức.",
+        "Giai cấp công nhân.",
+        "Tầng lớp doanh nhân."
+      ],
+      "correct": 2,
+      "stage": 2
+    },
+    {
+      "id": 17,
+      "question": "Đội ngũ doanh nhân ở Việt Nam phát triển nhanh chóng và có vai trò to lớn trong việc gì?",
+      "options": [
+        "Phát triển kinh tế – xã hội, giải quyết việc làm và tham gia an sinh xã hội.",
+        "Lãnh đạo hệ thống chính trị và quản lý nhà nước.",
+        "Định hướng phát triển nền văn hóa xã hội chủ nghĩa.",
+        "Thay thế giai cấp công nhân làm lực lượng nòng cốt cách mạng."
+      ],
+      "correct": 0,
+      "stage": 2
+    },
+    {
+      "id": 18,
+      "question": "Khái niệm \"Liên minh giai cấp, tầng lớp\" được định nghĩa là gì?",
+      "options": [
+        "Sự kết hợp, hỗ trợ nhau giữa các giai cấp, tầng lớp nhằm thực hiện nhu cầu, lợi ích và tạo động lực xây dựng CNXH.",
+        "Sự hợp nhất tất cả các giai cấp thành một giai cấp duy nhất.",
+        "Sự đấu tranh loại trừ lẫn nhau giữa giai cấp công nhân và tư sản.",
+        "Thỏa thuận chia sẻ lợi nhuận giữa các tập đoàn kinh tế."
+      ],
+      "correct": 0,
+      "stage": 2
+    },
+    {
+      "id": 19,
+      "question": "Sự phát triển của các nhóm lao động phi truyền thống như freelancer, bán hàng online, tài xế công nghệ, streamer/KOL đang tác động thế nào đến mô hình truyền thống?",
+      "options": [
+        "Phá vỡ mô hình \"Giai cấp công nhân – Chủ doanh nghiệp\" nhị phân.",
+        "Tăng cường tính cố định của quan hệ lao động truyền thống.",
+        "Xóa bỏ hoàn toàn nhu cầu sử dụng công nghệ trong lao động.",
+        "Biến tất cả người lao động thành công chức nhà nước."
+      ],
+      "correct": 0,
+      "stage": 2
+    },
+    {
+      "id": 20,
+      "question": "Dù tự sở hữu tư liệu sản xuất vi mô (xe máy, kênh bán hàng, thiết bị), người lao động công nghệ thực chất vẫn phụ thuộc vào yếu tố nào?",
+      "options": [
+        "Thuật toán và chính sách chiết khấu của các nền tảng công nghệ lớn.",
+        "Sự quản lý trực tiếp của các cơ quan chính quyền địa phương.",
+        "Bằng cấp từ các trường đại học hàn lâm.",
+        "Các bản hợp đồng lao động dài hạn truyền thống."
+      ],
+      "correct": 0,
+      "stage": 2
+    },
+    {
+      "id": 21,
+      "question": "Thuật ngữ \"Precariat\" trong phân tích cơ cấu xã hội nền kinh tế số chỉ nhóm đối tượng nào?",
+      "options": [
+        "Tầng lớp tinh hoa số giàu có.",
+        "Tầng lớp \"tiền trung lưu\" bấp bênh, chịu rủi ro cao vì thiếu an sinh xã hội.",
+        "Đội ngũ kỹ sư công nghệ có biên chế cố định.",
+        "Ban lãnh đạo của các tập đoàn công nghệ lớn."
+      ],
+      "correct": 1,
+      "stage": 3
+    },
+    {
+      "id": 22,
+      "question": "Nhóm nào sau đây thuộc tầng lớp \"Digital Elite\" (tinh hoa số mới)?",
+      "options": [
+        "Tài xế Grab chạy xe thuê theo giờ.",
+        "Người bán hàng online nhỏ lẻ chịu thua lỗ.",
+        "Streamer/KOL thành công và high-end freelancer tích lũy tài sản lớn nhanh chóng.",
+        "Lao động thủ công trong các làng nghề."
+      ],
+      "correct": 2,
+      "stage": 3
+    },
+    {
+      "id": 23,
+      "question": "Trong \"Nền kinh tế chú ý\" (Attention Economy), tiêu chí định vị địa vị xã hội của nhóm Streamer/KOL dịch chuyển sang yếu tố nào?",
+      "options": [
+        "Bằng cấp hàn lâm và thâm niên công tác.",
+        "\"Vốn chú ý\", lượng người theo dõi và khả năng tạo ảnh hưởng.",
+        "Chức vụ hành chính trong hệ thống công sở.",
+        "Nguồn gốc gia thế và địa vị dòng họ."
+      ],
+      "correct": 1,
+      "stage": 3
+    },
+    {
+      "id": 24,
+      "question": "Sự thành công của các freelancer và người bán hàng online dựa vào khả năng tự học và kỹ năng thực chiến cho thấy xu hướng gì?",
+      "options": [
+        "Phi chính thống hóa học thức (dịch chuyển từ bằng cấp truyền thống sang kỹ năng thực tế).",
+        "Tăng cường vai trò độc tôn của hệ thống bằng cấp giáo dục hàn lâm.",
+        "Sự suy giảm nhu cầu học tập trong toàn xã hội.",
+        "Bắt buộc mọi lao động phải có bằng tiến sĩ mới thành công."
+      ],
+      "correct": 0,
+      "stage": 3
+    },
+    {
+      "id": 25,
+      "question": "Sự bùng nổ của các nhóm lao động nền tảng (Gig Economy) đặt ra thách thức lớn nào cho quản lý vĩ mô của Nhà nước?",
+      "options": [
+        "Khủng hoảng mô hình thuế và pháp lý đối với lao động phi định chuẩn.",
+        "Tình trạng thừa ngân sách thu từ thuế doanh nghiệp.",
+        "Sự biến mất của các giao dịch tiền tệ.",
+        "Việc bồi thường bảo hiểm xã hội quá tải cho lao động công sở."
+      ],
+      "correct": 0,
+      "stage": 3
+    },
+    {
+      "id": 26,
+      "question": "Khối liên minh giai cấp, tầng lớp trong thời kỳ quá độ lên CNXH ở Việt Nam gồm mấy nội dung cơ bản?",
+      "options": [
+        "2 nội dung (Kinh tế, Chính trị).",
+        "3 nội dung (Kinh tế, Chính trị, Văn hóa – xã hội).",
+        "4 nội dung (Kinh tế, Chính trị, Văn hóa, Tôn giáo).",
+        "5 nội dung (Kinh tế, Chính trị, Văn hóa, Quốc phòng, Đối ngoại)."
+      ],
+      "correct": 1,
+      "stage": 3
+    },
+    {
+      "id": 27,
+      "question": "Đâu là cơ sở để giai cấp công nhân giữ vững vai trò lãnh đạo xã hội thông qua khối liên minh?",
+      "options": [
+        "Tập hợp được lực lượng đông đảo nhân dân lao động phấn đấu cho mục tiêu CNXH.",
+        "Tự cô lập giai cấp công nhân khỏi các tầng lớp khác.",
+        "Sử dụng quyền lực quân sự để áp đặt tư tưởng.",
+        "Duy trì mô hình sản xuất nhỏ lẻ, tự cung tự cấp."
+      ],
+      "correct": 0,
+      "stage": 3
+    },
+    {
+      "id": 28,
+      "question": "Trong thời kỳ quá độ lên chủ nghĩa xã hội, cơ cấu xã hội – giai cấp biến đổi trong mối quan hệ nào?",
+      "options": [
+        "Tách biệt tuyệt đối, không giao thoa.",
+        "Vừa đấu tranh vừa liên minh dẫn đến sự xích lại gần nhau.",
+        "Xung đột triệt tiêu lẫn nhau.",
+        "Hòa tan hoàn toàn không còn ranh giới."
+      ],
+      "correct": 1,
+      "stage": 3
+    },
+    {
+      "id": 29,
+      "question": "Sự dịch chuyển lối sống và cộng đồng trong nền kinh tế số làm giảm sự gắn kết công sở truyền thống và thay bằng điều gì?",
+      "options": [
+        "Các cộng đồng mạng và hội nhóm nghề nghiệp phi tập trung.",
+        "Các đơn vị hành chính khép kín.",
+        "Các mô hình hợp tác xã nông nghiệp cũ.",
+        "Sự cách ly tuyệt đối giữa những người lao động."
+      ],
+      "correct": 0,
+      "stage": 3
+    },
+    {
+      "id": 30,
+      "question": "Cơ cấu xã hội – giai cấp biến đổi phức tạp, đa dạng trong thời kỳ quá độ do nguyên nhân cốt lõi nào?",
+      "options": [
+        "Do sự biến đổi của cơ cấu kinh tế nhiều thành phần trong thời kỳ quá độ.",
+        "Do tác động duy nhất từ văn hóa ngoại nhập.",
+        "Do sự gia tăng dân số tự nhiên.",
+        "Do sự thay đổi địa giới hành chính các tỉnh thành."
+      ],
+      "correct": 0,
+      "stage": 3
+    }
+  ],
+  "simulatedStudents": [
+    {
+      "name": "Nguyễn Văn An",
+      "mssv": "SE170123"
+    },
+    {
+      "name": "Trần Thị Mai",
+      "mssv": "HE180456"
+    },
+    {
+      "name": "Lê Hoàng Long",
+      "mssv": "SE172345"
+    },
+    {
+      "name": "Phạm Minh Đức",
+      "mssv": "IA180789"
+    },
+    {
+      "name": "Vũ Phương Thảo",
+      "mssv": "SE173210"
+    },
+    {
+      "name": "Đỗ Gia Huy",
+      "mssv": "SS170987"
+    },
+    {
+      "name": "Bùi Tuấn Kiệt",
+      "mssv": "SE171122"
+    },
+    {
+      "name": "Ngô Thùy Linh",
+      "mssv": "HE181234"
+    },
+    {
+      "name": "Đặng Quốc Bảo",
+      "mssv": "SE172567"
+    },
+    {
+      "name": "Hoàng Khánh Vy",
+      "mssv": "SS180111"
+    },
+    {
+      "name": "Dương Minh Trí",
+      "mssv": "SE174567"
+    },
+    {
+      "name": "Lý Hải Đăng",
+      "mssv": "IA180333"
+    },
+    {
+      "name": "Mai Thanh Trúc",
+      "mssv": "HE182345"
+    },
+    {
+      "name": "Hồ Nhật Nam",
+      "mssv": "SE175678"
+    },
+    {
+      "name": "Trịnh Diệu Hoa",
+      "mssv": "SS170444"
+    },
+    {
+      "name": "Võ Quang Khải",
+      "mssv": "SE176789"
+    },
+    {
+      "name": "Đinh Thu Hà",
+      "mssv": "HE183456"
+    },
+    {
+      "name": "Phan Tiến Đạt",
+      "mssv": "SE177890"
+    },
+    {
+      "name": "Cao Ngọc Ánh",
+      "mssv": "SS180555"
+    },
+    {
+      "name": "Lâm Quốc Cường",
+      "mssv": "SE178901"
+    },
+    {
+      "name": "Tạ Thị Kim Oanh",
+      "mssv": "HE184567"
+    },
+    {
+      "name": "Châu Vĩnh Phúc",
+      "mssv": "SE179012"
+    },
+    {
+      "name": "Lương Hoài An",
+      "mssv": "SS170666"
+    },
+    {
+      "name": "Đoàn Minh Quân",
+      "mssv": "SE170345"
+    },
+    {
+      "name": "Nguyễn Thị Ngọc Bích",
+      "mssv": "HE185678"
+    },
+    {
+      "name": "Trần Quang Dũng",
+      "mssv": "SE171456"
+    },
+    {
+      "name": "Lê Thị Thu Thủy",
+      "mssv": "SS180777"
+    },
+    {
+      "name": "Phạm Hùng Cường",
+      "mssv": "IA180888"
+    },
+    {
+      "name": "Vũ Bảo Ngọc",
+      "mssv": "SE172678"
+    },
+    {
+      "name": "Đỗ Thành Đạt",
+      "mssv": "HE186789"
+    },
+    {
+      "name": "Bùi Mỹ Duyên",
+      "mssv": "SS170888"
+    },
+    {
+      "name": "Ngô Văn Thắng",
+      "mssv": "SE173789"
+    },
+    {
+      "name": "Đặng Thị Huyền",
+      "mssv": "HE187890"
+    },
+    {
+      "name": "Hoàng Trọng Nghĩa",
+      "mssv": "SE174890"
+    },
+    {
+      "name": "Dương Thị Kim Ngân",
+      "mssv": "SS180999"
+    },
+    {
+      "name": "Lý Thế Dân",
+      "mssv": "IA180999"
+    },
+    {
+      "name": "Mai Hồng Sơn",
+      "mssv": "SE175901"
+    },
+    {
+      "name": "Hồ Quỳnh Như",
+      "mssv": "HE188901"
+    },
+    {
+      "name": "Trịnh Bá Phong",
+      "mssv": "SS171000"
+    },
+    {
+      "name": "Võ Thị Bích Thảo",
+      "mssv": "SE176012"
+    },
+    {
+      "name": "Đinh Xuân Trường",
+      "mssv": "HE189012"
+    },
+    {
+      "name": "Phan Yến Nhi",
+      "mssv": "SS181111"
+    },
+    {
+      "name": "Cao Bá Quát",
+      "mssv": "IA181111"
+    },
+    {
+      "name": "Lâm Thị Diễm My",
+      "mssv": "SE177123"
+    },
+    {
+      "name": "Tạ Hữu Bình",
+      "mssv": "HE180001"
+    },
+    {
+      "name": "Châu Thị Cẩm Tú",
+      "mssv": "SS171222"
+    },
+    {
+      "name": "Lương Gia Hân",
+      "mssv": "SE178234"
+    },
+    {
+      "name": "Đoàn Văn Hậu",
+      "mssv": "HE180112"
+    },
+    {
+      "name": "Nguyễn Hải Yến",
+      "mssv": "SS181333"
+    },
+    {
+      "name": "Trần Anh Khoa",
+      "mssv": "IA181222"
+    },
+    {
+      "name": "Lê Đức Phúc",
+      "mssv": "SE179345"
+    },
+    {
+      "name": "Phạm Thúy Hằng",
+      "mssv": "HE180223"
+    },
+    {
+      "name": "Vũ Đình Trọng",
+      "mssv": "SS171444"
+    },
+    {
+      "name": "Đỗ Thị Kiều Oanh",
+      "mssv": "SE170456"
+    },
+    {
+      "name": "Bùi Quốc Huy",
+      "mssv": "HE180334"
+    },
+    {
+      "name": "Ngô Tuấn Anh",
+      "mssv": "SS181555"
+    },
+    {
+      "name": "Đặng Thị Thùy Dung",
+      "mssv": "IA181333"
+    },
+    {
+      "name": "Hoàng Nhật Minh",
+      "mssv": "SE171567"
+    },
+    {
+      "name": "Dương Văn Toàn",
+      "mssv": "HE180445"
+    },
+    {
+      "name": "Trần Phương Linh",
+      "mssv": "SS171666"
+    }
+  ]
+}
