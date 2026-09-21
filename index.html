@@ -1,0 +1,1680 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chương V: Cơ Cấu Xã Hội – Giai Cấp & Liên Minh Trong Kỷ Nguyên Số | MLN131</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #030712;
+      --theme-primary: #38bdf8;
+      --theme-secondary: #fbbf24;
+      --theme-accent: #f43f5e;
+      --theme-glow: rgba(56, 189, 248, 0.35);
+      --panel-bg: rgba(9, 15, 30, 0.82);
+      --panel-border: rgba(255, 255, 255, 0.16);
+      --text-main: #f8fafc;
+      --text-sub: #cbd5e1;
+      --text-muted: #94a3b8;
+    }
+
+    /* ── DYNAMIC THEME MOODS PER STATION ── */
+    body.theme-0 {
+      --theme-primary: #38bdf8;
+      --theme-secondary: #818cf8;
+      --theme-accent: #fbbf24;
+      --theme-glow: rgba(56, 189, 248, 0.38);
+      --panel-bg: rgba(7, 16, 36, 0.84);
+      --panel-border: rgba(56, 189, 248, 0.28);
+    }
+    body.theme-1 {
+      --theme-primary: #f43f5e;
+      --theme-secondary: #fbbf24;
+      --theme-accent: #38bdf8;
+      --theme-glow: rgba(244, 63, 94, 0.38);
+      --panel-bg: rgba(30, 10, 20, 0.86);
+      --panel-border: rgba(244, 63, 94, 0.3);
+    }
+    body.theme-2 {
+      --theme-primary: #10b981;
+      --theme-secondary: #38bdf8;
+      --theme-accent: #fbbf24;
+      --theme-glow: rgba(16, 185, 129, 0.38);
+      --panel-bg: rgba(6, 28, 22, 0.84);
+      --panel-border: rgba(16, 185, 129, 0.3);
+    }
+    body.theme-3 {
+      --theme-primary: #f59e0b;
+      --theme-secondary: #0284c7;
+      --theme-accent: #ef4444;
+      --theme-glow: rgba(245, 158, 11, 0.4);
+      --panel-bg: rgba(28, 20, 8, 0.86);
+      --panel-border: rgba(245, 158, 11, 0.32);
+    }
+    body.theme-4 {
+      --theme-primary: #ef4444;
+      --theme-secondary: #eab308;
+      --theme-accent: #38bdf8;
+      --theme-glow: rgba(239, 68, 68, 0.4);
+      --panel-bg: rgba(32, 10, 14, 0.86);
+      --panel-border: rgba(239, 68, 68, 0.32);
+    }
+    body.theme-5 {
+      --theme-primary: #a855f7;
+      --theme-secondary: #f97316;
+      --theme-accent: #10b981;
+      --theme-glow: rgba(168, 85, 247, 0.4);
+      --panel-bg: rgba(24, 10, 38, 0.88);
+      --panel-border: rgba(168, 85, 247, 0.32);
+    }
+    body.theme-6 {
+      --theme-primary: #fcd34d;
+      --theme-secondary: #f43f5e;
+      --theme-accent: #38bdf8;
+      --theme-glow: rgba(252, 211, 77, 0.45);
+      --panel-bg: rgba(26, 20, 8, 0.88);
+      --panel-border: rgba(252, 211, 77, 0.35);
+    }
+
+    body {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background: var(--bg);
+      font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+      color: var(--text-main);
+      user-select: none;
+      -webkit-font-smoothing: antialiased;
+      transition: background 0.6s ease;
+    }
+
+    /* ── CINEMATIC 3D BACKDROP & PARALLAX CANVAS ── */
+    #cinematic-backdrop {
+      position: fixed;
+      inset: -40px;
+      z-index: 1;
+      overflow: hidden;
+      perspective: 1200px;
+      background: #020617;
+      pointer-events: none;
+    }
+
+    .backdrop-slide {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: 0;
+      transform: scale(1.08) translate3d(0, 0, 0);
+      transition: opacity 1.0s cubic-bezier(0.4, 0, 0.2, 1), transform 1.6s cubic-bezier(0.16, 1, 0.3, 1);
+      filter: brightness(0.85) contrast(1.08) saturate(1.12);
+      will-change: opacity, transform;
+    }
+
+    .backdrop-slide.active {
+      opacity: 1;
+      transform: scale(1) translate3d(var(--para-x, 0px), var(--para-y, 0px), 0);
+    }
+
+    /* ── 3D CANVAS FULLSCREEN (FLOATING COSMIC PARTICLES) ── */
+    #canvas-container {
+      position: fixed;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    /* ── INTERACTIVE HOTSPOTS OVERLAY ── */
+    #hotspot-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .hotspot-node {
+      position: absolute;
+      pointer-events: auto;
+      cursor: pointer;
+      transform: translate(-50%, -50%);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      animation: hotspotFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .hotspot-node:hover {
+      transform: translate(-50%, -50%) scale(1.22);
+      z-index: 15;
+    }
+
+    .hotspot-beacon {
+      width: 38px;
+      height: 38px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hotspot-core {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #ffffff;
+      box-shadow: 0 0 14px #ffffff, 0 0 28px var(--node-color, #38bdf8), 0 0 45px var(--node-color, #38bdf8);
+      position: relative;
+      z-index: 2;
+    }
+
+    .hotspot-ring {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 2px solid var(--node-color, #38bdf8);
+      animation: hotspotRipple 2.4s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+    }
+
+    .hotspot-ring.delayed {
+      animation-delay: 1.1s;
+    }
+
+    @keyframes hotspotRipple {
+      0% { transform: scale(0.4); opacity: 1; }
+      100% { transform: scale(2.4); opacity: 0; }
+    }
+
+    @keyframes hotspotFadeIn {
+      0% { opacity: 0; transform: translate(-50%, -50%) scale(0.6); }
+      100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    }
+
+    .hotspot-label {
+      background: rgba(11, 20, 42, 0.94);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      color: #f8fafc;
+      padding: 7px 16px;
+      border-radius: 999px;
+      font-size: 12.5px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      backdrop-filter: blur(16px);
+      white-space: nowrap;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.65), 0 0 18px var(--node-color, #38bdf8);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateX(-10px);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+    }
+
+    .hotspot-node:hover .hotspot-label {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(0);
+      background: rgba(7, 16, 36, 0.98);
+      border-color: var(--node-color, #38bdf8);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.75), 0 0 24px var(--node-color, #38bdf8);
+      color: #ffffff;
+    }
+
+    /* ── CINEMATIC AMBIENT GRADIENTS & VIGNETTE ── */
+    #ambient-glow {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 3;
+      background: radial-gradient(circle at 50% 50%, transparent 40%, rgba(2, 6, 23, 0.78) 96%),
+                  radial-gradient(circle at 15% 25%, var(--theme-glow), transparent 60%),
+                  radial-gradient(circle at 85% 75%, var(--theme-glow), transparent 60%);
+      transition: background 0.6s ease;
+    }
+
+    /* ── TOP BAR (HEADER) ── */
+    #header-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 40px;
+      background: linear-gradient(to bottom, rgba(3, 7, 18, 0.95) 30%, transparent);
+      pointer-events: none;
+    }
+
+    .brand-badge {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--panel-border);
+      padding: 8px 18px;
+      border-radius: 999px;
+      backdrop-filter: blur(16px);
+      pointer-events: auto;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.45);
+    }
+
+    .brand-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--theme-primary);
+      box-shadow: 0 0 14px var(--theme-primary);
+      animation: pulseDot 2s infinite;
+    }
+
+    @keyframes pulseDot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    .brand-title {
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.95);
+    }
+
+    .brand-title span { color: var(--theme-secondary); }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      pointer-events: auto;
+    }
+
+    .counter-pill {
+      font-size: 14px;
+      font-weight: 800;
+      padding: 7px 18px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid var(--panel-border);
+      color: var(--text-sub);
+      backdrop-filter: blur(16px);
+    }
+
+    .counter-pill strong { color: var(--theme-primary); font-size: 16px; }
+
+    /* ═══════════════════════════════════════════════════════════
+       UNIFIED NARRATIVE HUD SIDEBAR (BẢNG ĐIỀU KHIỂN NỘI DUNG SANG TRỌNG)
+       ═══════════════════════════════════════════════════════════ */
+    #narrative-hud {
+      position: fixed;
+      top: 76px;
+      bottom: 84px;
+      left: 32px;
+      width: 440px;
+      max-width: calc(100vw - 64px);
+      z-index: 25;
+      background: var(--panel-bg);
+      border: 1px solid var(--panel-border);
+      border-radius: 26px;
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75), 0 0 35px var(--theme-glow);
+      transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+      display: flex;
+      flex-direction: column;
+      pointer-events: auto;
+      overflow: visible;
+    }
+
+    #narrative-hud.collapsed {
+      transform: translateX(calc(-100% - 40px));
+    }
+
+    /* Nút Thu Gọn / Mở Rộng Bảng Chữ (Zen Mode) */
+    .hud-toggle-btn {
+      position: absolute;
+      top: 20px;
+      right: -42px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(15, 23, 42, 0.92);
+      border: 1px solid var(--panel-border);
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+      transition: all 0.25s ease;
+      z-index: 30;
+      backdrop-filter: blur(12px);
+    }
+
+    .hud-toggle-btn:hover {
+      background: var(--theme-primary);
+      color: #030712;
+      transform: scale(1.1);
+    }
+
+    #narrative-hud.collapsed .hud-toggle-btn {
+      right: -46px;
+      background: var(--theme-primary);
+      color: #030712;
+      box-shadow: 0 0 20px var(--theme-primary);
+    }
+
+    #narrative-hud.collapsed .hud-toggle-btn span {
+      transform: rotate(180deg);
+    }
+
+    /* Khu vực cuộn nội dung siêu mượt */
+    .hud-scrollable {
+      padding: 24px 26px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .hud-scrollable::-webkit-scrollbar {
+      width: 5px;
+    }
+    .hud-scrollable::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.18);
+      border-radius: 999px;
+    }
+
+    .station-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 11.5px;
+      font-weight: 850;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--theme-primary);
+      margin-bottom: 8px;
+    }
+
+    .card-title {
+      font-size: 23px;
+      font-weight: 850;
+      line-height: 1.25;
+      color: #ffffff;
+      margin-bottom: 8px;
+      letter-spacing: -0.015em;
+    }
+
+    .card-title .acc-gold { color: #fbbf24; }
+    .card-title .acc-cyan { color: #38bdf8; }
+    .card-title .acc-red { color: #f43f5e; }
+    .card-title .acc-green { color: #10b981; }
+    .card-title .acc-purple { color: #c084fc; }
+
+    .card-summary {
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: var(--text-sub);
+    }
+
+    .hud-divider {
+      height: 1px;
+      background: linear-gradient(90deg, var(--theme-primary), transparent 80%);
+      opacity: 0.35;
+      margin: 2px 0;
+    }
+
+    .sec-title {
+      font-size: 11.5px;
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--theme-primary);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Transition box tích hợp bên dưới HUD */
+    .hud-transition-card {
+      margin-top: auto;
+      padding: 11px 14px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--panel-border);
+    }
+
+    .trans-pill {
+      font-size: 10.5px;
+      font-weight: 800;
+      color: var(--theme-secondary);
+      text-transform: uppercase;
+      margin-bottom: 3px;
+    }
+
+    .trans-content {
+      font-size: 12.5px;
+      line-height: 1.45;
+      color: rgba(255, 255, 255, 0.88);
+    }
+
+    /* Tối ưu các phần tử con bên trong s-content */
+    .points-list { display: flex; flex-direction: column; gap: 8px; }
+    .point-item { display: flex; gap: 10px; font-size: 13px; line-height: 1.5; color: rgba(255, 255, 255, 0.9); }
+    .point-bullet { flex-shrink: 0; width: 22px; height: 22px; border-radius: 6px; background: rgba(255, 255, 255, 0.08); display: flex; align-items: center; justify-content: center; font-size: 11px; margin-top: 1px; }
+
+    .tier-stack-group { display: flex; flex-direction: column; gap: 8px; }
+    .tier-card { padding: 10px 12px; border-radius: 12px; display: flex; gap: 10px; font-size: 12.5px; line-height: 1.45; }
+    .tier-card.tier-top { border: 1px solid rgba(244, 63, 94, 0.4); background: rgba(244, 63, 94, 0.08); }
+    .tier-card.tier-mid { border: 1px solid rgba(56, 189, 248, 0.4); background: rgba(56, 189, 248, 0.08); }
+    .tier-card.tier-base { border: 1px solid rgba(251, 191, 36, 0.4); background: rgba(251, 191, 36, 0.08); }
+
+    .convergence-grid, .job-grid { display: flex; flex-direction: column; gap: 8px; }
+    .conv-box, .job-card { padding: 10px 12px; border-radius: 12px; background: rgba(255, 255, 255, 0.04); border: 1px solid var(--panel-border); font-size: 12.5px; line-height: 1.45; }
+    .conv-tag, .job-header { font-size: 11px; font-weight: 800; color: var(--theme-primary); margin-bottom: 3px; }
+
+    .pillars-grid { display: flex; flex-direction: column; gap: 8px; }
+    .pillar-box { padding: 10px 12px; border-radius: 12px; background: rgba(255, 255, 255, 0.04); border: 1px solid var(--panel-border); text-align: left; display: flex; gap: 12px; align-items: center; font-size: 12.5px; }
+    .pillar-icon { font-size: 20px; }
+    .marx-warning-banner { padding: 9px 12px; border-radius: 10px; background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.35); font-size: 12px; color: #fca5a5; line-height: 1.45; }
+
+    .region-row { padding: 9px 12px; border-radius: 10px; background: rgba(255, 255, 255, 0.04); border: 1px solid var(--panel-border); display: flex; gap: 10px; align-items: center; font-size: 12.5px; margin-bottom: 4px; }
+    .gso-stat-chip { padding: 7px 11px; border-radius: 8px; background: rgba(234, 179, 8, 0.12); border: 1px solid rgba(234, 179, 8, 0.35); font-size: 11.5px; color: #fef08a; display: flex; gap: 6px; align-items: center; }
+
+    .summary-decree { padding: 10px 12px; border-radius: 10px; background: rgba(252, 211, 77, 0.08); border: 1px solid rgba(252, 211, 77, 0.35); display: flex; gap: 10px; align-items: flex-start; font-size: 12.5px; line-height: 1.45; margin-bottom: 6px; }
+    .decree-num { width: 22px; height: 22px; border-radius: 50%; background: var(--theme-primary); color: #030712; font-weight: 900; font-size: 11px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+    /* ── INSPECT CARD (CỐ ĐỊNH GÓC DƯỚI PHẢI, GỌN GÀNG, KHÔNG CHE KHUẤT TRANH) ── */
+    #inspect-card {
+      position: fixed;
+      bottom: 84px;
+      right: 32px;
+      z-index: 30;
+      width: 400px;
+      max-width: calc(100vw - 64px);
+      background: rgba(8, 14, 28, 0.94);
+      border: 1.5px solid var(--theme-primary);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85), 0 0 40px var(--theme-glow);
+      border-radius: 22px;
+      padding: 22px 24px;
+      backdrop-filter: blur(30px);
+      pointer-events: auto;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      visibility: hidden;
+    }
+
+    #inspect-card.active {
+      opacity: 1;
+      transform: translateY(0);
+      visibility: visible;
+    }
+
+    .inspect-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 8px;
+    }
+
+    .inspect-badge {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 11px;
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--theme-primary);
+    }
+
+    .inspect-close {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 17px;
+      padding: 2px 7px;
+      border-radius: 5px;
+      transition: color 0.2s;
+    }
+
+    .inspect-close:hover { color: #fff; }
+
+    .inspect-title {
+      font-size: 16px;
+      font-weight: 850;
+      color: #fff;
+      margin-bottom: 8px;
+      line-height: 1.35;
+    }
+
+    .inspect-body {
+      font-size: 13px;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.92);
+      margin-bottom: 12px;
+    }
+
+    .inspect-footer {
+      font-size: 12px;
+      color: var(--theme-secondary);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--panel-border);
+      border-radius: 10px;
+      padding: 8px 12px;
+      line-height: 1.5;
+    }
+
+    /* ── VERTICAL DOT NAVIGATION ── */
+    #dot-nav {
+      position: fixed;
+      right: 26px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 25;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      pointer-events: auto;
+    }
+
+    .dot-item {
+      position: relative;
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.25);
+      border: 1.5px solid transparent;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .dot-item:hover {
+      background: rgba(255, 255, 255, 0.75);
+      transform: scale(1.3);
+    }
+
+    .dot-item.active {
+      background: var(--theme-primary);
+      box-shadow: 0 0 16px var(--theme-primary);
+      transform: scale(1.55);
+      border-color: rgba(255, 255, 255, 0.95);
+    }
+
+    .dot-label {
+      position: absolute;
+      right: 26px;
+      top: 50%;
+      transform: translateY(-50%) translateX(6px);
+      background: rgba(10, 17, 34, 0.95);
+      border: 1px solid var(--panel-border);
+      color: #fff;
+      font-size: 11.5px;
+      font-weight: 700;
+      white-space: nowrap;
+      padding: 6px 14px;
+      border-radius: 10px;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.55);
+    }
+
+    .dot-item:hover .dot-label {
+      opacity: 1;
+      transform: translateY(-50%) translateX(0);
+    }
+
+    /* ── BOTTOM DOCK CONTROLS ── */
+    #bottom-dock {
+      position: fixed;
+      bottom: 20px;
+      left: 40px;
+      right: 40px;
+      z-index: 22;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      pointer-events: none;
+    }
+
+    .nav-controls {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      pointer-events: auto;
+    }
+
+    .dock-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 22px;
+      border-radius: 14px;
+      font-family: inherit;
+      font-size: 13.5px;
+      font-weight: 800;
+      border: none;
+      cursor: pointer;
+      backdrop-filter: blur(16px);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .btn-prev {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--panel-border);
+      color: rgba(255, 255, 255, 0.85);
+    }
+    .btn-prev:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.18);
+      color: #fff;
+    }
+    .btn-prev:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    .btn-next {
+      background: linear-gradient(135deg, var(--theme-primary), #0284c7);
+      color: #fff;
+      box-shadow: 0 4px 22px var(--theme-glow);
+    }
+    .btn-next:hover {
+      filter: brightness(1.15);
+      transform: translateY(-1px);
+    }
+
+    .btn-auto {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid var(--panel-border);
+      color: rgba(255, 255, 255, 0.7);
+      padding: 10px 16px;
+    }
+    .btn-auto.active {
+      color: var(--theme-secondary);
+      border-color: var(--theme-secondary);
+      background: rgba(255, 255, 255, 0.14);
+    }
+
+    .key-hints {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.45);
+      pointer-events: auto;
+    }
+
+    kbd {
+      padding: 3px 8px;
+      border-radius: 7px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      font-family: inherit;
+      font-size: 10.5px;
+      font-weight: 800;
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    /* ── PROGRESS BAR ── */
+    #progress-line {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      background: linear-gradient(to right, var(--theme-primary), var(--theme-secondary));
+      z-index: 100;
+      transition: width 0.4s ease;
+      box-shadow: 0 0 14px var(--theme-primary);
+    }
+
+    /* ── SCENE FADE TRANSITION ── */
+    #fade-overlay {
+      position: fixed;
+      inset: 0;
+      background: #030712;
+      z-index: 18;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+    #fade-overlay.fading { opacity: 0.85; }
+
+    /* ── RESPONSIVENESS ── */
+    @media (max-width: 1024px) {
+      #card-primary { max-width: 380px; padding: 20px 24px; top: 76px; left: 24px; }
+      #card-secondary { max-width: 420px; padding: 20px 24px; bottom: 80px; }
+      .layout-hero-wide, .layout-convergence-strip, .layout-trio-pillars, .layout-job-matrix, .layout-map-legend, .layout-grand-summary, .layout-tier-stack {
+        max-width: 440px;
+      }
+      .convergence-grid, .job-grid { grid-template-columns: 1fr; }
+      .pillars-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      #card-primary { position: static; max-width: 100%; margin: 76px 16px 8px; }
+      #card-secondary { position: static; max-width: 100%; margin: 8px 16px; }
+      #dot-nav { display: none; }
+    }
+  </style>
+</head>
+<body class="theme-0">
+
+  <!-- PROGRESS BAR -->
+  <div id="progress-line" style="width: 14.28%"></div>
+
+  <!-- CINEMATIC 3D ART BACKDROP -->
+  <div id="cinematic-backdrop">
+    <div class="backdrop-slide active" id="slide-0" style="background-image: url('station0.jpg');"></div>
+    <div class="backdrop-slide" id="slide-1" style="background-image: url('station1.jpg');"></div>
+    <div class="backdrop-slide" id="slide-2" style="background-image: url('station2.jpg');"></div>
+    <div class="backdrop-slide" id="slide-3" style="background-image: url('station3.jpg');"></div>
+    <div class="backdrop-slide" id="slide-4" style="background-image: url('station4.jpg');"></div>
+    <div class="backdrop-slide" id="slide-5" style="background-image: url('station5.jpg');"></div>
+    <div class="backdrop-slide" id="slide-6" style="background-image: url('station6.jpg');"></div>
+  </div>
+
+  <!-- 3D FLOATING COSMIC PARTICLES CANVAS -->
+  <div id="canvas-container"></div>
+
+  <!-- INTERACTIVE HOTSPOTS OVERLAY -->
+  <div id="hotspot-overlay"></div>
+
+  <div id="ambient-glow"></div>
+  <div id="fade-overlay"></div>
+
+  <!-- HEADER BAR -->
+  <header id="header-bar">
+    <div class="brand-badge">
+      <div class="brand-dot"></div>
+      <div class="brand-title">MLN131 · Chương V · <span>3D Trực Quan Hóa Cao Cấp</span></div>
+    </div>
+    <div class="header-actions">
+      <div class="counter-pill">TRẠM <strong id="current-station-num">01</strong> / 07</div>
+    </div>
+  </header>
+
+  <!-- UNIFIED NARRATIVE HUD SIDEBAR (BẢNG THÔNG ĐIỆP HỢP NHẤT THANH THOÁT) -->
+  <aside id="narrative-hud">
+    <!-- Nút Thu Gọn / Mở Rộng Bảng (Phím H) -->
+    <button id="btn-toggle-hud" class="hud-toggle-btn" onclick="toggleHud()" title="Thu gọn / Mở rộng bảng nội dung (Phím H)">
+      <span id="hud-toggle-icon">◀</span>
+    </button>
+
+    <div class="hud-scrollable">
+      <!-- PHẦN 1: TIÊU ĐỀ & ĐỀ TỰA TRẠM -->
+      <div class="hud-hero">
+        <div class="station-tag" id="p-tag">🎯 TRẠM 01 · TOÀN CẢNH KỶ NGUYÊN SỐ</div>
+        <h1 class="card-title" id="p-title">Toàn Cảnh Kỷ Nguyên Số & Cơ Cấu Xã Hội</h1>
+        <p class="card-summary" id="p-summary">Cơ cấu kinh tế của một thời đại quyết định phần lớn diện mạo cơ cấu giai cấp, tầng lớp trong xã hội đó.</p>
+      </div>
+
+      <div class="hud-divider"></div>
+
+      <!-- PHẦN 2: NỘI DUNG PHÂN TÍCH CHUYÊN SÂU CỦA TRẠM -->
+      <div id="card-secondary">
+        <div class="sec-header">
+          <div class="sec-title" id="s-title">✦ BỐI CẢNH 4.0 & CHUYỂN DỊCH GIAI CẤP</div>
+        </div>
+        <div id="s-content">
+          <!-- Dynamic custom layout injected per station -->
+        </div>
+      </div>
+
+      <!-- PHẦN 3: LỜI DẪN CHUYỂN CẢNH TIẾP BƯỚC -->
+      <div class="hud-transition-card">
+        <div class="trans-pill">Tiếp bước luận điểm:</div>
+        <div class="trans-content" id="trans-text">Trước khi xem cơ cấu biến đổi, cần hiểu rõ vị trí trung tâm của giai cấp.</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- INSPECT TOOLTIP CARD (HIỆN KHI RÊ CHUỘT / TAP VÀO VẬT THỂ) -->
+  <div id="inspect-card">
+    <div class="inspect-top">
+      <div class="inspect-badge">
+        <span id="ins-icon">🔍</span>
+        <span id="ins-badge">GIẢI MÃ LÝ LUẬN & THỰC TIỄN</span>
+      </div>
+      <button class="inspect-close" onclick="closeInspect()">✕</button>
+    </div>
+    <h3 class="inspect-title" id="ins-title">Tiêu đề vật thể</h3>
+    <div class="inspect-body" id="ins-body">Nội dung học thuật chi tiết của vật thể...</div>
+    <div class="inspect-footer" id="ins-footer">💡 Góc nhìn biện chứng</div>
+  </div>
+
+  <!-- VERTICAL DOT NAVIGATION -->
+  <nav id="dot-nav">
+    <div class="dot-item active" onclick="goToStation(0)"><div class="dot-label">01. Toàn Cảnh Kỷ Nguyên Số</div></div>
+    <div class="dot-item" onclick="goToStation(1)"><div class="dot-label">02. Vị Trí Trung Tâm (Kim Tự Tháp)</div></div>
+    <div class="dot-item" onclick="goToStation(2)"><div class="dot-label">03. 4 Xu Hướng Hội Tụ</div></div>
+    <div class="dot-item" onclick="goToStation(3)"><div class="dot-label">04. Tam Giác Vàng (Bánh Răng)</div></div>
+    <div class="dot-item" onclick="goToStation(4)"><div class="dot-label">05. Thực Tiễn Đổi Mới VN</div></div>
+    <div class="dot-item" onclick="goToStation(5)"><div class="dot-label">06. Kinh Tế Nền Tảng Số 4.0</div></div>
+    <div class="dot-item" onclick="goToStation(6)"><div class="dot-label">07. Thông Điệp & Tổng Kết</div></div>
+  </nav>
+
+  <!-- BOTTOM DOCK CONTROLS -->
+  <div id="bottom-dock">
+    <div class="nav-controls">
+      <button class="dock-btn btn-prev" id="btn-prev" onclick="prevStation()" disabled>← Trạm Trước</button>
+      <button class="dock-btn btn-next" id="btn-next" onclick="nextStation()">Tiếp Theo: Trạm 02 →</button>
+      <button class="dock-btn btn-auto" id="btn-auto" onclick="toggleAuto()">▶ Tự Chạy</button>
+    </div>
+
+    <div class="key-hints">
+      <kbd>←</kbd> <kbd>→</kbd> <kbd>Space</kbd> <span>Chuyển trạm</span>
+      <span style="margin: 0 4px">•</span>
+      <kbd>H</kbd> <span>Ẩn/Hiện bảng</span>
+      <span style="margin: 0 4px">•</span>
+      <kbd>F</kbd> <span>Toàn màn hình</span>
+    </div>
+  </div>
+
+  <!-- SCRIPT: DATA + LOGIC + THREE.JS ENGINES -->
+  <script>
+    /* ═══════════════════════════════════════════════════════════
+       1. ACADEMIC DATA WITH TAILORED LAYOUTS & STYLES PER STATION
+       ═══════════════════════════════════════════════════════════ */
+    const STATIONS = [
+      {
+        id: 0,
+        themeClass: 'theme-0',
+        tag: '🎯 TRẠM 01 · TOÀN CẢNH KỶ NGUYÊN SỐ',
+        title: 'Toàn Cảnh Kỷ Nguyên Số & <span class="acc-cyan">Cơ Cấu Xã Hội</span>',
+        summary: 'Cơ cấu kinh tế của một thời đại quyết định phần lớn diện mạo cơ cấu giai cấp, tầng lớp trong xã hội đó — đây là luận điểm nền tảng để tiếp cận toàn bộ chương.',
+        layoutClass: 'layout-hero-wide',
+        secTitle: '✦ BỐI CẢNH 4.0 & CHUYỂN DỊCH GIAI CẤP',
+        renderContent: () => `
+          <div class="points-list">
+            <div class="point-item">
+              <div class="point-bullet">🌐</div>
+              <div class="point-text"><b>Toàn cầu hóa & CMCN 4.0:</b> Dòng chảy vốn, dữ liệu, công nghệ xuyên biên giới làm biến chuyển căn bản cấu trúc việc làm và vị thế giai tầng.</div>
+            </div>
+            <div class="point-item">
+              <div class="point-bullet">⚙️</div>
+              <div class="point-text"><b>Quy luật khách quan:</b> Lực lượng sản xuất kỹ thuật số phát triển kéo theo sự biến đổi tất yếu của Quan hệ sản xuất.</div>
+            </div>
+            <div class="point-item">
+              <div class="point-bullet">👉</div>
+              <div class="point-text"><b>Thao tác:</b> Rê chuột hoặc chạm vào <i>Quả cầu Trái Đất</i> hoặc <i>Vành dữ liệu</i> để soi phân tích sâu.</div>
+            </div>
+          </div>
+        `,
+        transition: 'Trước khi xem cơ cấu biến đổi, cần hiểu rõ vị trí trung tâm của giai cấp.',
+        cam: { x: 0, y: 3, z: 22 },
+        tgt: { x: 0, y: 0, z: 0 }
+      },
+      {
+        id: 1,
+        themeClass: 'theme-1',
+        tag: '🏛️ TRẠM 02 · LÝ LUẬN CĂN BẢN',
+        title: 'Vị Trí <span class="acc-red">Trung Tâm</span> Của Cơ Cấu Xã Hội – Giai Cấp',
+        summary: 'Kim tự tháp xã hội 3 tầng bóc tách: Cơ cấu xã hội – giai cấp giữ vị trí hạt nhân, chi phối mọi cơ cấu xã hội khác (dân tộc, tôn giáo, dân số, nghề nghiệp).',
+        layoutClass: 'layout-tier-stack',
+        secTitle: '✦ MỐI QUAN HỆ BIỆN CHỨNG 2 CHIỀU (MÁC – LÊNIN)',
+        renderContent: () => `
+          <div class="tier-stack-group">
+            <div class="tier-card tier-top">
+              <div class="point-bullet" style="background:rgba(244,63,94,0.2);color:#fb7185">🔴</div>
+              <div>
+                <b style="color:#fb7185;font-size:13.5px">Tầng Đỉnh: Kiến Trúc Thượng Tầng (Nhà Nước)</b>
+                <p style="font-size:12.5px;color:#f1f5f9;line-height:1.45;margin-top:2px">Bảo vệ quan hệ sản xuất thống trị nhưng liên tục chịu áp lực điều chỉnh từ cơ sở kinh tế.</p>
+              </div>
+            </div>
+            <div class="tier-card tier-mid">
+              <div class="point-bullet" style="background:rgba(56,189,248,0.2);color:#38bdf8">🔵</div>
+              <div>
+                <b style="color:#38bdf8;font-size:13.5px">Tầng Thân: Khối Giai Cấp Lao Động</b>
+                <p style="font-size:12.5px;color:#f1f5f9;line-height:1.45;margin-top:2px">Lực lượng trực tiếp cải tạo TLSX; khi LLSX lớn mạnh, quan hệ giai cấp buộc phải tái cấu trúc.</p>
+              </div>
+            </div>
+            <div class="tier-card tier-base">
+              <div class="point-bullet" style="background:rgba(251,191,36,0.2);color:#fbbf24">🟡</div>
+              <div>
+                <b style="color:#fbbf24;font-size:13.5px">Tầng Đáy: Tư Liệu Sản Xuất & Hạ Tầng</b>
+                <p style="font-size:12.5px;color:#f1f5f9;line-height:1.45;margin-top:2px">Căn cứ chủ yếu quy định chế độ sở hữu, địa vị chính trị và nguyên tắc phân phối của cải.</p>
+              </div>
+            </div>
+          </div>
+        `,
+        transition: 'Cơ cấu giai cấp không đứng yên — dưới CNXH, nó vận động theo các xu hướng hội tụ tất yếu.',
+        cam: { x: 0, y: 5, z: 20 },
+        tgt: { x: 0, y: 2, z: 0 }
+      },
+      {
+        id: 2,
+        themeClass: 'theme-2',
+        tag: '🔄 TRẠM 03 · QUY LUẬT LỊCH SỬ',
+        title: 'Các Xu Hướng <span class="acc-green">Hội Tụ</span> Giai Tầng',
+        summary: '3 Trụ đại diện Công nhân – Nông dân – Trí thức nối liền bởi 4 Cây cầu ánh sáng: Quá trình xích lại gần nhau giữa các giai cấp trong thời kỳ quá độ.',
+        layoutClass: 'layout-convergence-strip',
+        secTitle: '✦ 4 NỘI DUNG HỘI TỤ TOÀN DIỆN (LƯỚI TIẾN TRÌNH)',
+        renderContent: () => `
+          <div class="convergence-grid">
+            <div class="conv-box">
+              <div class="conv-tag">01 · Cầu TLSX</div>
+              <div class="conv-desc">Hoàn thiện quan hệ sở hữu công bằng, thu hẹp dần đặc quyền sở hữu tư nhân cực đoan.</div>
+            </div>
+            <div class="conv-box">
+              <div class="conv-tag">02 · Cầu Lao Động</div>
+              <div class="conv-desc">Trí thức hóa công - nông, xóa nhòa ngăn cách lao động trí óc ↔ lao động chân tay.</div>
+            </div>
+            <div class="conv-box">
+              <div class="conv-tag">03 · Cầu Phân Phối</div>
+              <div class="conv-desc">Phân phối theo kết quả lao động & hiệu quả cống hiến kết hợp phúc lợi an sinh xã hội.</div>
+            </div>
+            <div class="conv-box">
+              <div class="conv-tag">04 · Cầu Đời Sống</div>
+              <div class="conv-desc">Bình đẳng thụ hưởng y tế, giáo dục, văn hóa và thành quả cách mạng chuyển đổi số.</div>
+            </div>
+          </div>
+        `,
+        transition: 'Các xu hướng hội tụ ấy chỉ hiện thực hóa được nhờ một nền tảng chính trị-xã hội cốt lõi: khối liên minh giai cấp.',
+        cam: { x: 0, y: 7, z: 23 },
+        tgt: { x: 0, y: 1.5, z: 0 }
+      },
+      {
+        id: 3,
+        themeClass: 'theme-3',
+        tag: '🤝 TRẠM 04 · NỀN TẢNG LIÊN MINH',
+        title: 'Tam Giác Vàng: <span class="acc-gold">Công – Nông – Trí Thức</span>',
+        summary: 'Ba bánh răng cơ khí đan khớp nhau: Khi bánh răng Công nhân quay, hai bánh răng Nông dân và Trí thức chuyển động đồng tốc nhịp nhàng.',
+        layoutClass: 'layout-trio-pillars',
+        secTitle: '✦ BỘ 3 TRỤ CỘT & BÁNH RĂNG LIÊN MINH',
+        renderContent: () => `
+          <div class="pillars-grid">
+            <div class="pillar-box">
+              <div class="pillar-icon">⚙️</div>
+              <div class="pillar-name" style="color:#38bdf8">Công Nhân</div>
+              <div class="pillar-desc">Đại diện PTSX tiên tiến, giữ vai trò lãnh đạo cỗ máy cách mạng.</div>
+            </div>
+            <div class="pillar-box">
+              <div class="pillar-icon">🌾</div>
+              <div class="pillar-name" style="color:#fbbf24">Nông Dân</div>
+              <div class="pillar-desc">Đông đảo nhất, bảo đảm an ninh lương thực và ổn định xã hội.</div>
+            </div>
+            <div class="pillar-box">
+              <div class="pillar-icon">💡</div>
+              <div class="pillar-name" style="color:#c084fc">Trí Thức</div>
+              <div class="pillar-desc">Sáng tạo & chuyển giao khoa học công nghệ, động lực kinh tế số.</div>
+            </div>
+          </div>
+          <div class="marx-warning-banner">
+            ⚠️ <b>C. Mác cảnh báo:</b> Thiếu liên minh này, cuộc cách mạng của giai cấp vô sản sẽ biến thành <b>"bài ca ai điếu"</b>.
+          </div>
+        `,
+        transition: 'Từ lý luận phổ quát ấy, Việt Nam đã vận dụng và phát triển liên minh giai cấp như thế nào trong thực tiễn Đổi mới?',
+        cam: { x: 0, y: 4, z: 19 },
+        tgt: { x: 0, y: 0.5, z: 0 }
+      },
+      {
+        id: 4,
+        themeClass: 'theme-4',
+        tag: '🇻🇳 TRẠM 05 · THỰC TIỄN ĐỔI MỚI',
+        title: 'Cơ Cấu Giai Tầng Việt Nam <span class="acc-red">Thời Kỳ Đổi Mới</span>',
+        summary: 'Bản đồ động lực phát triển Việt Nam với 3 ngọn hải đăng: Sự chuyển dịch từ cơ cấu thuần nhất thời bao cấp sang nền kinh tế thị trường năng động, đa tầng.',
+        layoutClass: 'layout-map-legend',
+        secTitle: '✦ 3 ĐỘNG LỰC PHÁT TRIỂN & CHÚ GIẢI BẢN ĐỒ',
+        renderContent: () => `
+          <div>
+            <div class="region-row">
+              <div class="region-icon">🏭</div>
+              <div class="region-info">
+                <div class="region-title">Bắc Bộ & Cảng Biển: Công Nhân Hiện Đại</div>
+                <div class="region-desc">Làm chủ công nghệ cao, tự động hóa, chuỗi cung ứng toàn cầu.</div>
+              </div>
+            </div>
+            <div class="region-row">
+              <div class="region-icon">🌱</div>
+              <div class="region-info">
+                <div class="region-title">Nam Bộ & ĐBSCL: Nông Dân 4.0 Sinh Thái</div>
+                <div class="region-desc">Kinh tế trang trại, liên kết chuỗi giá trị và ứng dụng số.</div>
+              </div>
+            </div>
+            <div class="region-row">
+              <div class="region-icon">💼</div>
+              <div class="region-info">
+                <div class="region-title">Đô Thị Số: Doanh Nhân & Trí Thức Sáng Tạo</div>
+                <div class="region-desc">Khu vực kinh tế tư nhân năng động, chuyển đổi số quốc gia.</div>
+              </div>
+            </div>
+            <div class="gso-stat-chip">
+              📊 <b>Lưu ý số liệu GSO:</b> Tỷ lệ lao động khu vực phi chính thức cần mạng lưới bảo hiểm xã hội bao trùm.
+            </div>
+          </div>
+        `,
+        transition: 'Sự đa dạng hóa ấy đạt đỉnh điểm trong bối cảnh kinh tế số — nơi xuất hiện những hình thái lao động và quan hệ sản xuất hoàn toàn mới.',
+        cam: { x: 0, y: 9, z: 23 },
+        tgt: { x: 0, y: 1, z: 0 }
+      },
+      {
+        id: 5,
+        themeClass: 'theme-5',
+        tag: '💻 TRẠM 06 · KINH TẾ NỀN TẢNG SỐ',
+        title: 'Kinh Tế Nền Tảng & <span class="acc-purple">4 Hình Thái Lao Động Mới</span>',
+        summary: 'Trụ máy chủ Big Tech ở trung tâm, kết nối 4 cáp dữ liệu đến Xe máy Shipper, Laptop Freelancer, Kiện hàng E-commerce và Micro Streamer.',
+        layoutClass: 'layout-job-matrix',
+        secTitle: '✦ MA TRẬN 4 NHÓM LAO ĐỘNG SỐ (2 MẶT BIỆN CHỨNG)',
+        renderContent: () => `
+          <div class="job-grid">
+            <div class="job-card job-shipper">
+              <div class="job-header"><span>🛵</span><span>Tài xế Gig / Shipper</span></div>
+              <div class="job-desc">Tự chủ phương tiện nhưng thuật toán điều tiết 100%; chiết khấu 25-35%, không có BHXH.</div>
+            </div>
+            <div class="job-card job-coder">
+              <div class="job-header"><span>💻</span><span>IT Freelancer</span></div>
+              <div class="job-desc">Chất xám xuyên biên giới; ranh giới mong manh giữa tự do và tự bóc lột sức lao động.</div>
+            </div>
+            <div class="job-card job-ecom">
+              <div class="job-header"><span>📦</span><span>Tiểu thương E-commerce</span></div>
+              <div class="job-desc">Tự chủ vốn nhưng lệ thuộc hoàn toàn vào thuật toán hiển thị và chính sách phí sàn độc quyền.</div>
+            </div>
+            <div class="job-card job-kols">
+              <div class="job-header"><span>🎥</span><span>KOLs / Streamer</span></div>
+              <div class="job-desc">Phân tầng nghiệt ngã: 1% ngôi sao thâu tóm tài trợ vs 99% micro-creators bấp bênh, kiệt sức.</div>
+            </div>
+          </div>
+        `,
+        transition: 'Từ những biến đổi phức tạp ấy, chương V khép lại bằng những bài học định hướng cho giai đoạn phát triển tiếp theo.',
+        cam: { x: 0, y: 6, z: 23 },
+        tgt: { x: 0, y: 0.8, z: 0 }
+      },
+      {
+        id: 6,
+        themeClass: 'theme-6',
+        tag: '🏆 TRẠM 07 · TỔNG KẾT TOÀN BÀI',
+        title: 'Thông Điệp & <span class="acc-gold">Tổng Kết</span> Toàn Chương V',
+        summary: 'Ngọn đuốc trung tâm phát quang vươn cao, xung quanh là các biểu tượng thu nhỏ gợi nhớ hành trình (Kim tự tháp mini, Bánh răng mini, Trụ hải đăng mini).',
+        layoutClass: 'layout-grand-summary',
+        secTitle: '✦ TUYÊN NGÔN 2 BÀI HỌC ĐỊNH HƯỚNG CHIẾN LƯỢC',
+        renderContent: () => `
+          <div>
+            <div class="summary-decree">
+              <div class="decree-num">1</div>
+              <div class="decree-text"><b>Kiên định ngọn cờ lãnh đạo của Đảng:</b> Giữ vững vai trò lãnh đạo và định hướng XHCN, bảo đảm khối liên minh công - nông - trí thức không ngừng củng cố trước mọi biến chuyển công nghệ.</div>
+            </div>
+            <div class="summary-decree">
+              <div class="decree-num">2</div>
+              <div class="decree-text"><b>Hoàn thiện thể chế & an sinh số:</b> Hoàn thiện khung pháp lý và bảo hiểm xã hội bắt buộc đối với các hình thái lao động mới, bảo vệ quyền lợi chính đáng của người lao động.</div>
+            </div>
+            <div style="font-size:13.5px;color:#fcd34d;font-weight:700;text-align:center;margin-top:8px">
+              🇻🇳 Phát huy sức mạnh đại đoàn kết toàn dân tộc vì mục tiêu "Dân giàu, nước mạnh, dân chủ, công bằng, văn minh".
+            </div>
+          </div>
+        `,
+        transition: 'Bài thuyết trình hoàn tất. Cảm ơn Thầy Cô và các bạn đã chú ý lắng nghe!',
+        cam: { x: 0, y: 6, z: 21 },
+        tgt: { x: 0, y: 1, z: 0 }
+      }
+    ];
+
+    /* ═══════════════════════════════════════════════════════════
+       2. INTERACTIVE RAYCASTING INSPECT DICTIONARY
+       ═══════════════════════════════════════════════════════════ */
+    const INSPECT_DATA = {
+      'earth_core': {
+        icon: '🌍',
+        badge: 'QUY LUẬT CƠ SỞ KINH TẾ',
+        title: 'Quả Địa Cầu Số Hóa (Digital Earth)',
+        body: 'Cơ cấu kinh tế của một thời đại quyết định phần lớn diện mạo cơ cấu giai cấp, tầng lớp trong xã hội đó — đây là luận điểm nền tảng của chủ nghĩa duy vật lịch sử.',
+        footer: 'Lực lượng sản xuất 4.0 phát triển buộc các quan hệ giai cấp truyền thống phải tái cấu trúc.'
+      },
+      'data_ring': {
+        icon: '📡',
+        badge: 'TOÀN CẦU HÓA & DỮ LIỆU',
+        title: 'Vành Đai Dữ Liệu & Vệ Tinh Viễn Thông',
+        body: 'Toàn cầu hóa và CMCN 4.0 làm dòng chảy vốn, thông tin và lao động vượt biên giới quốc gia, sinh ra các phương thức lao động phi truyền thống.',
+        footer: 'Dữ liệu và thuật toán trở thành nguồn lực kinh tế mang tính quyết định.'
+      },
+      'pyramid_base': {
+        icon: '🟡',
+        badge: 'QUAN HỆ VỚI TƯ LIỆU SẢN XUẤT',
+        title: 'Tầng Đáy: Tư Liệu Sản Xuất & Hạ Tầng',
+        body: 'Theo quan điểm duy vật lịch sử, quan hệ sở hữu đối với tư liệu sản xuất là căn cứ chủ yếu quy định địa vị và vai trò của các tập đoàn người trong sản xuất, từ đó quyết định phân phối của cải.',
+        footer: 'Ai nắm giữ tư liệu sản xuất chính yếu, kẻ đó giữ vai trò chi phối nền kinh tế.'
+      },
+      'pyramid_mid': {
+        icon: '🔵',
+        badge: 'CƠ CẤU GIAI CẤP LAO ĐỘNG',
+        title: 'Tầng Thân: Khối Giai Cấp Xã Hội',
+        body: 'Chính lực lượng lao động trực tiếp vận hành và cải tạo tư liệu sản xuất; khi lực lượng sản xuất phát triển, quan hệ sản xuất và cơ cấu giai cấp cũng buộc phải biến đổi theo — đây là mối quan hệ tác động qua lại, không chỉ một chiều.',
+        footer: 'Sự biến đổi của Lực lượng sản xuất là ngòi nổ cho mọi chuyển dịch xã hội.'
+      },
+      'pyramid_top': {
+        icon: '🔴',
+        badge: 'KIẾN TRÚC THƯỢNG TẦNG',
+        title: 'Tầng Đỉnh: Nhà Nước & Pháp Luật',
+        body: 'Kiến trúc thượng tầng (nhà nước, pháp luật) có xu hướng bảo vệ quan hệ sản xuất thống trị, nhưng đồng thời cũng chịu áp lực điều chỉnh liên tục khi cơ cấu kinh tế – xã hội thay đổi.',
+        footer: 'Trong thời kỳ quá độ, Nhà nước XHCN đại diện và bảo vệ quyền lợi của giai cấp công nhân và nhân dân lao động.'
+      },
+      'bridge_tlsx': {
+        icon: '🏭',
+        badge: 'XU HƯỚNG 01 · SỞ HỮU',
+        title: 'Cây Cầu Hội Tụ Về Tư Liệu Sản Xuất',
+        body: 'Từng bước hoàn thiện quan hệ sở hữu theo hướng công bằng, đa dạng hóa hình thức sở hữu, thu hẹp đặc quyền sở hữu tư nhân cực đoan, tiến tới chế độ công hữu tư liệu sản xuất.',
+        footer: 'Mục tiêu: Loại bỏ áp bức bóc lột giai cấp từ gốc rễ sở hữu kinh tế.'
+      },
+      'bridge_labor': {
+        icon: '🎓',
+        badge: 'XU HƯỚNG 02 · TÍNH CHẤT LAO ĐỘNG',
+        title: 'Cây Cầu Hội Tụ Về Lao Động & Tri Thức',
+        body: 'Nâng cao trình độ, tri thức hóa lực lượng công nhân và nông dân; ứng dụng máy móc tự động hóa nhằm từng bước thu hẹp khoảng cách giữa lao động trí óc và lao động chân tay.',
+        footer: 'Công nhân và nông dân thời đại 4.0 trở thành người lao động tri thức.'
+      },
+      'bridge_dist': {
+        icon: '⚖️',
+        badge: 'XU HƯỚNG 03 · PHÂN PHỐI',
+        title: 'Cây Cầu Hội Tụ Về Phân Phối Của Cải',
+        body: 'Hoàn thiện nguyên tắc phân phối theo lao động và hiệu quả đóng góp; kết hợp với phân phối qua phúc lợi xã hội và an sinh để thu hẹp khoảng cách giàu nghèo.',
+        footer: 'Khắc phục bất bình đẳng cực đoan của nền kinh tế thị trường tự do.'
+      },
+      'bridge_cult': {
+        icon: '🎭',
+        badge: 'XU HƯỚNG 04 · ĐỜI SỐNG TINH THẦN',
+        title: 'Cây Cầu Hội Tụ Về Đời Sống Văn Hóa',
+        body: 'Thu hẹp khoảng cách thụ hưởng y tế, giáo dục, văn hóa và chuyển đổi số giữa các vùng miền và tầng lớp dân cư; nâng cao chất lượng cuộc sống cho toàn xã hội.',
+        footer: 'Mọi công dân đều có cơ hội bình đẳng tiếp cận tri thức và tiến bộ văn minh.'
+      },
+      'gear_worker': {
+        icon: '⚙️',
+        badge: 'GIAI CẤP LÃNH ĐẠO',
+        title: 'Bánh Răng Công Nhân (Industrial Gear)',
+        body: 'Giai cấp công nhân — lực lượng đại diện cho phương thức sản xuất tiên tiến, làm chủ công nghệ hiện đại, giữ vai trò hạt nhân lãnh đạo trong khối liên minh thông qua Đảng Cộng sản.',
+        footer: 'C. Mác: Giai cấp công nhân là "đứa con đầu lòng của nền đại công nghiệp".'
+      },
+      'gear_farmer': {
+        icon: '🌾',
+        badge: 'LỰC LƯỢNG CHIẾN LƯỢC ĐÔNG ĐẢO',
+        title: 'Bánh Răng Nông Dân (Agriculture Gear)',
+        body: 'Giai cấp nông dân — lực lượng đông đảo nhất, đóng vai trò trọng yếu trong bảo đảm an ninh lương thực quốc gia, giữ gìn tài nguyên đất nước và ổn định chính trị - xã hội nông thôn.',
+        footer: 'Liên minh công - nông là cội nguồn sức mạnh của cách mạng giải phóng dân tộc và xây dựng CNXH.'
+      },
+      'gear_intellect': {
+        icon: '💡',
+        badge: 'ĐỘNG LỰC ĐỔI MỚI SÁNG TẠO',
+        title: 'Bánh Răng Trí Thức (Microchip Gear)',
+        body: 'Đội ngũ trí thức — lực lượng trực tiếp nghiên cứu, sáng tạo và chuyển giao tri thức, khoa học – công nghệ, là động lực nòng cốt đưa đất nước bước vào kỷ nguyên kinh tế số.',
+        footer: 'Khoa học và công nghệ đã trở thành lực lượng sản xuất trực tiếp (C. Mác).'
+      },
+      'gear_center': {
+        icon: '⚠️',
+        badge: 'CẢNH BÁO KINH ĐIỂN CỦA MÁC',
+        title: 'Trục Khớp Nối: Sự Sống Còn Của Liên Minh',
+        body: 'C. Mác nhấn mạnh: Thiếu sự liên minh chặt chẽ và sự ủng hộ của giai cấp nông dân, bài ca cách mạng của giai cấp vô sản ở mọi quốc gia nông nghiệp sẽ biến thành "bài ca ai điếu".',
+        footer: 'Bánh răng tách rời thì cỗ máy ngưng hoạt động — Liên minh giai cấp là quy luật tất yếu.'
+      },
+      'beacon_industry': {
+        icon: '🏭',
+        badge: 'CÔNG NGHIỆP HÓA 4.0',
+        title: 'Hải Đăng Khu Công Nghiệp & Cảng Biển Thông Minh',
+        body: 'Công nhân Việt Nam thời kỳ Đổi mới tăng nhanh về số lượng, từng bước làm chủ dây chuyền công nghệ cao, tự động hóa và chuỗi cung ứng toàn cầu.',
+        footer: 'Hạt nhân thúc đẩy mục tiêu trở thành nước công nghiệp hiện đại.'
+      },
+      'beacon_agri': {
+        icon: '🌱',
+        badge: 'NÔNG DÂN ĐỔI MỚI',
+        title: 'Hải Đăng Nông Nghiệp Công Nghệ Cao',
+        body: 'Nông dân chuyển dịch mạnh mẽ từ sản xuất nhỏ lẻ sang kinh tế trang trại, liên kết chuỗi giá trị và ứng dụng công nghệ sinh thái số, giữ vững an ninh lương thực.',
+        footer: 'Xây dựng nông thôn mới hiện đại, nông dân văn minh.'
+      },
+      'beacon_city': {
+        icon: '💼',
+        badge: 'KINH TẾ ĐA THÀNH PHẦN',
+        title: 'Hải Đăng Đô Thị Số, Trí Thức & Doanh Nhân',
+        body: 'Sự hình thành và phát triển của đội ngũ doanh nhân, trí thức sáng tạo và khu vực kinh tế tư nhân năng động, đóng góp lớn vào ngân sách và tạo việc làm cho xã hội.',
+        footer: 'Lưu ý số liệu: Tỷ lệ lao động phi chính thức cần chính sách an sinh bao trùm.'
+      },
+      'server_tower': {
+        icon: '☁️',
+        badge: 'TƯ LIỆU SẢN XUẤT THỜI ĐẠI SỐ',
+        title: 'Máy Chủ & Thuật Toán Nền Tảng (Big Tech Platform)',
+        body: 'Dưới lăng kính Mác – Lênin, thuật toán và máy chủ dữ liệu chính là Tư liệu sản xuất thời đại mới. Dữ liệu hành vi người dùng và người lao động trở thành một nguồn lực kinh tế khổng lồ.',
+        footer: 'Yêu cầu cấp bách: Khung pháp lý quản lý thuật toán minh bạch và bảo vệ dữ liệu cá nhân.'
+      },
+      'worker_shipper': {
+        icon: '🛵',
+        badge: 'LAO ĐỘNG NỀN TẢNG (PRECARIAT)',
+        title: 'Xe Máy Shipper / Tài Xế Công Nghệ (Gig Worker)',
+        body: 'Người lao động tự bỏ tiền mua xe máy và smartphone (TLSX phụ), nhưng thuật toán phân bổ cuốc xe và giá cước (TLSX quyết định) thuộc 100% nền tảng. Chiết khấu 20-35%/đơn, không có quan hệ hợp đồng lao động truyền thống.',
+        footer: 'Đặt ra thách thức lớn về bảo hiểm xã hội bắt buộc và bảo vệ người lao động yếu thế.'
+      },
+      'worker_laptop': {
+        icon: '💻',
+        badge: 'TRÍ THỨC SỐ XUYÊN BIÊN GIỚI',
+        title: 'Laptop Coder / IT Freelancer',
+        body: 'Bán chất xám xuyên biên giới mở ra thu nhập cao và tự chủ thời gian, song ranh giới giữa tự do nghề nghiệp và việc "tự bóc lột chính mình" (làm việc kiệt sức 14-16h/ngày) rất mong manh.',
+        footer: 'Thiếu vắng công đoàn và mạng lưới an sinh bảo trợ khi xảy ra sự cố sức khỏe.'
+      },
+      'worker_parcel': {
+        icon: '📦',
+        badge: 'TIỂU THƯƠNG TRỰC TUYẾN',
+        title: 'Kiện Hàng Thương Mại Điện Tử (E-commerce)',
+        body: 'Người bán hàng online tự chủ vốn và nguồn hàng, nhưng phụ thuộc hoàn toàn vào thuật toán hiển thị tìm kiếm, chương trình flash-sale và chính sách tăng phí sàn của các nền tảng thương mại độc quyền.',
+        footer: 'Đòi hỏi sự can thiệp của Nhà nước nhằm bảo đảm cạnh tranh công bằng.'
+      },
+      'worker_mic': {
+        icon: '🎥',
+        badge: 'KINH TẾ SÁNG TẠO (CREATOR ECONOMY)',
+        title: 'Micro & Camera Livestream (KOLs / Streamer)',
+        body: 'Kim tự tháp phân tầng nghiệt ngã: 1% các nhà sáng tạo nội dung hàng đầu thâu tóm phần lớn tài trợ và lượt xem, trong khi 99% micro-creators chật vật, chịu áp lực giữ chân người xem bởi thuật toán.',
+        footer: 'Bóc lột thặng dư chú ý (Attention Economy) qua thời lượng tương tác người dùng.'
+      },
+      'torch_main': {
+        icon: '🔥',
+        badge: 'NGỌN ĐUỐC DẪN ĐƯỜNG',
+        title: 'Ngọn Đuốc Kiên Định & Khát Vọng Việt Nam',
+        body: 'Dù công nghệ và hình thái lao động có thay đổi, bản chất liên minh giai cấp dưới sự lãnh đạo của Đảng Cộng sản Việt Nam vẫn là nhân tố quyết định bảo đảm độc lập dân tộc và định hướng xã hội chủ nghĩa.',
+        footer: 'Đoàn kết, đoàn kết, đại đoàn kết — Thành công, thành công, đại thành công (Hồ Chí Minh).'
+      },
+      'recap_mini': {
+        icon: '🏛️',
+        badge: 'KẾT NỐI HÀNH TRÌNH',
+        title: 'Mô Hình Thu Nhỏ Khép Vòng Toàn Chương',
+        body: 'Từ Kim tự tháp vị trí trung tâm, Tam giác bánh răng liên minh công - nông - trí thức đến Trụ hải đăng Đổi mới: Toàn bộ Chương V khẳng định tính khoa học và cách mạng của chủ nghĩa Mác – Lênin.',
+        footer: 'Thước đo thành công: Đời sống vật chất và tinh thần của người lao động không ngừng nâng cao.'
+      }
+    };
+
+    /* ═══════════════════════════════════════════════════════════
+       3. CINEMATIC 3D MASTERPIECE & LIVING PARTICLE SYSTEM
+       ═══════════════════════════════════════════════════════════ */
+    let scene, camera, renderer, currentStation = 0;
+    let autoPlay = false, autoInterval = null;
+    let clock = null;
+    let bgParticles = null, energyStreaks = null;
+    let targetMouse = { x: 0, y: 0 };
+    let currentMouse = { x: 0, y: 0 };
+
+    /* ── DANH SÁCH CÁC TỌA ĐỘ HOTSPOTS TƯƠNG TÁC TRÊN TỪNG BỨC TRANH ── */
+    const STATION_HOTSPOTS = [
+      // Trạm 01: Quả Địa Cầu Số Hóa (Digital Earth)
+      [
+        { key: 'earth_core', x: 49, y: 50, label: '🌍 Quả Địa Cầu Số Hóa', color: '#38bdf8' },
+        { key: 'data_ring', x: 74, y: 44, label: '📡 Vành Đai Dữ Liệu & Vệ Tinh', color: '#fbbf24' }
+      ],
+      // Trạm 02: Kim Tự Tháp Bay Lơ Lửng (Floating Layered Pyramid)
+      [
+        { key: 'pyramid_base', x: 50, y: 77, label: '🏭 Tầng Đáy: Hạ Tầng & TLSX', color: '#d97706' },
+        { key: 'pyramid_mid', x: 50, y: 48, label: '👥 Tầng Giữa: Giai Cấp Lao Động', color: '#0284c7' },
+        { key: 'pyramid_top', x: 50, y: 16, label: '⭐ Tầng Đỉnh: Nhà Nước & Pháp Luật', color: '#ef4444' }
+      ],
+      // Trạm 03: Ba Tháp Pha Lê & Dòng Chảy Hội Tụ (Convergence Towers)
+      [
+        { key: 'gear_worker', x: 19, y: 56, label: '⚙️ Tháp Công Nhân', color: '#38bdf8' },
+        { key: 'gear_farmer', x: 50, y: 37, label: '🌾 Tháp Nông Dân', color: '#fbbf24' },
+        { key: 'gear_intellect', x: 81, y: 56, label: '💡 Tháp Trí Thức', color: '#c084fc' },
+        { key: 'bridge_tlsx', x: 33, y: 38, label: '🌉 Cầu TLSX', color: '#38bdf8' },
+        { key: 'bridge_labor', x: 40, y: 62, label: '🌉 Cầu Lao Động', color: '#fbbf24' },
+        { key: 'bridge_dist', x: 63, y: 68, label: '🌉 Cầu Phân Phối', color: '#f43f5e' },
+        { key: 'bridge_cult', x: 67, y: 42, label: '🌉 Cầu Văn Hóa', color: '#a855f7' }
+      ],
+      // Trạm 04: Bộ Máy Bánh Răng Tinh Xảo (Precision Clockwork Alliance)
+      [
+        { key: 'gear_worker', x: 29, y: 47, label: '⚙️ Bánh Răng Công Nhân', color: '#0284c7' },
+        { key: 'gear_farmer', x: 71, y: 34, label: '🌾 Bánh Răng Nông Dân', color: '#d97706' },
+        { key: 'gear_intellect', x: 63, y: 78, label: '💡 Bánh Răng Trí Thức', color: '#9333ea' },
+        { key: 'gear_center', x: 50, y: 52, label: '❤️ Trục Khớp Nối Sinh Tử', color: '#f43f5e' }
+      ],
+      // Trạm 05: Dải Đất Chữ S & Ba Ngọn Hải Đăng (Vietnam Luminous S-Curve)
+      [
+        { key: 'beacon_industry', x: 42, y: 23, label: '🏭 Hải Đăng Công Nghiệp 4.0', color: '#0284c7' },
+        { key: 'beacon_city', x: 51, y: 41, label: '💼 Hải Đăng Đô Thị Tri Thức', color: '#9333ea' },
+        { key: 'beacon_agri', x: 43, y: 71, label: '🌱 Hải Đăng Nông Nghiệp Mới', color: '#d97706' }
+      ],
+      // Trạm 06: Máy Chủ Big Tech & 4 Bục Nghề Nghiệp Số (Platform Ecosystem)
+      [
+        { key: 'server_tower', x: 50, y: 46, label: '🖥️ Siêu Máy Chủ & Thuật Toán', color: '#0284c7' },
+        { key: 'worker_shipper', x: 21, y: 31, label: '🛵 Shipper & Tài Xế Công Nghệ', color: '#10b981' },
+        { key: 'worker_laptop', x: 23, y: 71, label: '💻 Coder & Trí Thức Số', color: '#38bdf8' },
+        { key: 'worker_parcel', x: 80, y: 71, label: '📦 Thương Mại Điện Tử', color: '#fbbf24' },
+        { key: 'worker_mic', x: 80, y: 31, label: '🎙️ Kinh Tế Sáng Tạo (KOLs)', color: '#f43f5e' }
+      ],
+      // Trạm 07: Ngọn Đuốc Đổi Mới & Khát Vọng Việt Nam (Eternal Torch)
+      [
+        { key: 'torch_main', x: 50, y: 27, label: '🔥 Ngọn Lửa Kiên Định XHCN', color: '#f43f5e' },
+        { key: 'recap_mini', x: 59, y: 22, label: '🏛️ Tinh Hoa Khép Vòng Toàn Chương', color: '#38bdf8' }
+      ]
+    ];
+
+    function initThree() {
+      const container = document.getElementById('canvas-container');
+      const W = window.innerWidth, H = window.innerHeight;
+
+      clock = new THREE.Clock();
+
+      scene = new THREE.Scene();
+      camera = new THREE.PerspectiveCamera(50, W / H, 0.1, 1000);
+      camera.position.set(0, 0, 30);
+
+      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setSize(W, H);
+      container.appendChild(renderer.domElement);
+
+      createCosmicParticleSystem();
+
+      window.addEventListener('resize', onWindowResize);
+      window.addEventListener('pointermove', onPointerMove);
+      window.addEventListener('keydown', onKeyDown);
+
+      switchStationScene(0, false);
+      animate();
+    }
+
+    /* ── HỆ THỐNG HẠT VŨ TRỤ & TIA NĂNG LƯỢNG 3D SỐNG ĐỘNG ── */
+    function createCosmicParticleSystem() {
+      // 1. Đám mây bụi sao lấp lánh (1200 hạt)
+      const pCount = 1200;
+      const geom = new THREE.BufferGeometry();
+      const pos = new Float32Array(pCount * 3);
+      const colors = new Float32Array(pCount * 3);
+      const palette = [
+        new THREE.Color(0x38bdf8),
+        new THREE.Color(0xfbbf24),
+        new THREE.Color(0xffffff),
+        new THREE.Color(0xf43f5e),
+        new THREE.Color(0xa855f7)
+      ];
+
+      for (let i = 0; i < pCount; i++) {
+        const i3 = i * 3;
+        pos[i3] = (Math.random() - 0.5) * 85;
+        pos[i3 + 1] = (Math.random() - 0.5) * 55;
+        pos[i3 + 2] = (Math.random() - 0.5) * 60;
+
+        const c = palette[Math.floor(Math.random() * palette.length)];
+        colors[i3] = c.r;
+        colors[i3 + 1] = c.g;
+        colors[i3 + 2] = c.b;
+      }
+
+      geom.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+      geom.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+      const mat = new THREE.PointsMaterial({
+        size: 0.45,
+        vertexColors: true,
+        transparent: true,
+        opacity: 0.75,
+        blending: THREE.AdditiveBlending
+      });
+      bgParticles = new THREE.Points(geom, mat);
+      scene.add(bgParticles);
+
+      // 2. Các dải vệt sáng năng lượng bay lướt (Energy Streaks)
+      const streakCount = 120;
+      const sGeom = new THREE.BufferGeometry();
+      const sPos = new Float32Array(streakCount * 3);
+      for (let i = 0; i < streakCount; i++) {
+        sPos[i * 3] = (Math.random() - 0.5) * 75;
+        sPos[i * 3 + 1] = (Math.random() - 0.5) * 45;
+        sPos[i * 3 + 2] = 5 + Math.random() * 20;
+      }
+      sGeom.setAttribute('position', new THREE.BufferAttribute(sPos, 3));
+      const sMat = new THREE.PointsMaterial({
+        color: 0xfef08a,
+        size: 0.85,
+        transparent: true,
+        opacity: 0.6,
+        blending: THREE.AdditiveBlending
+      });
+      energyStreaks = new THREE.Points(sGeom, sMat);
+      scene.add(energyStreaks);
+    }
+
+    /* ── HIỂN THỊ CÁC ĐIỂM INTERACTIVE HOTSPOTS TRÊN BỨC TRANH ── */
+    function renderHotspots(stationIdx) {
+      const container = document.getElementById('hotspot-overlay');
+      container.innerHTML = '';
+
+      const hotspots = STATION_HOTSPOTS[stationIdx] || [];
+      hotspots.forEach(node => {
+        const el = document.createElement('div');
+        el.className = 'hotspot-node';
+        el.style.left = node.x + '%';
+        el.style.top = node.y + '%';
+        el.style.setProperty('--node-color', node.color);
+
+        el.innerHTML = `
+          <div class="hotspot-beacon">
+            <div class="hotspot-ring"></div>
+            <div class="hotspot-ring delayed"></div>
+            <div class="hotspot-core"></div>
+          </div>
+          <div class="hotspot-label">${node.label}</div>
+        `;
+
+        el.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const inspectInfo = INSPECT_DATA[node.key];
+          if (inspectInfo) {
+            showInspect(inspectInfo, e.clientX, e.clientY);
+          }
+        });
+
+        el.addEventListener('mouseenter', (e) => {
+          const inspectInfo = INSPECT_DATA[node.key];
+          if (inspectInfo) {
+            showInspect(inspectInfo, e.clientX, e.clientY);
+          }
+        });
+
+        container.appendChild(el);
+      });
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       4. STATION TRANSITION & DYNAMIC LAYOUT/THEME CONTROLLER
+       ═══════════════════════════════════════════════════════════ */
+    function switchStationScene(targetIndex, animateCam = true) {
+      currentStation = targetIndex;
+      const sData = STATIONS[targetIndex];
+
+      // 1. Dynamic Body Theme Mood Color
+      document.body.className = sData.themeClass;
+
+      // 2. Chuyển đổi bức tranh nền điện ảnh (Cinematic Backdrop)
+      document.querySelectorAll('.backdrop-slide').forEach((slide, idx) => {
+        slide.classList.toggle('active', idx === targetIndex);
+      });
+
+      // 3. Render các Hotspots tương tác của trạm mới
+      renderHotspots(targetIndex);
+
+      // 4. Header & Progress Update
+      document.getElementById('current-station-num').textContent = String(targetIndex + 1).padStart(2, '0');
+      document.getElementById('progress-line').style.width = ((targetIndex + 1) / STATIONS.length * 100) + '%';
+
+      // 5. Nav Dots Update
+      document.querySelectorAll('.dot-item').forEach((d, i) => {
+        d.classList.toggle('active', i === targetIndex);
+      });
+
+      // 6. Dock Controls Update
+      document.getElementById('btn-prev').disabled = (targetIndex === 0);
+      document.getElementById('btn-next').textContent = (targetIndex === STATIONS.length - 1) ? '🏁 Khởi Động Lại' : `Tiếp Theo: Trạm 0${targetIndex + 2} →`;
+
+      // 7. Update Primary Card (Top-Left)
+      document.getElementById('p-tag').innerHTML = sData.tag;
+      document.getElementById('p-title').innerHTML = sData.title;
+      document.getElementById('p-summary').textContent = sData.summary;
+
+      // 8. Update Secondary Card with Custom Layout & Content
+      const secCard = document.getElementById('card-secondary');
+      secCard.className = 'glass-card ' + sData.layoutClass;
+      document.getElementById('s-title').innerHTML = sData.secTitle;
+      document.getElementById('s-content').innerHTML = sData.renderContent();
+
+      // 9. Update Transition Banner
+      document.getElementById('trans-text').textContent = sData.transition;
+
+      // 10. Close Inspect Card
+      closeInspect();
+
+      // 11. Subtle Camera & Fade Transition
+      if (animateCam) {
+        const fade = document.getElementById('fade-overlay');
+        fade.classList.add('fading');
+        setTimeout(() => {
+          fade.classList.remove('fading');
+        }, 320);
+      }
+    }
+
+    function nextStation() {
+      const nxt = (currentStation < STATIONS.length - 1) ? currentStation + 1 : 0;
+      switchStationScene(nxt, true);
+    }
+
+    function prevStation() {
+      if (currentStation > 0) switchStationScene(currentStation - 1, true);
+    }
+
+    function goToStation(idx) {
+      if (idx >= 0 && idx < STATIONS.length && idx !== currentStation) {
+        switchStationScene(idx, true);
+      }
+    }
+
+    function toggleAuto() {
+      autoPlay = !autoPlay;
+      const btn = document.getElementById('btn-auto');
+      if (autoPlay) {
+        btn.textContent = '⏸ Tạm Dừng';
+        btn.classList.add('active');
+        autoInterval = setInterval(nextStation, 14000);
+      } else {
+        btn.textContent = '▶ Tự Chạy';
+        btn.classList.remove('active');
+        clearInterval(autoInterval);
+      }
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       5. PARALLAX 3D TƯƠNG TÁC CHUỘT & INSPECT CARD
+       ═══════════════════════════════════════════════════════════ */
+    function onPointerMove(e) {
+      targetMouse.x = (e.clientX / window.innerWidth - 0.5) * 2;
+      targetMouse.y = (e.clientY / window.innerHeight - 0.5) * 2;
+
+      // Cập nhật parallax biến CSS trên slide active
+      const paraX = -targetMouse.x * 20 + 'px';
+      const paraY = -targetMouse.y * 14 + 'px';
+      document.documentElement.style.setProperty('--para-x', paraX);
+      document.documentElement.style.setProperty('--para-y', paraY);
+    }
+
+    function toggleHud() {
+      const hud = document.getElementById('narrative-hud');
+      const icon = document.getElementById('hud-toggle-icon');
+      if (!hud) return;
+      hud.classList.toggle('collapsed');
+      if (icon) {
+        icon.textContent = hud.classList.contains('collapsed') ? '▶' : '◀';
+      }
+    }
+
+    function showInspect(data) {
+      const card = document.getElementById('inspect-card');
+      if (!card || !data) return;
+      document.getElementById('ins-icon').textContent = data.icon;
+      document.getElementById('ins-badge').textContent = data.badge;
+      document.getElementById('ins-title').textContent = data.title;
+      document.getElementById('ins-body').innerHTML = data.body;
+      document.getElementById('ins-footer').innerHTML = '💡 ' + data.footer;
+      card.classList.add('active');
+    }
+
+    function closeInspect() {
+      const card = document.getElementById('inspect-card');
+      if (card) card.classList.remove('active');
+    }
+
+    function onKeyDown(e) {
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        e.preventDefault();
+        nextStation();
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        prevStation();
+      } else if (e.key === 'h' || e.key === 'H') {
+        toggleHud();
+      } else if (e.key === 'f' || e.key === 'F') {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen?.();
+        } else {
+          document.exitFullscreen?.();
+        }
+      } else if (e.key === 'Escape') {
+        closeInspect();
+      }
+    }
+
+    function onWindowResize() {
+      const W = window.innerWidth, H = window.innerHeight;
+      camera.aspect = W / H;
+      camera.updateProjectionMatrix();
+      renderer.setSize(W, H);
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       6. ORGANIC 3D CANVAS & PARALLAX ANIMATION LOOP
+       ═══════════════════════════════════════════════════════════ */
+    function animate() {
+      requestAnimationFrame(animate);
+
+      const t = clock ? clock.getElapsedTime() : 0;
+
+      // Smooth mouse lerping for natural camera drift
+      currentMouse.x += (targetMouse.x - currentMouse.x) * 0.05;
+      currentMouse.y += (targetMouse.y - currentMouse.y) * 0.05;
+
+      camera.position.x = currentMouse.x * 2.8;
+      camera.position.y = -currentMouse.y * 1.8;
+      camera.lookAt(0, 0, 0);
+
+      // Bụi sao vũ trụ xoay và trôi nhẹ nhàng
+      if (bgParticles) {
+        bgParticles.rotation.y = t * 0.025;
+        bgParticles.rotation.x = Math.sin(t * 0.02) * 0.08;
+      }
+
+      // Vệt sáng năng lượng lướt nhẹ
+      if (energyStreaks) {
+        energyStreaks.rotation.y = -t * 0.035;
+        const positions = energyStreaks.geometry.attributes.position.array;
+        for (let i = 1; i < positions.length; i += 3) {
+          positions[i] += Math.sin(t * 1.5 + i) * 0.02;
+        }
+        energyStreaks.geometry.attributes.position.needsUpdate = true;
+      }
+
+      renderer.render(scene, camera);
+    }
+
+    window.addEventListener('DOMContentLoaded', initThree);
+  </script>
+</body>
+</html>
+
+
