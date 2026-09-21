@@ -82,6 +82,7 @@
       inset: 0;
       z-index: 10;
       pointer-events: none;
+      transform: translate3d(var(--para-x, 0px), var(--para-y, 0px), 0);
     }
 
     .hotspot-node {
@@ -1255,12 +1256,13 @@
       ],
       // Trạm 03: Ba Tháp Pha Lê & Dòng Chảy Hội Tụ (Convergence Towers)
       [
-        { key: 'gear_worker',   x: 50, y: 26, label: 'Tháp Nông Dân (Trung Tâm)', color: '#38bdf8' },
-        { key: 'gear_intellect', x: 86, y: 44, label: 'Tháp Trí Thức (Phải)', color: '#38bdf8' },
-        { key: 'bridge_tlsx',  x: 52, y: 60, label: 'Cầu TLSX', color: '#38bdf8' },
-        { key: 'bridge_labor', x: 38, y: 48, label: 'Cầu Lao Động', color: '#38bdf8' },
-        { key: 'bridge_dist',  x: 65, y: 54, label: 'Cầu Phân Phối', color: '#38bdf8' },
-        { key: 'bridge_cult',  x: 72, y: 65, label: 'Cầu Đời Sống', color: '#38bdf8' }
+        { key: 'gear_worker',    x: 14, y: 46, label: 'Tháp Công Nhân',        color: '#38bdf8' },
+        { key: 'gear_farmer',    x: 50, y: 30, label: 'Tháp Nông Dân',         color: '#38bdf8' },
+        { key: 'gear_intellect', x: 86, y: 46, label: 'Tháp Trí Thức',         color: '#38bdf8' },
+        { key: 'bridge_tlsx',   x: 36, y: 42, label: 'Cầu TLSX',              color: '#38bdf8' },
+        { key: 'bridge_labor',  x: 52, y: 52, label: 'Cầu Lao Động (Xoáy)',   color: '#38bdf8' },
+        { key: 'bridge_dist',   x: 65, y: 44, label: 'Cầu Phân Phối',         color: '#38bdf8' },
+        { key: 'bridge_cult',   x: 56, y: 66, label: 'Cầu Đời Sống',          color: '#38bdf8' }
       ],
       // Trạm 04: Bộ Máy Bánh Răng Tinh Xảo (Precision Clockwork Alliance)
       [
@@ -1271,9 +1273,9 @@
       ],
       // Trạm 05: Dải Đất Chữ S & Ba Ngọn Hải Đăng (Vietnam Luminous S-Curve)
       [
-        { key: 'beacon_industry', x: 37, y: 18, label: 'Hải Đăng Công Nghiệp 4.0', color: '#38bdf8' },
-        { key: 'beacon_city',     x: 46, y: 42, label: 'Hải Đăng Đô Thị Tri Thức', color: '#38bdf8' },
-        { key: 'beacon_agri',     x: 38, y: 72, label: 'Hải Đăng Nông Nghiệp Mới', color: '#38bdf8' }
+        { key: 'beacon_industry', x: 41.6, y: 21.5, label: 'Hải Đăng Công Nghiệp 4.0', color: '#38bdf8' },
+        { key: 'beacon_city',     x: 52.5, y: 37.5, label: 'Hải Đăng Đô Thị Tri Thức', color: '#c084fc' },
+        { key: 'beacon_agri',     x: 42.7, y: 68.5, label: 'Hải Đăng Nông Nghiệp Mới', color: '#fbbf24' }
       ],
       // Trạm 06: Máy Chủ Big Tech & 4 Bục Nghề Nghiệp Số (Platform Ecosystem)
       [
