@@ -1,0 +1,22 @@
+{
+  "name": "mln131-chuong-v-3d",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Chương V: Cơ Cấu Xã Hội – Giai Cấp & Liên Minh Trong Kỷ Nguyên Số | MLN131 3D Interactive",
+  "scripts": {
+    "start": "serve .",
+    "dev": "serve .",
+    "build": "echo 'Static HTML ready for deployment'"
+  },
+  "keywords": [
+    "threejs",
+    "3d",
+    "mln131",
+    "interactive-web"
+  ],
+  "author": "kim xuan hieu",
+  "license": "MIT",
+  "devDependencies": {
+    "serve": "^14.2.4"
+  }
+}
