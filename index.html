@@ -12,6 +12,7 @@
     href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&family=Lexend:wght@400;500;600;700;800;900&display=swap"
     rel="stylesheet">
   <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+  <script src="https://unpkg.com/mqtt@5.16.0/dist/mqtt.min.js"></script>
 
   <style>
     *,
@@ -1798,7 +1799,10 @@
               <span>📲</span> QUÉT MÃ QR ĐỂ VÀO PHÒNG
             </div>
             <div id="qrcode-box"></div>
-            <div class="qr-guide">Dùng camera điện thoại quét để vào đấu trường ngay</div>
+            <div class="qr-guide">
+              <div>Dùng camera điện thoại quét để vào đấu trường ngay</div>
+              <div id="qr-direct-link" style="margin-top:6px;font-size:12px;color:#38bdf8;font-weight:700;word-break:break-all;"></div>
+            </div>
           </div>
 
           <!-- Controls for Host -->
@@ -2325,7 +2329,7 @@
     };
 
     /* ═══════════════════════════════════════════════
-       REAL-TIME P2P & MESH SYNC
+       REAL-TIME P2P, CLOUD MQTT & MESH SYNC
        ═══════════════════════════════════════════════ */
     let peer = null;
     let peerConns = [];
@@ -2338,6 +2342,67 @@
       };
     }
 
+    // 1. CLOUD REALTIME SYNC (Hoạt động 100% trên Vercel, 4G, 5G, Wi-Fi mọi thiết bị)
+    let mqttClient = null;
+    const MQTT_BROKER = 'wss://broker.emqx.io:8084/mqtt';
+
+    function initCloudSync() {
+      if (typeof mqtt === 'undefined') {
+        console.warn('MQTT library not loaded, relying on fallback transports.');
+        return;
+      }
+      try {
+        const roomTopic = `mln131_arena_${gameState.activeRoomId || 'mln131_arena'}/events`;
+        const clientId = 'mln_' + Math.random().toString(36).substring(2, 9);
+        mqttClient = mqtt.connect(MQTT_BROKER, {
+          clientId: clientId,
+          clean: true,
+          connectTimeout: 7000,
+          reconnectPeriod: 2500
+        });
+
+        mqttClient.on('connect', () => {
+          console.log('🌐 Đã kết nối Cloud Realtime Broker cho Vercel! Phòng:', roomTopic);
+          mqttClient.subscribe(roomTopic, { qos: 1 });
+        });
+
+        mqttClient.on('message', (topic, payload) => {
+          try {
+            const data = JSON.parse(payload.toString());
+            // Tránh xử lý lại tin nhắn do chính thiết bị này phát ra
+            if (data && data._sender === clientId) return;
+            handleMeshMessage(data);
+          } catch (e) { }
+        });
+
+        mqttClient.on('error', (err) => {
+          console.warn('Cloud sync reconnecting notice:', err);
+        });
+      } catch (e) {
+        console.warn('Cloud sync init error:', e);
+      }
+    }
+    initCloudSync();
+
+    // 2. Real-time server sync via Server-Sent Events (SSE) - Chạy khi test localhost
+    let sseSource = null;
+    function initServerSync() {
+      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        try {
+          if (typeof EventSource !== 'undefined') {
+            sseSource = new EventSource('/api/events');
+            sseSource.onmessage = (event) => {
+              try {
+                const data = JSON.parse(event.data);
+                handleMeshMessage(data);
+              } catch (e) { }
+            };
+          }
+        } catch (e) { }
+      }
+    }
+    initServerSync();
+
     window.addEventListener('storage', (e) => {
       if (e.key === 'mln131_event' && e.newValue) {
         try {
@@ -2348,15 +2413,39 @@
     });
 
     function broadcastEvent(msg) {
+      // 1. Gửi qua Cloud Realtime Relay (Vercel & Internet)
+      if (mqttClient && mqttClient.connected) {
+        try {
+          const roomTopic = `mln131_arena_${gameState.activeRoomId || 'mln131_arena'}/events`;
+          mqttClient.publish(roomTopic, JSON.stringify({ ...msg, _sender: mqttClient.options.clientId }), { qos: 1 });
+        } catch (e) { }
+      }
+
+      // 2. Gửi qua PeerJS P2P (Dự phòng)
       peerConns.forEach(conn => {
         if (conn && conn.open) conn.send(msg);
       });
+
+      // 3. Gửi qua BroadcastChannel (Tab cùng trình duyệt)
       if (meshChannel) {
         try { meshChannel.postMessage(msg); } catch (e) { }
       }
+
+      // 4. Gửi qua LocalStorage
       try {
         localStorage.setItem('mln131_event', JSON.stringify({ ...msg, _t: Date.now() }));
       } catch (e) { }
+
+      // 5. Gửi qua Local Server SSE Relay (Chỉ chạy khi mở localhost)
+      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        try {
+          fetch('/api/message', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(msg)
+          }).catch(() => { });
+        } catch (e) { }
+      }
     }
 
     function handleMeshMessage(msg) {
@@ -2764,9 +2853,29 @@
       gameState.activeRoomId = activeRoom;
       sessionStorage.setItem('mln131_active_room', activeRoom);
 
-      // Join URL defaults to Player view
-      const joinUrl = window.location.origin + window.location.pathname + '?join=1&room=' + encodeURIComponent(activeRoom);
+      // Default fallback join URL
+      let joinUrl = window.location.origin + window.location.pathname + '?join=1&room=' + encodeURIComponent(activeRoom);
+      gameState.serverJoinUrl = joinUrl;
       renderQRCode(joinUrl, 'qrcode-box');
+
+      // Tự động lấy IP Wi-Fi của máy tính để sinh mã QR quét được từ điện thoại (thay vì localhost)
+      const directLinkEl = document.getElementById('qr-direct-link');
+      if (directLinkEl) directLinkEl.innerHTML = `Hoặc gõ: <span style="text-decoration:underline;">${joinUrl}</span>`;
+
+      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        fetch('/api/info')
+          .then(res => res.json())
+          .then(info => {
+            if (info && info.localIp && info.localIp !== 'localhost') {
+              const hostOrigin = `http://${info.localIp}:${info.port || 3000}`;
+              joinUrl = hostOrigin + window.location.pathname + '?join=1&room=' + encodeURIComponent(activeRoom);
+              gameState.serverJoinUrl = joinUrl;
+              renderQRCode(joinUrl, 'qrcode-box');
+              if (directLinkEl) directLinkEl.innerHTML = `Hoặc gõ: <span style="text-decoration:underline;">${joinUrl}</span>`;
+            }
+          })
+          .catch(() => {});
+      }
 
       try {
         if (typeof Peer !== 'undefined') {
@@ -2867,9 +2976,9 @@
     });
 
     function copyJoinLink() {
-      const joinUrl = window.location.origin + window.location.pathname + '?join=1&room=' + encodeURIComponent(gameState.activeRoomId);
+      const joinUrl = gameState.serverJoinUrl || (window.location.origin + window.location.pathname + '?join=1&room=' + encodeURIComponent(gameState.activeRoomId));
       navigator.clipboard.writeText(joinUrl).then(() => {
-        alert('Đã sao chép link tham gia vào bộ nhớ tạm: ' + joinUrl);
+        alert('Đã sao chép link tham gia vào bộ nhớ tạm:\n' + joinUrl);
       }).catch(() => {
         prompt('Sao chép đường link sau để gửi vào nhóm lớp:', joinUrl);
       });
