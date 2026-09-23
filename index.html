@@ -1163,6 +1163,201 @@
       flex-shrink: 0;
     }
 
+    /* ═══════════════════════════════════════════════
+       HOST SECURITY & MODAL STYLES (PIN 111)
+       ═══════════════════════════════════════════════ */
+    .host-lock-banner {
+      background: rgba(15, 23, 42, 0.95);
+      border: 1.5px solid rgba(56, 189, 248, 0.4);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 14px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    }
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(12px);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+    .modal-backdrop.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .modal-card {
+      position: relative;
+      background: rgba(15, 23, 42, 0.95);
+      border: 2px solid var(--primary);
+      border-radius: 24px;
+      padding: 32px 28px;
+      max-width: 440px;
+      width: 100%;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 35px rgba(56, 189, 248, 0.25);
+      text-align: center;
+      animation: popIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .pin-input-group {
+      margin: 20px 0;
+    }
+    .pin-code-input {
+      background: rgba(0, 0, 0, 0.6);
+      border: 2px solid rgba(56, 189, 248, 0.5);
+      border-radius: 16px;
+      font-size: 32px;
+      letter-spacing: 0.3em;
+      text-align: center;
+      color: #38bdf8;
+      font-family: var(--font-display);
+      font-weight: 900;
+      padding: 12px 20px;
+      width: 100%;
+      outline: none;
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
+      transition: all 0.2s ease;
+    }
+    .pin-code-input:focus {
+      border-color: #38bdf8;
+      box-shadow: 0 0 25px rgba(56, 189, 248, 0.5);
+    }
+    .modal-close-btn {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: #fff;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      transition: background 0.2s ease;
+    }
+    .modal-close-btn:hover {
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    /* ═══════════════════════════════════════════════
+       MOBILE HOST REMOTE CONTROLLER VIEW
+       ═══════════════════════════════════════════════ */
+    .remote-wrap {
+      max-width: 480px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .remote-card {
+      background: var(--panel-bg);
+      border: 1px solid var(--panel-border);
+      border-radius: 24px;
+      padding: 24px 20px;
+      backdrop-filter: blur(24px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+      text-align: center;
+    }
+    .remote-header-box {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95));
+      border: 2px solid #a855f7;
+      border-radius: 20px;
+      padding: 16px;
+      text-align: center;
+      margin-bottom: 16px;
+      box-shadow: 0 10px 30px rgba(168, 85, 247, 0.25);
+    }
+    .remote-status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 14px;
+      border-radius: 999px;
+      background: rgba(16, 185, 129, 0.2);
+      border: 1px solid #10b981;
+      color: #10b981;
+      font-size: 12px;
+      font-weight: 800;
+      margin-top: 8px;
+    }
+    .remote-stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .remote-stat-tile {
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+      padding: 12px;
+      text-align: center;
+    }
+    .remote-stat-val {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 900;
+      color: #38bdf8;
+    }
+    .remote-stat-lbl {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-top: 2px;
+    }
+    .remote-big-btn {
+      width: 100%;
+      border: none;
+      border-radius: 18px;
+      padding: 20px 18px;
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 900;
+      color: #fff;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-bottom: 14px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      user-select: none;
+    }
+    .remote-big-btn:active {
+      transform: scale(0.96);
+    }
+    .remote-btn-start {
+      background: linear-gradient(135deg, #059669, #10b981);
+      border: 2px solid #34d399;
+      box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4);
+    }
+    .remote-btn-reveal {
+      background: linear-gradient(135deg, #d97706, #f59e0b);
+      border: 2px solid #fde047;
+      box-shadow: 0 10px 30px rgba(245, 158, 11, 0.4);
+    }
+    .remote-btn-next {
+      background: linear-gradient(135deg, #0284c7, #38bdf8);
+      border: 2px solid #7dd3fc;
+      box-shadow: 0 10px 30px rgba(56, 189, 248, 0.4);
+    }
+    .remote-btn-restart {
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      border: 2px solid #a78bfa;
+      box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+    }
+
     #confetti-canvas {
       position: fixed;
       inset: 0;
@@ -1188,11 +1383,19 @@
     </div>
 
     <div class="header-nav">
+      <button class="nav-btn" id="btn-fullscreen-toggle" onclick="toggleFullscreen()" title="Chiếu toàn màn hình không viền cho máy chiếu (Phím tắt: F hoặc F11)">
+        🖥️ Toàn Màn Hình
+      </button>
+
+      <button class="nav-btn" id="btn-host-remote-qr" onclick="openRemoteQRModal()" style="display:none;" title="Mở mã QR Remote để điều khiển bằng điện thoại cá nhân của bạn">
+        📱 Remote MC
+      </button>
+
       <button class="nav-btn" id="btn-toggle-role" onclick="toggleRole()" title="Chuyển chế độ xem Host máy chiếu / Player điện thoại">
-        📱 Chuyển Máy Chiếu / ĐT
+        🔒 Chuyển Máy Chiếu / ĐT
       </button>
       
-      <button class="nav-btn" id="btn-audio-toggle" onclick="toggleAudio()" title="Bật/Tắt âm thanh Web Audio">
+      <button class="nav-btn" id="btn-audio-toggle" onclick="toggleAudio()" title="Bật/Tắt âm thanh Web Audio (Phím M)">
         🔊 Âm Thanh: BẬT
       </button>
 
@@ -1204,29 +1407,51 @@
 
   <main>
     <!-- ═══════════════════════════════════════════════
-         SCREEN 1: HOST LOBBY (SẢNH ĐÓN THỰC TẾ)
+         SCREEN 1: HOST LOBBY (SẢNH ĐÓN MÁY CHIẾU)
          ═══════════════════════════════════════════════ -->
     <section id="screen-host-lobby" class="screen-view active">
       <div class="lobby-grid">
-        <!-- Left: QR Code & Start Controls (KHÔNG CẦN PIN) -->
+        <!-- Left: QR Code & Start Controls (QUÉT LÀ VÀO PLAYER) -->
         <div class="lobby-info-card">
           <div class="qr-container-premium">
             <div class="qr-heading">
               <span>📲</span> QUÉT MÃ QR ĐỂ VÀO PHÒNG
             </div>
             <div id="qrcode-box"></div>
-            <div class="qr-guide">Dùng camera điện thoại quét để thi đấu ngay</div>
+            <div class="qr-guide">Dùng camera điện thoại quét để vào đấu trường ngay</div>
           </div>
 
-          <div class="lobby-actions">
-            <button class="btn-primary-action" onclick="startGame()">
+          <!-- Controls when Host is Authenticated on this Screen -->
+          <div class="lobby-actions" id="lobby-actions-host" style="display:none;">
+            <button class="btn-primary-action" id="btn-start-game-main" onclick="startGame()">
               <span>🚀</span> BẮT ĐẦU ĐẠI CHIẾN (30 CÂU)
             </button>
+            <button class="btn-secondary-action" onclick="openRemoteQRModal()">
+              <span>📱</span> Mở Remote Điện Thoại (QR Riêng Cho MC)
+            </button>
             <button class="btn-secondary-action" onclick="copyJoinLink()">
-              <span>🔗</span> Sao Chép Đường Link Tham Gia
+              <span>🔗</span> Sao Chép Link Tham Gia Cho Lớp
             </button>
             <button class="btn-secondary-action" onclick="cycleTimerOption()">
               <span>⏱️</span> Thời Gian Mỗi Câu: <strong id="timer-setting-label" style="margin-left:4px;color:var(--primary)">20s</strong>
+            </button>
+          </div>
+
+          <!-- Controls when Screen is in Display-Only Mode (Waiting for Host) -->
+          <div class="lobby-actions" id="lobby-actions-display-only">
+            <div class="host-lock-banner">
+              <div style="font-family:var(--font-display);font-size:16px;font-weight:900;color:var(--primary);margin-bottom:4px;">
+                📺 MÀN HÌNH MÁY CHIẾU LỚP HỌC
+              </div>
+              <div style="font-size:13px;color:var(--text-sub);line-height:1.5;">
+                Đang chờ MC bấm <strong style="color:#10b981;">[Bắt Đầu Game]</strong> từ Remote điện thoại...
+              </div>
+            </div>
+            <button class="btn-primary-action" onclick="promptHostPIN(onHostAuthSuccess)">
+              <span>🔑</span> Mở Khóa Quyền Host Máy Này
+            </button>
+            <button class="btn-secondary-action" onclick="copyJoinLink()">
+              <span>🔗</span> Sao Chép Đường Link Cho Lớp
             </button>
           </div>
         </div>
@@ -1597,6 +1822,128 @@
         </div>
       </div>
     </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SCREEN 5: HOST REMOTE CONTROLLER (ĐIỀU KHIỂN TỪ XA TRÊN ĐT CỦA MC)
+         ═══════════════════════════════════════════════ -->
+    <section id="screen-host-remote" class="screen-view remote-wrap">
+      <div class="remote-card">
+        <div class="remote-header-box">
+          <div style="font-size:38px;margin-bottom:6px;">🕹️</div>
+          <div style="font-family:var(--font-display);font-size:20px;font-weight:900;color:#fff;">
+            REMOTE ĐIỀU KHIỂN MC
+          </div>
+          <div style="font-size:12.5px;color:var(--text-sub);margin-top:2px;">
+            MLN131 · Điều khiển máy chiếu không dây
+          </div>
+          <div class="remote-status-pill" id="remote-conn-status">
+            <span>🟢</span> Đã kết nối Máy Chiếu
+          </div>
+        </div>
+
+        <!-- Live Stats on Phone -->
+        <div class="remote-stat-grid">
+          <div class="remote-stat-tile">
+            <div class="remote-stat-val" id="remote-stat-q">01/30</div>
+            <div class="remote-stat-lbl">Câu hỏi</div>
+          </div>
+          <div class="remote-stat-tile">
+            <div class="remote-stat-val" id="remote-stat-timer">20s</div>
+            <div class="remote-stat-lbl">Đồng hồ</div>
+          </div>
+          <div class="remote-stat-tile">
+            <div class="remote-stat-val" id="remote-stat-submitted">0 / 0</div>
+            <div class="remote-stat-lbl">Đã nộp bài</div>
+          </div>
+          <div class="remote-stat-tile">
+            <div class="remote-stat-val" id="remote-stat-top1" style="font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">-</div>
+            <div class="remote-stat-lbl">Top 1 Tạm thời</div>
+          </div>
+        </div>
+
+        <!-- Dynamic Context-Aware Action Buttons -->
+        <div id="remote-actions-box">
+          <button class="remote-big-btn remote-btn-start" id="remote-btn-start" onclick="sendRemoteCmd('START')">
+            <span>🚀 BẮT ĐẦU ĐẠI CHIẾN</span>
+            <span style="font-size:12px;font-weight:600;opacity:0.9;">Bấm để kích hoạt 30 câu trên máy chiếu</span>
+          </button>
+
+          <button class="remote-big-btn remote-btn-reveal" id="remote-btn-reveal" onclick="sendRemoteCmd('REVEAL')" style="display:none;">
+            <span>💡 HIỆN ĐÁP ÁN & MỞ RƯƠNG</span>
+            <span style="font-size:12px;font-weight:600;opacity:0.9;">Chốt giờ và mở kho báu cướp/đổi điểm</span>
+          </button>
+
+          <button class="remote-big-btn remote-btn-next" id="remote-btn-next" onclick="sendRemoteCmd('NEXT')" style="display:none;">
+            <span>TIẾP THEO ➔</span>
+            <span style="font-size:12px;font-weight:600;opacity:0.9;" id="remote-next-subtext">Chuyển sang câu hỏi kế tiếp</span>
+          </button>
+
+          <button class="remote-big-btn remote-btn-restart" id="remote-btn-restart" onclick="sendRemoteCmd('RESTART')" style="display:none;">
+            <span>🔄 CHƠI LẠI TRẬN MỚI</span>
+            <span style="font-size:12px;font-weight:600;opacity:0.9;">Khởi động lại đấu trường</span>
+          </button>
+        </div>
+
+        <div style="margin-top:16px;font-size:12px;color:var(--text-muted);line-height:1.5;">
+          💡 Bạn có thể tự do đi lại trong lớp. Mỗi nút bạn chạm trên màn hình này sẽ kích hoạt máy chiếu ngay lập tức!
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         MODAL 1: HOST PIN AUTHENTICATION (MÃ 111)
+         ═══════════════════════════════════════════════ -->
+    <div id="modal-host-pin" class="modal-backdrop">
+      <div class="modal-card">
+        <button class="modal-close-btn" onclick="closeHostPINModal()">✕</button>
+        <div style="font-size:42px;margin-bottom:8px;">🔒</div>
+        <div style="font-family:var(--font-display);font-size:20px;font-weight:900;color:#fff;margin-bottom:6px;">
+          XÁC THỰC QUẢN TRỊ HOST
+        </div>
+        <div style="font-size:13.5px;color:var(--text-sub);line-height:1.5;">
+          Nhập mã PIN bí mật của nhóm bạn để mở khóa quyền Host và bấm Bắt đầu trên máy này.
+        </div>
+
+        <div class="pin-input-group">
+          <input type="password" id="host-pin-input" class="pin-code-input" maxlength="6" placeholder="•••" autofocus onkeydown="if(event.key==='Enter')submitHostPIN()">
+        </div>
+
+        <div id="host-pin-error" style="display:none;color:#ef4444;font-size:13px;font-weight:700;margin-bottom:14px;">
+          ❌ Mã PIN không chính xác! Vui lòng thử lại.
+        </div>
+
+        <button class="btn-primary-action" style="width:100%;padding:16px;margin-top:8px;" onclick="submitHostPIN()">
+          <span>XÁC NHẬN MỞ KHÓA</span> ➔
+        </button>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         MODAL 2: HOST REMOTE QR CODE (DÀNH RIÊNG CHO MC)
+         ═══════════════════════════════════════════════ -->
+    <div id="modal-remote-qr" class="modal-backdrop">
+      <div class="modal-card">
+        <button class="modal-close-btn" onclick="closeRemoteQRModal()">✕</button>
+        <div style="font-size:42px;margin-bottom:8px;">📱</div>
+        <div style="font-family:var(--font-display);font-size:20px;font-weight:900;color:var(--secondary);margin-bottom:6px;">
+          REMOTE ĐIỀU KHIỂN KHÔNG DÂY
+        </div>
+        <div style="font-size:13.5px;color:var(--text-sub);line-height:1.5;margin-bottom:18px;">
+          Dùng camera điện thoại của bạn quét mã này để biến điện thoại thành chiếc Remote cầm tay:
+        </div>
+
+        <div style="display:flex;justify-content:center;margin-bottom:16px;">
+          <div id="remote-qrcode-box" style="padding:10px;background:#fff;border-radius:16px;box-shadow:0 8px 25px rgba(0,0,0,0.5);"></div>
+        </div>
+
+        <button class="btn-secondary-action" style="width:100%;margin-bottom:8px;" onclick="copyRemoteLink()">
+          <span>🔗</span> Sao Chép Link Remote MC
+        </button>
+        <div style="font-size:12px;color:var(--text-muted);">
+          Mã này đã tích hợp sẵn khóa bảo mật cho điện thoại của bạn.
+        </div>
+      </div>
+    </div>
   </main>
 
   <script>
@@ -1606,10 +1953,14 @@
     const QUESTIONS_DATA = [{"id":1,"question":"Cơ cấu xã hội được định nghĩa là gì?","options":["Tổng thể các giai cấp và tầng lớp tồn tại trong một chế độ xã hội.","Mối liên hệ vững chắc của các thành tố trong hệ thống xã hội.","Hệ thống các chính sách phát triển kinh tế - xã hội của Nhà nước.","Tập hợp các cộng đồng dân cư theo địa giới hành chính."],"correct":1,"stage":1},{"id":2,"question":"Yếu tố nào là căn cứ cơ bản để xây dựng chính sách phát triển kinh tế, văn hóa, xã hội trong từng giai đoạn lịch sử cụ thể?","options":["Cơ cấu xã hội – dân cư.","Cơ cấu xã hội – nghề nghiệp.","Cơ cấu xã hội – giai cấp.","Cơ cấu xã hội – tôn giáo."],"correct":2,"stage":1},{"id":3,"question":"Cơ cấu xã hội – giai cấp là tổng thể các giai cấp, tầng lớp xã hội tồn tại khách quan thông qua những mối quan hệ nào?","options":["Mối quan hệ về sở hữu tư liệu sản xuất, tổ chức quản lý sản xuất và địa vị chính trị – xã hội.","Mối quan hệ về thu nhập, mức sống và hoàn cảnh gia đình.","Mối quan hệ về địa lý cư trú, ngôn ngữ và tập quán sinh hoạt.","Mối quan hệ về trình độ chuyên môn và bằng cấp giáo dục."],"correct":0,"stage":1},{"id":4,"question":"Xu hướng biến đổi chủ yếu của cơ cấu xã hội – giai cấp trong thời kỳ quá độ lên chủ nghĩa xã hội là gì?","options":["Sự phân hóa ngày càng sâu sắc giữa các tầng lớp xã hội.","Sự xích lại gần nhau từng bước giữa các giai cấp, tầng lớp về mối quan hệ với tư liệu sản xuất.","Sự biến mất ngay lập tức của tất cả các tầng lớp bóc thợ.","Sự cô lập vai trò của giai cấp công nhân đối với các giai cấp khác."],"correct":1,"stage":1},{"id":5,"question":"Sự biến đổi của cơ cấu xã hội – giai cấp trong thời kỳ quá độ gắn liền và bị quy định bởi yếu tố nào?","options":["Cơ cấu chính trị của nhà nước.","Cơ cấu kinh tế của thời kỳ quá độ lên chủ nghĩa xã hội.","Trình độ phát triển văn hóa và giáo dục.","Tình hình quan hệ quốc tế."],"correct":1,"stage":1},{"id":6,"question":"Trong thời kỳ quá độ lên chủ nghĩa xã hội, sự biến đổi phức tạp, đa dạng của cơ cấu xã hội – giai cấp làm xuất hiện thêm các tầng lớp xã hội mới nào?","options":["Doanh nhân, tiểu chủ, tầng lớp người giàu có và trung lưu.","Địa chủ, phong kiến, tư sản mại bản.","Tăng ni, phật tử, giáo dân.","Quý tộc, thương gia nước ngoài."],"correct":0,"stage":1},{"id":7,"question":"Theo C. Mác và Ph. Ăngghen, nguyên nhân chủ yếu khiến các cuộc đấu tranh của công nhân ở Châu Âu cuối thế kỷ XIX thất bại là gì?","options":["Thiếu nguồn tài chính và vũ khí.","Không tổ chức liên minh với \"người bạn đồng minh tự nhiên\" là nông dân.","Bị giai cấp tư sản mua chuộc.","Chưa có tổ chức Đảng Cộng sản lãnh đạo."],"correct":1,"stage":1},{"id":8,"question":"C. Mác và Ph. Ăngghen đã ví cách mạng vô sản trở thành \"bài ca ai điếu\" khi rơi vào tình cảnh nào?","options":["Bị thất bại trước sự can thiệp của nước ngoài.","Giai cấp công nhân đơn độc do không liên minh với nông dân.","Khối liên minh công nông bị chia rẽ bởi tư sản.","Giai cấp công nhân bị suy giảm về số lượng."],"correct":1,"stage":1},{"id":9,"question":"V.I. Lênin đã vận dụng và phát triển lý luận liên minh giai cấp để tổ chức khối liên minh công nông trong sự kiện lịch sử nào?","options":["Công xã Pari 1871.","Cách mạng Tháng Mười Nga.","Cách mạng Tư sản Pháp 1789.","Phong trào Hiến chương Anh."],"correct":1,"stage":1},{"id":10,"question":"Xét dưới góc độ chính trị – xã hội, liên minh giai cấp, tầng lớp được xác định là gì?","options":["Nguyên tắc cao nhất của chuyên chính vô sản.","Giải pháp tình thế trong giai đoạn giành chính quyền.","Sự thỏa thuận tạm thời về mặt lợi ích kinh tế.","Biện pháp duy nhất để quản lý xã hội."],"correct":0,"stage":1},{"id":11,"question":"Xét dưới góc độ kinh tế, sự cần thiết của liên minh giai cấp, tầng lớp xuất phát từ yêu cầu nào?","options":["Xây dựng nền kinh tế quốc dân thống nhất (nông nghiệp, công nghiệp, dịch vụ) và đẩy mạnh CNH, HĐH.","Tăng cường xuất khẩu tài nguyên thô ra thị trường quốc tế.","Xóa bỏ hoàn toàn thành phần kinh tế tư nhân.","Tập trung phát triển độc tôn ngành công nghiệp nặng."],"correct":0,"stage":2},{"id":12,"question":"Nhằm thỏa mãn nhu cầu, lợi ích kinh tế của giai cấp công nhân, nông dân, trí thức và các tầng lớp khác là mục tiêu của nội dung liên minh nào?","options":["Nội dung chính trị.","Nội dung kinh tế.","Nội dung văn hóa – xã hội.","Nội dung an ninh – quốc phòng."],"correct":1,"stage":2},{"id":13,"question":"Nội dung chính trị của khối liên minh giữa giai cấp công nhân với giai cấp nông dân và tầng lớp trí thức tạo cơ sở vững chắc cho điều gì?","options":["Khối đại đoàn kết toàn dân, củng cố nhà nước XHCN và bảo vệ vai trò lãnh đạo của Đảng Cộng sản.","Sự giải thể của các tổ chức xã hội phi chính phủ.","Việc thay thế hoàn toàn nền kinh tế thị trường bằng kinh tế bao cấp.","Sự độc tôn tuyệt đối của giai cấp nông dân trong quản lý nhà nước."],"correct":0,"stage":2},{"id":14,"question":"Trong nội dung văn hóa – xã hội của liên minh, nhiệm vụ quan trọng đối với công tác tư tưởng là đấu tranh khắc phục các tư tưởng nào?","options":["Tư tưởng tiến bộ và hội nhập.","Tư tưởng lạc hậu, bảo thủ, trì trệ, thói cửa quyền, quan liêu.","Tinh thần tiếp thu giá trị văn hóa nhân loại.","Yêu cầu nâng cao dân trí và pháp luật."],"correct":1,"stage":2},{"id":15,"question":"Đặc điểm của cơ cấu xã hội – giai cấp ở Việt Nam trong thời kỳ quá độ lên chủ nghĩa xã hội là gì?","options":["Vừa đảm bảo tính quy luật phổ biến, vừa mang tính đặc thù chuyển từ đơn giản sang phức tạp hơn.","Hoàn toàn giống hệt cơ cấu xã hội – giai cấp của các nước tư bản phát triển.","Chỉ bao gồm duy nhất hai giai cấp là công nhân và nông dân.","Không chịu sự chi phối của các biến đổi trong cơ cấu kinh tế."],"correct":0,"stage":2},{"id":16,"question":"Giai cấp nào ở Việt Nam đóng vai trò là lực lượng lãnh đạo cách mạng và là lực lượng nòng cốt trong khối liên minh?","options":["Giai cấp nông dân.","Tầng lớp trí thức.","Giai cấp công nhân.","Tầng lớp doanh nhân."],"correct":2,"stage":2},{"id":17,"question":"Đội ngũ doanh nhân ở Việt Nam phát triển nhanh chóng và có vai trò to lớn trong việc gì?","options":["Phát triển kinh tế – xã hội, giải quyết việc làm và tham gia an sinh xã hội.","Lãnh đạo hệ thống chính trị và quản lý nhà nước.","Định hướng phát triển nền văn hóa xã hội chủ nghĩa.","Thay thế giai cấp công nhân làm lực lượng nòng cốt cách mạng."],"correct":0,"stage":2},{"id":18,"question":"Khái niệm \"Liên minh giai cấp, tầng lớp\" được định nghĩa là gì?","options":["Sự kết hợp, hỗ trợ nhau giữa các giai cấp, tầng lớp nhằm thực hiện nhu cầu, lợi ích và tạo động lực xây dựng CNXH.","Sự hợp nhất tất cả các giai cấp thành một giai cấp duy nhất.","Sự đấu tranh loại trừ lẫn nhau giữa giai cấp công nhân và tư sản.","Thỏa thuận chia sẻ lợi nhuận giữa các tập đoàn kinh tế."],"correct":0,"stage":2},{"id":19,"question":"Sự phát triển của các nhóm lao động phi truyền thống như freelancer, bán hàng online, tài xế công nghệ, streamer/KOL đang tác động thế nào đến mô hình truyền thống?","options":["Phá vỡ mô hình \"Giai cấp công nhân – Chủ doanh nghiệp\" nhị phân.","Tăng cường tính cố định của quan hệ lao động truyền thống.","Xóa bỏ hoàn toàn nhu cầu sử dụng công nghệ trong lao động.","Biến tất cả người lao động thành công chức nhà nước."],"correct":0,"stage":2},{"id":20,"question":"Dù tự sở hữu tư liệu sản xuất vi mô (xe máy, kênh bán hàng, thiết bị), người lao động công nghệ thực chất vẫn phụ thuộc vào yếu tố nào?","options":["Thuật toán và chính sách chiết khấu của các nền tảng công nghệ lớn.","Sự quản lý trực tiếp của các cơ quan chính quyền địa phương.","Bằng cấp từ các trường đại học hàn lâm.","Các bản hợp đồng lao động dài hạn truyền thống."],"correct":0,"stage":2},{"id":21,"question":"Thuật ngữ \"Precariat\" trong phân tích cơ cấu xã hội nền kinh tế số chỉ nhóm đối tượng nào?","options":["Tầng lớp tinh hoa số giàu có.","Tầng lớp \"tiền trung lưu\" bấp bênh, chịu rủi ro cao vì thiếu an sinh xã hội.","Đội ngũ kỹ sư công nghệ có biên chế cố định.","Ban lãnh đạo của các tập đoàn công nghệ lớn."],"correct":1,"stage":3},{"id":22,"question":"Nhóm nào sau đây thuộc tầng lớp \"Digital Elite\" (tinh hoa số mới)?","options":["Tài xế Grab chạy xe thuê theo giờ.","Người bán hàng online nhỏ lẻ chịu thua lỗ.","Streamer/KOL thành công và high-end freelancer tích lũy tài sản lớn nhanh chóng.","Lao động thủ công trong các làng nghề."],"correct":2,"stage":3},{"id":23,"question":"Trong \"Nền kinh tế chú ý\" (Attention Economy), tiêu chí định vị địa vị xã hội của nhóm Streamer/KOL dịch chuyển sang yếu tố nào?","options":["Bằng cấp hàn lâm và thâm niên công tác.","\"Vốn chú ý\", lượng người theo dõi và khả năng tạo ảnh hưởng.","Chức vụ hành chính trong hệ thống công sở.","Nguồn gốc gia thế và địa vị dòng họ."],"correct":1,"stage":3},{"id":24,"question":"Sự thành công của các freelancer và người bán hàng online dựa vào khả năng tự học và kỹ năng thực chiến cho thấy xu hướng gì?","options":["Phi chính thống hóa học thức (dịch chuyển từ bằng cấp truyền thống sang kỹ năng thực tế).","Tăng cường vai trò độc tôn của hệ thống bằng cấp giáo dục hàn lâm.","Sự suy giảm nhu cầu học tập trong toàn xã hội.","Bắt buộc mọi lao động phải có bằng tiến sĩ mới thành công."],"correct":0,"stage":3},{"id":25,"question":"Sự bùng nổ của các nhóm lao động nền tảng (Gig Economy) đặt ra thách thức lớn nào cho quản lý vĩ mô của Nhà nước?","options":["Khủng hoảng mô hình thuế và pháp lý đối với lao động phi định chuẩn.","Tình trạng thừa ngân sách thu từ thuế doanh nghiệp.","Sự biến mất của các giao dịch tiền tệ.","Việc bồi thường bảo hiểm xã hội quá tải cho lao động công sở."],"correct":0,"stage":3},{"id":26,"question":"Khối liên minh giai cấp, tầng lớp trong thời kỳ quá độ lên CNXH ở Việt Nam gồm mấy nội dung cơ bản?","options":["2 nội dung (Kinh tế, Chính trị).","3 nội dung (Kinh tế, Chính trị, Văn hóa – xã hội).","4 nội dung (Kinh tế, Chính trị, Văn hóa, Tôn giáo).","5 nội dung (Kinh tế, Chính trị, Văn hóa, Quốc phòng, Đối ngoại)."],"correct":1,"stage":3},{"id":27,"question":"Đâu là cơ sở để giai cấp công nhân giữ vững vai trò lãnh đạo xã hội thông qua khối liên minh?","options":["Tập hợp được lực lượng đông đảo nhân dân lao động phấn đấu cho mục tiêu CNXH.","Tự cô lập giai cấp công nhân khỏi các tầng lớp khác.","Sử dụng quyền lực quân sự để áp đặt tư tưởng.","Duy trì mô hình sản xuất nhỏ lẻ, tự cung tự cấp."],"correct":0,"stage":3},{"id":28,"question":"Trong thời kỳ quá độ lên chủ nghĩa xã hội, cơ cấu xã hội – giai cấp biến đổi trong mối quan hệ nào?","options":["Tách biệt tuyệt đối, không giao thoa.","Vừa đấu tranh vừa liên minh dẫn đến sự xích lại gần nhau.","Xung đột triệt tiêu lẫn nhau.","Hòa tan hoàn toàn không còn ranh giới."],"correct":1,"stage":3},{"id":29,"question":"Sự dịch chuyển lối sống và cộng đồng trong nền kinh tế số làm giảm sự gắn kết công sở truyền thống và thay bằng điều gì?","options":["Các cộng đồng mạng và hội nhóm nghề nghiệp phi tập trung.","Các đơn vị hành chính khép kín.","Các mô hình hợp tác xã nông nghiệp cũ.","Sự cách ly tuyệt đối giữa những người lao động."],"correct":0,"stage":3},{"id":30,"question":"Cơ cấu xã hội – giai cấp biến đổi phức tạp, đa dạng trong thời kỳ quá độ do nguyên nhân cốt lõi nào?","options":["Do sự biến đổi của cơ cấu kinh tế nhiều thành phần trong thời kỳ quá độ.","Do tác động duy nhất từ văn hóa ngoại nhập.","Do sự gia tăng dân số tự nhiên.","Do sự thay đổi địa giới hành chính các tỉnh thành."],"correct":0,"stage":3}];
 
     /* ═══════════════════════════════════════════════
-       GAME STATE (100% REAL DATA)
+       GAME STATE & HOST AUTH (MÃ PIN 111)
        ═══════════════════════════════════════════════ */
+    const HOST_PIN = '111';
+
     const gameState = {
       role: 'host',
+      isHostAuth: false,
+      currentPhase: 'lobby', // 'lobby' | 'answering' | 'revealed' | 'finished'
       timePerQuestion: 20,
       currentQuestionIdx: 0,
       timerRemaining: 20,
@@ -1679,6 +2030,7 @@
             });
             renderLobbyPlayers();
             playSound('correct');
+            broadcastHostState();
           }
         } else if (msg.type === 'PLAYER_ANSWER') {
           const p = gameState.players.find(x => x.id === msg.playerId);
@@ -1686,9 +2038,31 @@
             p.lastAnswer = msg.option;
             p.answerTime = msg.timeUsed;
             updateSubmittedCounter();
+            broadcastHostState();
           }
         } else if (msg.type === 'CHEST_ACTION') {
           handleHostChestAction(msg);
+          broadcastHostState();
+        } else if (msg.type === 'REMOTE_CMD') {
+          if (msg.action === 'START') {
+            startGame();
+          } else if (msg.action === 'REVEAL') {
+            revealAnswer();
+          } else if (msg.action === 'NEXT') {
+            nextQuestion();
+          } else if (msg.action === 'RESTART') {
+            restartGame();
+          }
+        }
+      } else if (gameState.role === 'remote') {
+        if (msg.type === 'HOST_STATE_SYNC') {
+          onHostStateSyncToRemote(msg);
+        } else if (msg.type === 'QUESTION_START') {
+          onQuestionStartToRemote(msg);
+        } else if (msg.type === 'QUESTION_END') {
+          onQuestionEndToRemote(msg);
+        } else if (msg.type === 'GAME_OVER') {
+          onGameOverToRemote(msg);
         }
       } else if (gameState.role === 'player') {
         if (msg.type === 'QUESTION_START') {
@@ -1888,23 +2262,268 @@
     }
 
     /* ═══════════════════════════════════════════════
+       HOST SECURITY & AUTHENTICATION (MÃ 111)
+       ═══════════════════════════════════════════════ */
+    let hostPinSuccessCallback = null;
+
+    function checkHostAuth() {
+      const params = new URLSearchParams(window.location.search);
+      const pinParam = params.get('pin');
+      if (pinParam === HOST_PIN) {
+        try { localStorage.setItem('mln131_host_pin', HOST_PIN); } catch(e){}
+        gameState.isHostAuth = true;
+        return true;
+      }
+      try {
+        if (localStorage.getItem('mln131_host_pin') === HOST_PIN) {
+          gameState.isHostAuth = true;
+          return true;
+        }
+      } catch(e){}
+      gameState.isHostAuth = false;
+      return false;
+    }
+
+    function updateHostUI() {
+      const hostActions = document.getElementById('lobby-actions-host');
+      const displayActions = document.getElementById('lobby-actions-display-only');
+      const remoteQrBtn = document.getElementById('btn-host-remote-qr');
+      const toggleRoleBtn = document.getElementById('btn-toggle-role');
+
+      if (gameState.isHostAuth) {
+        if (hostActions) hostActions.style.display = 'flex';
+        if (displayActions) displayActions.style.display = 'none';
+        if (remoteQrBtn) remoteQrBtn.style.display = 'inline-flex';
+        if (toggleRoleBtn) toggleRoleBtn.textContent = '📱 Chế độ Player';
+      } else {
+        if (hostActions) hostActions.style.display = 'none';
+        if (displayActions) displayActions.style.display = 'block';
+        if (remoteQrBtn) remoteQrBtn.style.display = 'none';
+        if (toggleRoleBtn) toggleRoleBtn.textContent = '🔒 Chuyển Máy Chiếu / ĐT';
+      }
+    }
+
+    function promptHostPIN(onSuccess) {
+      hostPinSuccessCallback = onSuccess || null;
+      const modal = document.getElementById('modal-host-pin');
+      const err = document.getElementById('host-pin-error');
+      const input = document.getElementById('host-pin-input');
+      if (err) err.style.display = 'none';
+      if (input) {
+        input.value = '';
+        setTimeout(() => input.focus(), 150);
+      }
+      if (modal) modal.classList.add('active');
+    }
+
+    function closeHostPINModal() {
+      const modal = document.getElementById('modal-host-pin');
+      if (modal) modal.classList.remove('active');
+    }
+
+    function submitHostPIN() {
+      const input = document.getElementById('host-pin-input');
+      const err = document.getElementById('host-pin-error');
+      const val = input ? input.value.trim() : '';
+
+      if (val === HOST_PIN) {
+        try { localStorage.setItem('mln131_host_pin', HOST_PIN); } catch(e){}
+        gameState.isHostAuth = true;
+        closeHostPINModal();
+        playSound('correct');
+        updateHostUI();
+        if (typeof hostPinSuccessCallback === 'function') {
+          hostPinSuccessCallback();
+          hostPinSuccessCallback = null;
+        }
+      } else {
+        playSound('wrong');
+        if (err) err.style.display = 'block';
+        if (input) {
+          input.value = '';
+          input.focus();
+        }
+      }
+    }
+
+    function onHostAuthSuccess() {
+      alert('🎉 Xác thực Host thành công! Quyền bấm Bắt Đầu Đại Chiến đã được mở khóa trên máy này.');
+    }
+
+    /* ═══════════════════════════════════════════════
+       REMOTE QR CODE MODAL (DÀNH CHO MC)
+       ═══════════════════════════════════════════════ */
+    function openRemoteQRModal() {
+      const modal = document.getElementById('modal-remote-qr');
+      if (!modal) return;
+      const remoteUrl = `${window.location.origin}${window.location.pathname}?role=remote&pin=${HOST_PIN}`;
+      renderQRCode(remoteUrl, 'remote-qrcode-box');
+      modal.classList.add('active');
+    }
+
+    function closeRemoteQRModal() {
+      const modal = document.getElementById('modal-remote-qr');
+      if (modal) modal.classList.remove('active');
+    }
+
+    function copyRemoteLink() {
+      const remoteUrl = `${window.location.origin}${window.location.pathname}?role=remote&pin=${HOST_PIN}`;
+      navigator.clipboard.writeText(remoteUrl).then(() => {
+        alert('Đã sao chép link Remote MC vào bộ nhớ tạm: ' + remoteUrl);
+      }).catch(() => {
+        prompt('Link Remote MC của bạn:', remoteUrl);
+      });
+    }
+
+    /* ═══════════════════════════════════════════════
+       FULLSCREEN API & PRESENTATION CONTROLS
+       ═══════════════════════════════════════════════ */
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        const el = document.documentElement;
+        if (el.requestFullscreen) el.requestFullscreen().catch(() => {});
+        else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+        else if (el.msRequestFullscreen) el.msRequestFullscreen();
+      } else {
+        if (document.exitFullscreen) document.exitFullscreen().catch(() => {});
+        else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+        else if (document.msExitFullscreen) document.msExitFullscreen();
+      }
+    }
+
+    /* ═══════════════════════════════════════════════
+       HOST BROADCAST & STATE SYNC
+       ═══════════════════════════════════════════════ */
+    function broadcastHostState() {
+      if (gameState.role !== 'host') return;
+      const sorted = [...gameState.players].sort((a, b) => b.score - a.score);
+      const submitted = gameState.players.filter(p => p.lastAnswer !== null).length;
+      broadcastEvent({
+        type: 'HOST_STATE_SYNC',
+        phase: gameState.currentPhase,
+        currentQuestionIdx: gameState.currentQuestionIdx,
+        timerRemaining: gameState.timerRemaining,
+        submittedCount: submitted,
+        totalPlayers: gameState.players.length,
+        top1: sorted[0] ? { name: sorted[0].name, score: sorted[0].score } : null
+      });
+    }
+
+    /* ═══════════════════════════════════════════════
+       REMOTE CONTROLLER LOGIC (ĐIỆN THOẠI MC)
+       ═══════════════════════════════════════════════ */
+    function sendRemoteCmd(action) {
+      broadcastEvent({
+        type: 'REMOTE_CMD',
+        action: action
+      });
+      playSound('tick');
+    }
+
+    function onHostStateSyncToRemote(data) {
+      if (gameState.role !== 'remote') return;
+      
+      const qNum = (data.currentQuestionIdx !== undefined ? data.currentQuestionIdx + 1 : 1);
+      const statQ = document.getElementById('remote-stat-q');
+      const statTimer = document.getElementById('remote-stat-timer');
+      const statSub = document.getElementById('remote-stat-submitted');
+      const statTop1 = document.getElementById('remote-stat-top1');
+
+      if (statQ) statQ.textContent = String(qNum).padStart(2, '0') + '/30';
+      if (statTimer && data.timerRemaining !== undefined) statTimer.textContent = data.timerRemaining + 's';
+      if (statSub) statSub.textContent = `${data.submittedCount || 0} / ${data.totalPlayers || 0}`;
+      if (statTop1) statTop1.textContent = data.top1 ? `${data.top1.name} (${data.top1.score.toLocaleString()}đ)` : '-';
+
+      const btnStart = document.getElementById('remote-btn-start');
+      const btnReveal = document.getElementById('remote-btn-reveal');
+      const btnNext = document.getElementById('remote-btn-next');
+      const btnRestart = document.getElementById('remote-btn-restart');
+      const nextSubtext = document.getElementById('remote-next-subtext');
+
+      if (data.phase === 'lobby') {
+        if (btnStart) btnStart.style.display = 'flex';
+        if (btnReveal) btnReveal.style.display = 'none';
+        if (btnNext) btnNext.style.display = 'none';
+        if (btnRestart) btnRestart.style.display = 'none';
+      } else if (data.phase === 'answering') {
+        if (btnStart) btnStart.style.display = 'none';
+        if (btnReveal) btnReveal.style.display = 'flex';
+        if (btnNext) btnNext.style.display = 'none';
+        if (btnRestart) btnRestart.style.display = 'none';
+      } else if (data.phase === 'revealed') {
+        if (btnStart) btnStart.style.display = 'none';
+        if (btnReveal) btnReveal.style.display = 'none';
+        if (btnNext) {
+          btnNext.style.display = 'flex';
+          if (nextSubtext) nextSubtext.textContent = (qNum < 30) ? `Chuyển sang Câu ${qNum + 1}` : 'Mở Lễ Vinh Danh Top 5';
+        }
+        if (btnRestart) btnRestart.style.display = 'none';
+      } else if (data.phase === 'finished') {
+        if (btnStart) btnStart.style.display = 'none';
+        if (btnReveal) btnReveal.style.display = 'none';
+        if (btnNext) btnNext.style.display = 'none';
+        if (btnRestart) btnRestart.style.display = 'flex';
+      }
+    }
+
+    function onQuestionStartToRemote(msg) {
+      if (gameState.role !== 'remote') return;
+      onHostStateSyncToRemote({
+        phase: 'answering',
+        currentQuestionIdx: msg.idx,
+        timerRemaining: msg.time || 20,
+        submittedCount: 0,
+        totalPlayers: gameState.players.length
+      });
+    }
+
+    function onQuestionEndToRemote(msg) {
+      if (gameState.role !== 'remote') return;
+      onHostStateSyncToRemote({
+        phase: 'revealed',
+        currentQuestionIdx: gameState.currentQuestionIdx
+      });
+    }
+
+    function onGameOverToRemote(msg) {
+      if (gameState.role !== 'remote') return;
+      onHostStateSyncToRemote({
+        phase: 'finished'
+      });
+    }
+
+    /* ═══════════════════════════════════════════════
        INITIALIZATION
        ═══════════════════════════════════════════════ */
     window.addEventListener('DOMContentLoaded', () => {
       const params = new URLSearchParams(window.location.search);
       const isPlayerJoin = params.get('join') || params.get('role') === 'player';
+      const isRemote = params.get('role') === 'remote' || params.get('remote') === '1';
 
-      if (isPlayerJoin) {
+      if (isRemote) {
+        if (checkHostAuth()) {
+          gameState.role = 'remote';
+          switchScreen('screen-host-remote');
+        } else {
+          promptHostPIN(() => {
+            gameState.role = 'remote';
+            switchScreen('screen-host-remote');
+          });
+        }
+      } else if (isPlayerJoin) {
         gameState.role = 'player';
         switchScreen('screen-player');
       } else {
         gameState.role = 'host';
+        checkHostAuth();
         switchScreen('screen-host-lobby');
         initHost();
+        updateHostUI();
       }
     });
 
     function initHost() {
+      // Always generate QR code that joins as Player so students cannot mess with host controls
       const joinUrl = window.location.origin + window.location.pathname + '?join=1';
       renderQRCode(joinUrl, 'qrcode-box');
 
@@ -1923,6 +2542,7 @@
       }
 
       renderLobbyPlayers();
+      broadcastHostState();
     }
 
     function toggleRole() {
@@ -1930,11 +2550,25 @@
         gameState.role = 'player';
         switchScreen('screen-player');
       } else {
-        gameState.role = 'host';
-        if (gameState.currentQuestionIdx === 0 && !gameState.isAnsweringPhase) {
-          switchScreen('screen-host-lobby');
+        // Switching to Host REQUIRES PIN 111
+        if (checkHostAuth()) {
+          gameState.role = 'host';
+          if (gameState.currentQuestionIdx === 0 && !gameState.isAnsweringPhase) {
+            switchScreen('screen-host-lobby');
+          } else {
+            switchScreen('screen-host-arena');
+          }
+          updateHostUI();
         } else {
-          switchScreen('screen-host-arena');
+          promptHostPIN(() => {
+            gameState.role = 'host';
+            if (gameState.currentQuestionIdx === 0 && !gameState.isAnsweringPhase) {
+              switchScreen('screen-host-lobby');
+            } else {
+              switchScreen('screen-host-arena');
+            }
+            updateHostUI();
+          });
         }
       }
     }
@@ -1944,6 +2578,36 @@
       const target = document.getElementById(screenId);
       if (target) target.classList.add('active');
     }
+
+    /* ═══════════════════════════════════════════════
+       HOTKEYS: SPACE / ENTER, F, M
+       ═══════════════════════════════════════════════ */
+    window.addEventListener('keydown', (e) => {
+      if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) return;
+
+      if (e.code === 'Space' || e.key === 'Enter') {
+        if (gameState.role === 'host' && gameState.isHostAuth) {
+          e.preventDefault();
+          const lobbyEl = document.getElementById('screen-host-lobby');
+          if (lobbyEl && lobbyEl.classList.contains('active')) {
+            startGame();
+          } else if (gameState.isAnsweringPhase) {
+            revealAnswer();
+          } else {
+            const nextBtn = document.getElementById('btn-next-q');
+            if (nextBtn && nextBtn.style.display !== 'none') {
+              nextQuestion();
+            }
+          }
+        }
+      } else if (e.key === 'f' || e.key === 'F') {
+        e.preventDefault();
+        toggleFullscreen();
+      } else if (e.key === 'm' || e.key === 'M') {
+        e.preventDefault();
+        toggleAudio();
+      }
+    });
 
     function copyJoinLink() {
       const joinUrl = window.location.origin + window.location.pathname + '?join=1';
@@ -2021,6 +2685,7 @@
 
       gameState.currentQuestionIdx = idx;
       gameState.isAnsweringPhase = true;
+      gameState.currentPhase = 'answering';
       gameState.timerRemaining = gameState.timePerQuestion;
       const q = QUESTIONS_DATA[idx];
 
@@ -2059,6 +2724,7 @@
           options: q.options
         }
       });
+      broadcastHostState();
 
       startTimer();
     }
@@ -2170,6 +2836,9 @@
           top1Player: sorted[0] ? { id: sorted[0].id, name: sorted[0].name, score: sorted[0].score } : null
         }))
       });
+
+      gameState.currentPhase = 'revealed';
+      broadcastHostState();
     }
 
     function handleHostChestAction(msg) {
@@ -2358,6 +3027,9 @@
         top5: ranked.slice(0, 5).map((p, i) => ({ rank: i + 1, name: p.name, score: p.score })),
         allPlayers: ranked.map((p, i) => ({ id: p.id, rank: i + 1, name: p.name, score: p.score, correctCount: p.correctCount }))
       });
+
+      gameState.currentPhase = 'finished';
+      broadcastHostState();
     }
 
     function downloadResultsCSV() {
@@ -2406,8 +3078,10 @@
         p.correctCount = 0;
         p.lastAnswer = null;
       });
+      gameState.currentPhase = 'lobby';
       switchScreen('screen-host-lobby');
       renderLobbyPlayers();
+      broadcastHostState();
     }
 
     /* ═══════════════════════════════════════════════
