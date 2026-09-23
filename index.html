@@ -1,16 +1,26 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>CYBER MATRIX 30 · Đấu Trường Cướp & Đổi Điểm MLN131</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&family=Lexend:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&family=Lexend:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
   <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
 
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     :root {
       --bg-dark: #030712;
@@ -44,11 +54,11 @@
     .cyber-backdrop {
       position: fixed;
       inset: 0;
-      background-image: 
+      background-image:
         linear-gradient(to right, rgba(56, 189, 248, 0.05) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(56, 189, 248, 0.05) 1px, transparent 1px);
       background-size: 40px 40px;
-      mask-image: radial-gradient(ellipse at 50% 50%, rgba(0,0,0,1) 30%, transparent 80%);
+      mask-image: radial-gradient(ellipse at 50% 50%, rgba(0, 0, 0, 1) 30%, transparent 80%);
       pointer-events: none;
       z-index: 0;
     }
@@ -64,12 +74,28 @@
       z-index: 0;
       animation: floatGlow 15s infinite alternate ease-in-out;
     }
-    .glow-1 { top: -100px; left: -100px; background: var(--primary); }
-    .glow-2 { bottom: -100px; right: -100px; background: var(--purple); animation-delay: -7s; }
+
+    .glow-1 {
+      top: -100px;
+      left: -100px;
+      background: var(--primary);
+    }
+
+    .glow-2 {
+      bottom: -100px;
+      right: -100px;
+      background: var(--purple);
+      animation-delay: -7s;
+    }
 
     @keyframes floatGlow {
-      0% { transform: translate(0, 0) scale(1); }
-      100% { transform: translate(80px, 60px) scale(1.15); }
+      0% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      100% {
+        transform: translate(80px, 60px) scale(1.15);
+      }
     }
 
     /* HEADER */
@@ -91,6 +117,7 @@
       align-items: center;
       gap: 14px;
     }
+
     .brand-badge {
       width: 42px;
       height: 42px;
@@ -102,6 +129,7 @@
       font-size: 22px;
       box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
     }
+
     .brand-title {
       font-family: var(--font-display);
       font-weight: 800;
@@ -110,11 +138,13 @@
       text-transform: uppercase;
       line-height: 1.3;
     }
+
     .brand-title span {
       background: linear-gradient(90deg, #38bdf8, #ec4899);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
+
     .brand-sub {
       font-size: 11px;
       color: var(--text-muted);
@@ -125,6 +155,52 @@
       display: flex;
       align-items: center;
       gap: 12px;
+    }
+
+    /* Player Header Status Badge (When in Player Mode) */
+    .player-header-info {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      font-size: 13px;
+      font-weight: 700;
+      color: #7dd3fc;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .player-status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 10px #10b981;
+      animation: pulseGreen 1.5s infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes pulseGreen {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.4;
+        transform: scale(0.85);
+      }
+    }
+
+    /* HIDE TOP NAV TABS FOR PLAYERS (MOBILE & DESKTOP) & REMOTE */
+    body.role-player .header-nav,
+    body.role-remote .header-nav,
+    .role-player .header-nav {
+      display: none !important;
     }
 
     .nav-btn {
@@ -141,17 +217,28 @@
       background: rgba(255, 255, 255, 0.06);
       color: var(--text-main);
       transition: all 0.25s ease;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+      -webkit-user-select: none;
     }
+
     .nav-btn:hover {
       background: rgba(255, 255, 255, 0.14);
       border-color: rgba(255, 255, 255, 0.3);
       transform: translateY(-1px);
     }
+
+    .nav-btn:active {
+      transform: scale(0.97);
+    }
+
     .nav-btn-presentation {
       background: rgba(56, 189, 248, 0.12);
       border-color: rgba(56, 189, 248, 0.4);
       color: #7dd3fc;
     }
+
     .nav-btn-presentation:hover {
       background: rgba(56, 189, 248, 0.25);
       box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
@@ -176,12 +263,21 @@
       width: 100%;
       animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
+
     .screen-view.active {
       display: block;
     }
+
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(12px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     /* ═══════════════════════════════════════════════
@@ -193,8 +289,34 @@
       gap: 30px;
       align-items: start;
     }
+
     @media (max-width: 1024px) {
-      .lobby-grid { grid-template-columns: 1fr; }
+      .lobby-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+      }
+
+      .lobby-info-card {
+        position: relative !important;
+        top: 0 !important;
+        width: 100%;
+        max-width: 520px;
+        margin: 0 auto;
+        padding: 22px 18px !important;
+      }
+
+      .players-container {
+        width: 100%;
+        min-height: auto !important;
+        padding: 20px 16px !important;
+      }
+
+      .players-header {
+        flex-direction: column;
+        align-items: flex-start !important;
+        gap: 8px;
+      }
     }
 
     .lobby-info-card {
@@ -216,12 +338,13 @@
       border-radius: 24px;
       padding: 24px 20px;
       text-align: center;
-      box-shadow: 0 12px 40px rgba(0,0,0,0.6);
-      border: 2px solid rgba(56,189,248,0.4);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+      border: 2px solid rgba(56, 189, 248, 0.4);
       display: flex;
       flex-direction: column;
       align-items: center;
     }
+
     .qr-heading {
       color: #0284c7;
       font-family: var(--font-display);
@@ -235,6 +358,7 @@
       justify-content: center;
       gap: 8px;
     }
+
     #qrcode-box {
       width: 210px;
       height: 210px;
@@ -242,6 +366,7 @@
       align-items: center;
       justify-content: center;
     }
+
     .qr-guide {
       font-size: 13px;
       color: #334155;
@@ -254,6 +379,7 @@
       flex-direction: column;
       gap: 12px;
     }
+
     .btn-primary-action {
       background: linear-gradient(135deg, #0284c7, #2563eb);
       border: 1px solid rgba(255, 255, 255, 0.3);
@@ -272,6 +398,7 @@
       box-shadow: 0 10px 30px rgba(37, 99, 235, 0.5);
       transition: all 0.25s ease;
     }
+
     .btn-primary-action:hover {
       transform: translateY(-2px);
       box-shadow: 0 14px 40px rgba(37, 99, 235, 0.7);
@@ -293,6 +420,7 @@
       gap: 8px;
       transition: all 0.2s ease;
     }
+
     .btn-secondary-action:hover {
       background: rgba(255, 255, 255, 0.12);
       color: #ffffff;
@@ -320,6 +448,7 @@
       padding-bottom: 16px;
       border-bottom: 1px solid var(--panel-border);
     }
+
     .players-title {
       font-family: var(--font-display);
       font-size: 20px;
@@ -328,6 +457,7 @@
       align-items: center;
       gap: 10px;
     }
+
     .player-counter-badge {
       background: rgba(56, 189, 248, 0.2);
       border: 1px solid rgba(56, 189, 248, 0.5);
@@ -346,6 +476,7 @@
       overflow-y: auto;
       padding-right: 6px;
     }
+
     .player-card {
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.1);
@@ -356,10 +487,19 @@
       gap: 10px;
       animation: popIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
+
     @keyframes popIn {
-      0% { transform: scale(0.8); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
+      0% {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
     }
+
     .player-avatar {
       width: 38px;
       height: 38px;
@@ -374,9 +514,11 @@
       flex-shrink: 0;
       box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
     }
+
     .player-info {
       overflow: hidden;
     }
+
     .player-name {
       font-size: 14px;
       font-weight: 700;
@@ -385,6 +527,7 @@
       text-overflow: ellipsis;
       color: #ffffff;
     }
+
     .player-sub {
       font-size: 11px;
       color: var(--emerald);
@@ -413,6 +556,7 @@
       gap: 12px;
       box-shadow: 0 8px 25px rgba(236, 72, 153, 0.25);
     }
+
     #battle-feed-text {
       font-size: 14.5px;
       font-weight: 700;
@@ -428,12 +572,14 @@
       align-items: center;
       gap: 16px;
     }
+
     .question-counter {
       font-family: var(--font-display);
       font-size: 18px;
       font-weight: 800;
       color: var(--text-sub);
     }
+
     .question-counter strong {
       color: #ffffff;
       font-size: 24px;
@@ -448,16 +594,19 @@
       align-items: center;
       justify-content: center;
     }
+
     .timer-svg {
       width: 76px;
       height: 76px;
       transform: rotate(-90deg);
     }
+
     .timer-circle-bg {
       fill: none;
       stroke: rgba(255, 255, 255, 0.1);
       stroke-width: 6;
     }
+
     .timer-circle-fg {
       fill: none;
       stroke: var(--primary);
@@ -467,6 +616,7 @@
       stroke-dashoffset: 0;
       transition: stroke-dashoffset 0.1s linear, stroke 0.3s ease;
     }
+
     .timer-num {
       position: absolute;
       font-family: var(--font-display);
@@ -487,6 +637,7 @@
       position: relative;
       overflow: hidden;
     }
+
     .question-card::before {
       content: '';
       position: absolute;
@@ -496,6 +647,7 @@
       height: 4px;
       background: linear-gradient(90deg, var(--primary), var(--purple), var(--accent));
     }
+
     .question-tag {
       font-size: 13px;
       font-weight: 800;
@@ -507,6 +659,7 @@
       align-items: center;
       gap: 8px;
     }
+
     .question-text {
       font-family: var(--font-display);
       font-size: 26px;
@@ -515,9 +668,15 @@
       letter-spacing: -0.01em;
       color: #ffffff;
     }
+
     @media (max-width: 768px) {
-      .question-text { font-size: 19px; }
-      .question-card { padding: 22px 20px; }
+      .question-text {
+        font-size: 19px;
+      }
+
+      .question-card {
+        padding: 22px 20px;
+      }
     }
 
     /* 4 Options Grid */
@@ -527,8 +686,12 @@
       gap: 18px;
       margin-bottom: 24px;
     }
+
     @media (max-width: 768px) {
-      .options-grid { grid-template-columns: 1fr; gap: 12px; }
+      .options-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
     }
 
     .option-card {
@@ -544,11 +707,13 @@
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
       user-select: none;
     }
+
     .option-card:hover {
       transform: translateY(-2px);
       border-color: rgba(255, 255, 255, 0.35);
       background: rgba(30, 41, 59, 0.9);
     }
+
     .option-letter {
       width: 44px;
       height: 44px;
@@ -563,10 +728,22 @@
       flex-shrink: 0;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
     }
-    .opt-a .option-letter { background: #ef4444; }
-    .opt-b .option-letter { background: #3b82f6; }
-    .opt-c .option-letter { background: #eab308; }
-    .opt-d .option-letter { background: #10b981; }
+
+    .opt-a .option-letter {
+      background: #ef4444;
+    }
+
+    .opt-b .option-letter {
+      background: #3b82f6;
+    }
+
+    .opt-c .option-letter {
+      background: #eab308;
+    }
+
+    .opt-d .option-letter {
+      background: #10b981;
+    }
 
     .option-content {
       flex: 1;
@@ -582,10 +759,12 @@
       border-color: #10b981 !important;
       box-shadow: 0 0 30px rgba(16, 185, 129, 0.4);
     }
+
     .option-card.wrong-ans {
       opacity: 0.35;
       filter: grayscale(60%);
     }
+
     .option-stat-bar {
       position: absolute;
       left: 0;
@@ -596,13 +775,14 @@
       width: 0%;
       transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
+
     .option-percent-tag {
       font-size: 14px;
       font-weight: 800;
       color: #ffffff;
       padding: 4px 10px;
       border-radius: 8px;
-      background: rgba(0,0,0,0.5);
+      background: rgba(0, 0, 0, 0.5);
       display: none;
     }
 
@@ -614,6 +794,7 @@
       gap: 16px;
       flex-wrap: wrap;
     }
+
     .answers-submitted-badge {
       display: flex;
       align-items: center;
@@ -622,6 +803,7 @@
       font-weight: 700;
       color: var(--text-sub);
     }
+
     .answers-submitted-badge strong {
       color: var(--primary);
       font-size: 18px;
@@ -643,6 +825,7 @@
       display: none;
       animation: fadeIn 0.4s ease;
     }
+
     .mini-lb-header {
       font-family: var(--font-display);
       font-size: 16px;
@@ -653,11 +836,13 @@
       align-items: center;
       justify-content: space-between;
     }
+
     .mini-lb-list {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 10px;
     }
+
     .mini-lb-item {
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.08);
@@ -667,12 +852,14 @@
       align-items: center;
       justify-content: space-between;
     }
+
     .mini-lb-rank {
       font-weight: 900;
       font-size: 13px;
       color: var(--secondary);
       width: 28px;
     }
+
     .mini-lb-name {
       font-size: 13px;
       font-weight: 700;
@@ -681,6 +868,7 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
+
     .mini-lb-score {
       font-family: var(--font-display);
       font-weight: 800;
@@ -695,6 +883,7 @@
       text-align: center;
       padding: 20px 0;
     }
+
     .podium-header-title {
       font-family: var(--font-display);
       font-size: 40px;
@@ -706,6 +895,7 @@
       -webkit-text-fill-color: transparent;
       margin-bottom: 8px;
     }
+
     .podium-sub {
       font-size: 16px;
       color: var(--text-sub);
@@ -735,6 +925,7 @@
       backdrop-filter: blur(20px);
       transition: transform 0.3s ease;
     }
+
     .podium-card:hover {
       transform: translateY(-6px);
     }
@@ -748,15 +939,24 @@
       box-shadow: 0 0 50px rgba(251, 191, 36, 0.3);
       padding-top: 36px;
     }
+
     .podium-rank-1 .crown-icon {
       position: absolute;
       top: -24px;
       font-size: 44px;
       animation: bounceCrown 2s infinite;
     }
+
     @keyframes bounceCrown {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-6px); }
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-6px);
+      }
     }
 
     /* Rank 2 */
@@ -781,6 +981,7 @@
       font-size: 32px;
       margin-bottom: 12px;
     }
+
     .podium-name {
       font-family: var(--font-display);
       font-size: 20px;
@@ -788,12 +989,14 @@
       color: #ffffff;
       margin-bottom: 4px;
     }
+
     .podium-mssv {
       font-size: 13px;
       color: var(--text-muted);
       font-weight: 600;
       margin-bottom: 14px;
     }
+
     .podium-score {
       font-family: var(--font-display);
       font-size: 28px;
@@ -801,6 +1004,7 @@
       color: var(--primary);
       margin-bottom: 14px;
     }
+
     .podium-bonus-tag {
       background: linear-gradient(135deg, #10b981, #059669);
       color: white;
@@ -820,6 +1024,7 @@
       margin-bottom: 40px;
       flex-wrap: wrap;
     }
+
     .sub-rank-card {
       width: 260px;
       background: rgba(15, 23, 42, 0.85);
@@ -831,6 +1036,7 @@
       gap: 14px;
       text-align: left;
     }
+
     .sub-rank-badge {
       font-family: var(--font-display);
       font-size: 18px;
@@ -860,16 +1066,19 @@
       margin: 0 auto;
       text-align: left;
     }
+
     .all-rankings-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
       margin-bottom: 16px;
     }
+
     .all-rankings-table {
       width: 100%;
       border-collapse: collapse;
     }
+
     .all-rankings-table th {
       padding: 10px 14px;
       font-size: 12px;
@@ -880,12 +1089,14 @@
       border-bottom: 1px solid var(--panel-border);
       text-align: left;
     }
+
     .all-rankings-table td {
       padding: 12px 14px;
       font-size: 14px;
       font-weight: 600;
       border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     }
+
     .all-rankings-table tr:hover td {
       background: rgba(255, 255, 255, 0.03);
     }
@@ -898,6 +1109,7 @@
       margin: 0 auto;
       width: 100%;
     }
+
     .mobile-card {
       background: var(--panel-bg);
       border: 1px solid var(--panel-border);
@@ -915,6 +1127,7 @@
       text-align: left;
       margin-bottom: 20px;
     }
+
     .input-field-group label {
       font-size: 13px;
       font-weight: 800;
@@ -922,6 +1135,7 @@
       text-transform: uppercase;
       letter-spacing: 0.04em;
     }
+
     .mobile-input {
       background: rgba(0, 0, 0, 0.45);
       border: 1.5px solid var(--panel-border);
@@ -933,6 +1147,7 @@
       outline: none;
       transition: border-color 0.2s, box-shadow 0.2s;
     }
+
     .mobile-input:focus {
       border-color: var(--primary);
       box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
@@ -947,6 +1162,7 @@
       gap: 14px;
       margin: 20px 0;
     }
+
     .mystery-chest-btn {
       flex: 1;
       background: linear-gradient(180deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95));
@@ -962,16 +1178,27 @@
       transition: all 0.25s ease;
       animation: chestPulse 2s infinite alternate;
     }
+
     .mystery-chest-btn:hover {
       transform: translateY(-4px) scale(1.04);
       border-color: #fbbf24;
       box-shadow: 0 14px 35px rgba(251, 191, 36, 0.5);
     }
+
     @keyframes chestPulse {
-      0% { transform: scale(1); }
-      100% { transform: scale(1.03); }
+      0% {
+        transform: scale(1);
+      }
+
+      100% {
+        transform: scale(1.03);
+      }
     }
-    .chest-icon { font-size: 38px; }
+
+    .chest-icon {
+      font-size: 38px;
+    }
+
     .chest-label {
       font-size: 12px;
       font-weight: 800;
@@ -989,6 +1216,7 @@
       margin-top: 18px;
       animation: popIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
+
     .action-btn-choice {
       width: 100%;
       background: linear-gradient(135deg, #0284c7, #2563eb);
@@ -1023,6 +1251,7 @@
       box-shadow: 0 8px 25px rgba(244, 63, 94, 0.4);
       text-align: left;
     }
+
     .player-q-box {
       background: rgba(15, 23, 42, 0.95);
       border: 1.5px solid rgba(56, 189, 248, 0.35);
@@ -1032,6 +1261,7 @@
       text-align: left;
       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
     }
+
     .player-q-header {
       display: flex;
       align-items: center;
@@ -1040,6 +1270,7 @@
       padding-bottom: 6px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
+
     .player-q-num-badge {
       font-family: var(--font-display);
       font-size: 12px;
@@ -1047,6 +1278,7 @@
       color: var(--secondary);
       letter-spacing: 0.04em;
     }
+
     .player-timer-chip {
       display: inline-flex;
       align-items: center;
@@ -1060,6 +1292,7 @@
       font-weight: 800;
       color: #38bdf8;
     }
+
     .player-timer-bar-track {
       width: 100%;
       height: 5px;
@@ -1068,6 +1301,7 @@
       overflow: hidden;
       margin-bottom: 10px;
     }
+
     .player-timer-bar-fill {
       height: 100%;
       background: linear-gradient(90deg, #38bdf8, #10b981);
@@ -1075,6 +1309,7 @@
       transition: width 1s linear, background-color 0.3s ease;
       border-radius: 6px;
     }
+
     .player-q-title {
       font-family: var(--font-display);
       font-size: 15.5px;
@@ -1090,12 +1325,14 @@
       gap: 10px;
       margin-bottom: 14px;
     }
+
     .player-option-card {
       width: 100%;
-      background: rgba(15, 23, 42, 0.88);
+      background: rgba(15, 23, 42, 0.92);
       border: 1.5px solid rgba(255, 255, 255, 0.14);
-      border-radius: 16px;
-      padding: 12px 14px;
+      border-radius: 18px;
+      padding: 12px 16px;
+      min-height: 60px;
       display: flex;
       align-items: center;
       gap: 12px;
@@ -1106,49 +1343,90 @@
       overflow: hidden;
       color: var(--text-main);
       font-family: inherit;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
     }
+
+    .player-option-card.player-opt-a {
+      border-color: rgba(239, 68, 68, 0.45);
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.14), rgba(15, 23, 42, 0.95));
+    }
+
+    .player-option-card.player-opt-b {
+      border-color: rgba(14, 165, 233, 0.45);
+      background: linear-gradient(135deg, rgba(14, 165, 233, 0.14), rgba(15, 23, 42, 0.95));
+    }
+
+    .player-option-card.player-opt-c {
+      border-color: rgba(245, 158, 11, 0.45);
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.14), rgba(15, 23, 42, 0.95));
+    }
+
+    .player-option-card.player-opt-d {
+      border-color: rgba(16, 185, 129, 0.45);
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.14), rgba(15, 23, 42, 0.95));
+    }
+
     .player-option-card:hover:not(:disabled) {
-      background: rgba(30, 41, 59, 0.95);
-      border-color: rgba(255, 255, 255, 0.3);
       transform: translateY(-2px);
+      filter: brightness(1.08);
     }
+
     .player-option-card:active:not(:disabled) {
-      transform: scale(0.98);
+      transform: scale(0.96);
     }
+
     .player-option-card.selected {
       border-color: #38bdf8 !important;
-      background: rgba(56, 189, 248, 0.2) !important;
-      box-shadow: 0 0 20px rgba(56, 189, 248, 0.35);
+      background: rgba(56, 189, 248, 0.25) !important;
+      box-shadow: 0 0 25px rgba(56, 189, 248, 0.4);
     }
+
     .player-option-card.correct-ans {
-      background: rgba(16, 185, 129, 0.28) !important;
+      background: rgba(16, 185, 129, 0.32) !important;
       border-color: #10b981 !important;
-      box-shadow: 0 0 25px rgba(16, 185, 129, 0.45);
+      box-shadow: 0 0 28px rgba(16, 185, 129, 0.5);
       opacity: 1 !important;
     }
+
     .player-option-card.wrong-ans {
       background: rgba(239, 68, 68, 0.25) !important;
       border-color: #ef4444 !important;
-      opacity: 0.7;
+      opacity: 0.6;
     }
+
     .player-opt-badge {
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-family: var(--font-display);
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 900;
       color: #ffffff;
       flex-shrink: 0;
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.35);
+      gap: 3px;
     }
-    .player-opt-a .player-opt-badge { background: #ef4444; }
-    .player-opt-b .player-opt-badge { background: #3b82f6; }
-    .player-opt-c .player-opt-badge { background: #eab308; }
-    .player-opt-d .player-opt-badge { background: #10b981; }
+
+    .player-opt-a .player-opt-badge {
+      background: linear-gradient(135deg, #ef4444, #b91c1c);
+    }
+
+    .player-opt-b .player-opt-badge {
+      background: linear-gradient(135deg, #0ea5e9, #0284c7);
+    }
+
+    .player-opt-c .player-opt-badge {
+      background: linear-gradient(135deg, #f59e0b, #b45309);
+    }
+
+    .player-opt-d .player-opt-badge {
+      background: linear-gradient(135deg, #10b981, #059669);
+    }
 
     .player-opt-text {
       flex: 1;
@@ -1157,6 +1435,7 @@
       line-height: 1.45;
       color: var(--text-main);
     }
+
     .player-opt-status {
       font-size: 16px;
       font-weight: 800;
@@ -1175,6 +1454,7 @@
       text-align: center;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
     }
+
     .modal-backdrop {
       position: fixed;
       inset: 0;
@@ -1189,10 +1469,12 @@
       pointer-events: none;
       transition: opacity 0.25s ease;
     }
+
     .modal-backdrop.active {
       opacity: 1;
       pointer-events: auto;
     }
+
     .modal-card {
       position: relative;
       background: rgba(15, 23, 42, 0.95);
@@ -1205,9 +1487,11 @@
       text-align: center;
       animation: popIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
+
     .pin-input-group {
       margin: 20px 0;
     }
+
     .pin-code-input {
       background: rgba(0, 0, 0, 0.6);
       border: 2px solid rgba(56, 189, 248, 0.5);
@@ -1224,10 +1508,12 @@
       box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
       transition: all 0.2s ease;
     }
+
     .pin-code-input:focus {
       border-color: #38bdf8;
       box-shadow: 0 0 25px rgba(56, 189, 248, 0.5);
     }
+
     .modal-close-btn {
       position: absolute;
       top: 16px;
@@ -1245,117 +1531,211 @@
       font-size: 16px;
       transition: background 0.2s ease;
     }
+
     .modal-close-btn:hover {
       background: rgba(255, 255, 255, 0.25);
     }
 
+
+
     /* ═══════════════════════════════════════════════
-       MOBILE HOST REMOTE CONTROLLER VIEW
+       MOBILE & RESPONSIVE INTERFACE ENHANCEMENTS
        ═══════════════════════════════════════════════ */
-    .remote-wrap {
-      max-width: 480px;
-      margin: 0 auto;
-      width: 100%;
+    .waiting-shield-badge {
+      font-size: 52px;
+      margin-bottom: 12px;
+      display: inline-block;
+      animation: floatShield 3s ease-in-out infinite;
+      filter: drop-shadow(0 6px 20px rgba(56, 189, 248, 0.4));
     }
-    .remote-card {
-      background: var(--panel-bg);
-      border: 1px solid var(--panel-border);
-      border-radius: 24px;
-      padding: 24px 20px;
-      backdrop-filter: blur(24px);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
-      text-align: center;
+
+    @keyframes floatShield {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-8px);
+      }
     }
-    .remote-header-box {
-      background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95));
-      border: 2px solid #a855f7;
-      border-radius: 20px;
-      padding: 16px;
-      text-align: center;
-      margin-bottom: 16px;
-      box-shadow: 0 10px 30px rgba(168, 85, 247, 0.25);
-    }
-    .remote-status-pill {
+
+    .waiting-conn-pill {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      padding: 5px 14px;
+      gap: 8px;
+      padding: 6px 16px;
       border-radius: 999px;
-      background: rgba(16, 185, 129, 0.2);
-      border: 1px solid #10b981;
-      color: #10b981;
-      font-size: 12px;
-      font-weight: 800;
-      margin-top: 8px;
-    }
-    .remote-stat-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-bottom: 16px;
-    }
-    .remote-stat-tile {
-      background: rgba(15, 23, 42, 0.85);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 16px;
-      padding: 12px;
-      text-align: center;
-    }
-    .remote-stat-val {
-      font-family: var(--font-display);
-      font-size: 24px;
-      font-weight: 900;
-      color: #38bdf8;
-    }
-    .remote-stat-lbl {
-      font-size: 11px;
-      color: var(--text-muted);
-      text-transform: uppercase;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      color: #34d399;
+      font-size: 13px;
       font-weight: 700;
-      margin-top: 2px;
+      margin-bottom: 18px;
     }
-    .remote-big-btn {
-      width: 100%;
-      border: none;
+
+    .waiting-info-box {
+      background: rgba(56, 189, 248, 0.08);
+      border: 1.5px solid rgba(56, 189, 248, 0.3);
       border-radius: 18px;
-      padding: 20px 18px;
-      font-family: var(--font-display);
-      font-size: 18px;
-      font-weight: 900;
-      color: #fff;
-      cursor: pointer;
+      padding: 18px;
+      margin-bottom: 18px;
+      box-shadow: inset 0 0 20px rgba(56, 189, 248, 0.05);
+    }
+
+    .waiting-live-pulse {
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 6px;
-      margin-bottom: 14px;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-      user-select: none;
+      gap: 10px;
+      padding: 6px 0;
     }
-    .remote-big-btn:active {
-      transform: scale(0.96);
+
+    #qrcode-box img,
+    #qrcode-box canvas {
+      max-width: 100% !important;
+      height: auto !important;
     }
-    .remote-btn-start {
-      background: linear-gradient(135deg, #059669, #10b981);
-      border: 2px solid #34d399;
-      box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4);
+
+    @media (max-width: 900px) {
+      header {
+        padding: 10px 14px;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .header-nav {
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+
+      .nav-btn {
+        padding: 6px 12px;
+        font-size: 12px;
+      }
     }
-    .remote-btn-reveal {
-      background: linear-gradient(135deg, #d97706, #f59e0b);
-      border: 2px solid #fde047;
-      box-shadow: 0 10px 30px rgba(245, 158, 11, 0.4);
-    }
-    .remote-btn-next {
-      background: linear-gradient(135deg, #0284c7, #38bdf8);
-      border: 2px solid #7dd3fc;
-      box-shadow: 0 10px 30px rgba(56, 189, 248, 0.4);
-    }
-    .remote-btn-restart {
-      background: linear-gradient(135deg, #6366f1, #8b5cf6);
-      border: 2px solid #a78bfa;
-      box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+
+    @media (max-width: 768px) {
+      header {
+        padding: 10px 14px;
+        padding-top: max(10px, env(safe-area-inset-top));
+        padding-left: max(14px, env(safe-area-inset-left));
+        padding-right: max(14px, env(safe-area-inset-right));
+      }
+
+      .brand-group {
+        gap: 10px;
+      }
+
+      .brand-badge {
+        width: 36px;
+        height: 36px;
+        font-size: 18px;
+        border-radius: 10px;
+      }
+
+      .brand-title {
+        font-size: 14.5px;
+      }
+
+      .brand-sub {
+        font-size: 10px;
+      }
+
+      main {
+        padding: 12px 10px 24px 10px;
+        padding-bottom: max(24px, env(safe-area-inset-bottom));
+        padding-left: max(10px, env(safe-area-inset-left));
+        padding-right: max(10px, env(safe-area-inset-right));
+      }
+
+      .player-mobile-wrap {
+        max-width: 100%;
+      }
+
+      .mobile-card {
+        padding: 22px 16px;
+        border-radius: 20px;
+      }
+
+      .mobile-input {
+        font-size: 16px;
+        padding: 14px 16px;
+      }
+
+      .player-q-box {
+        padding: 14px;
+        border-radius: 16px;
+      }
+
+      .player-q-title {
+        font-size: 15px;
+      }
+
+      .player-option-card {
+        padding: 12px 14px;
+        min-height: 52px;
+      }
+
+      .chests-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin: 16px 0;
+      }
+
+      .mystery-chest-btn {
+        padding: 14px 6px;
+        border-radius: 16px;
+      }
+
+      .chest-icon {
+        font-size: 32px;
+      }
+
+      /* Ensure no tabs for players on mobile */
+      body:has(#screen-player.active) .header-nav,
+      body:has(#screen-host-remote.active) .header-nav {
+        display: none !important;
+      }
+
+      .podium-header-title {
+        font-size: 24px;
+      }
+
+      .podium-sub {
+        font-size: 13.5px;
+        margin-bottom: 24px;
+      }
+
+      .podium-layout {
+        gap: 14px;
+      }
+
+      .podium-rank-1,
+      .podium-rank-2,
+      .podium-rank-3 {
+        width: 100%;
+        max-width: 330px;
+      }
+
+      .podium-rank-1 {
+        order: 1;
+      }
+
+      .podium-rank-2 {
+        order: 2;
+      }
+
+      .podium-rank-3 {
+        order: 3;
+      }
+
+      .sub-rank-card {
+        width: 100%;
+        max-width: 330px;
+      }
     }
 
     #confetti-canvas {
@@ -1366,6 +1746,7 @@
     }
   </style>
 </head>
+
 <body>
   <div class="cyber-backdrop"></div>
   <div class="glow-sphere glow-1"></div>
@@ -1382,19 +1763,18 @@
       </div>
     </div>
 
+    <!-- Live Player Badge (Only on Player Mobile View) -->
+    <div class="player-header-info" id="player-header-info" style="display:none;">
+      <span class="player-status-dot"></span>
+      <span id="player-header-name">Đấu Thủ</span>
+    </div>
+
     <div class="header-nav">
-      <button class="nav-btn" id="btn-fullscreen-toggle" onclick="toggleFullscreen()" title="Chiếu toàn màn hình không viền cho máy chiếu (Phím tắt: F hoặc F11)">
+      <button class="nav-btn" id="btn-fullscreen-toggle" onclick="toggleFullscreen()"
+        title="Chiếu toàn màn hình không viền cho máy chiếu (Phím tắt: F hoặc F11)">
         🖥️ Toàn Màn Hình
       </button>
 
-      <button class="nav-btn" id="btn-host-remote-qr" onclick="openRemoteQRModal()" style="display:none;" title="Mở mã QR Remote để điều khiển bằng điện thoại cá nhân của bạn">
-        📱 Remote MC
-      </button>
-
-      <button class="nav-btn" id="btn-toggle-role" onclick="toggleRole()" title="Chuyển chế độ xem Host máy chiếu / Player điện thoại">
-        🔒 Chuyển Máy Chiếu / ĐT
-      </button>
-      
       <button class="nav-btn" id="btn-audio-toggle" onclick="toggleAudio()" title="Bật/Tắt âm thanh Web Audio (Phím M)">
         🔊 Âm Thanh: BẬT
       </button>
@@ -1409,7 +1789,7 @@
     <!-- ═══════════════════════════════════════════════
          SCREEN 1: HOST LOBBY (SẢNH ĐÓN MÁY CHIẾU)
          ═══════════════════════════════════════════════ -->
-    <section id="screen-host-lobby" class="screen-view active">
+    <section id="screen-host-lobby" class="screen-view">
       <div class="lobby-grid">
         <!-- Left: QR Code & Start Controls (QUÉT LÀ VÀO PLAYER) -->
         <div class="lobby-info-card">
@@ -1421,37 +1801,17 @@
             <div class="qr-guide">Dùng camera điện thoại quét để vào đấu trường ngay</div>
           </div>
 
-          <!-- Controls when Host is Authenticated on this Screen -->
-          <div class="lobby-actions" id="lobby-actions-host" style="display:none;">
+          <!-- Controls for Host -->
+          <div class="lobby-actions" id="lobby-actions-host">
             <button class="btn-primary-action" id="btn-start-game-main" onclick="startGame()">
               <span>🚀</span> BẮT ĐẦU ĐẠI CHIẾN (30 CÂU)
-            </button>
-            <button class="btn-secondary-action" onclick="openRemoteQRModal()">
-              <span>📱</span> Mở Remote Điện Thoại (QR Riêng Cho MC)
             </button>
             <button class="btn-secondary-action" onclick="copyJoinLink()">
               <span>🔗</span> Sao Chép Link Tham Gia Cho Lớp
             </button>
             <button class="btn-secondary-action" onclick="cycleTimerOption()">
-              <span>⏱️</span> Thời Gian Mỗi Câu: <strong id="timer-setting-label" style="margin-left:4px;color:var(--primary)">20s</strong>
-            </button>
-          </div>
-
-          <!-- Controls when Screen is in Display-Only Mode (Waiting for Host) -->
-          <div class="lobby-actions" id="lobby-actions-display-only">
-            <div class="host-lock-banner">
-              <div style="font-family:var(--font-display);font-size:16px;font-weight:900;color:var(--primary);margin-bottom:4px;">
-                📺 MÀN HÌNH MÁY CHIẾU LỚP HỌC
-              </div>
-              <div style="font-size:13px;color:var(--text-sub);line-height:1.5;">
-                Đang chờ MC bấm <strong style="color:#10b981;">[Bắt Đầu Game]</strong> từ Remote điện thoại...
-              </div>
-            </div>
-            <button class="btn-primary-action" onclick="promptHostPIN(onHostAuthSuccess)">
-              <span>🔑</span> Mở Khóa Quyền Host Máy Này
-            </button>
-            <button class="btn-secondary-action" onclick="copyJoinLink()">
-              <span>🔗</span> Sao Chép Đường Link Cho Lớp
+              <span>⏱️</span> Thời Gian Mỗi Câu: <strong id="timer-setting-label"
+                style="margin-left:4px;color:var(--primary)">20s</strong>
             </button>
           </div>
         </div>
@@ -1463,7 +1823,7 @@
               <span>ĐẤU THỦ ĐÃ SẴN SÀNG</span>
               <span class="player-counter-badge" id="player-counter">0 / 60</span>
             </div>
-            <div style="font-size:13px;color:var(--text-muted)">
+            <div style="font-size:12.5px;color:var(--text-muted);line-height:1.4;">
               Dữ liệu thời gian thực · Cướp & Đổi điểm sau mỗi câu đúng
             </div>
           </div>
@@ -1480,7 +1840,8 @@
          ═══════════════════════════════════════════════ -->
     <section id="screen-host-arena" class="screen-view">
       <div class="arena-topbar">
-        <div style="display:inline-flex;align-items:center;gap:8px;padding:8px 20px;border-radius:999px;background:rgba(236,72,153,0.15);border:1px solid rgba(236,72,153,0.4);color:#f472b6;font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:0.04em;">
+        <div
+          style="display:inline-flex;align-items:center;gap:8px;padding:8px 20px;border-radius:999px;background:rgba(236,72,153,0.15);border:1px solid rgba(236,72,153,0.4);color:#f472b6;font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:0.04em;">
           <span>⚔️</span> ĐẠI CHIẾN CƯỚP & ĐỔI ĐIỂM
         </div>
 
@@ -1597,7 +1958,9 @@
           <div class="podium-name" id="pod-name-1">Đang tính...</div>
           <div class="podium-mssv" id="pod-mssv-1">Quán Quân Ma Trận</div>
           <div class="podium-score" id="pod-score-1">0 pts</div>
-          <div class="podium-bonus-tag" style="background:linear-gradient(135deg,#f59e0b,#ef4444);font-size:15px;padding:8px 24px;">BONUS +2.0 ĐIỂM QUÁN QUÂN</div>
+          <div class="podium-bonus-tag"
+            style="background:linear-gradient(135deg,#f59e0b,#ef4444);font-size:15px;padding:8px 24px;">BONUS +2.0 ĐIỂM
+            QUÁN QUÂN</div>
         </div>
 
         <!-- Rank 3: Bronze -->
@@ -1616,7 +1979,8 @@
           <div class="sub-rank-badge">#4</div>
           <div>
             <div style="font-weight:800;color:#fff;" id="pod-name-4">Hạng 4</div>
-            <div style="font-size:12px;color:var(--text-muted);" id="pod-mssv-4"><span id="pod-score-4">0</span> pts</div>
+            <div style="font-size:12px;color:var(--text-muted);" id="pod-mssv-4"><span id="pod-score-4">0</span> pts
+            </div>
             <div style="color:#10b981;font-size:12px;font-weight:700;margin-top:2px;">Bonus +1.0 Điểm</div>
           </div>
         </div>
@@ -1625,7 +1989,8 @@
           <div class="sub-rank-badge">#5</div>
           <div>
             <div style="font-weight:800;color:#fff;" id="pod-name-5">Hạng 5</div>
-            <div style="font-size:12px;color:var(--text-muted);" id="pod-mssv-5"><span id="pod-score-5">0</span> pts</div>
+            <div style="font-size:12px;color:var(--text-muted);" id="pod-mssv-5"><span id="pod-score-5">0</span> pts
+            </div>
             <div style="color:#10b981;font-size:12px;font-weight:700;margin-top:2px;">Bonus +1.0 Điểm</div>
           </div>
         </div>
@@ -1676,27 +2041,51 @@
       <!-- Login / Join step (KHÔNG CẦN PIN) -->
       <div id="player-join-card" class="mobile-card">
         <div style="font-size:42px;margin-bottom:12px;">🎮</div>
-        <div style="font-family:var(--font-display);font-size:24px;font-weight:800;margin-bottom:6px;">THAM GIA ĐẤU TRƯỜNG</div>
-        <div style="font-size:13.5px;color:var(--text-sub);margin-bottom:24px;line-height:1.5;">Đặt biệt danh của bạn để vào thi đấu và nhận điểm thưởng Bonus</div>
+        <div style="font-family:var(--font-display);font-size:22px;font-weight:800;margin-bottom:6px;">THAM GIA ĐẤU
+          TRƯỜNG</div>
+        <div style="font-size:13px;color:var(--text-sub);margin-bottom:20px;line-height:1.5;">Đặt biệt danh của bạn để
+          vào thi đấu và nhận điểm thưởng Bonus</div>
 
         <div class="input-field-group">
           <label>Biệt Danh / Nickname Của Bạn</label>
-          <input type="text" id="player-input-nickname" class="mobile-input" placeholder="Nhập biệt danh (VD: An SE123, Sonic, Mai...)" maxlength="28" autofocus>
+          <input type="text" id="player-input-nickname" class="mobile-input" placeholder="Nhập biệt danh" maxlength="28"
+            autofocus onkeydown="if(event.key==='Enter') handlePlayerJoin()">
         </div>
 
-        <button class="btn-primary-action" style="width:100%;margin-top:14px;padding:16px;" onclick="handlePlayerJoin()">
+        <button class="btn-primary-action" style="width:100%;margin-top:10px;padding:15px;"
+          onclick="handlePlayerJoin()">
           <span>VÀO PHÒNG CHIẾN ĐẤU</span> ➔
         </button>
+
+        <div style="margin-top:20px;padding-top:14px;border-top:1px dashed rgba(255,255,255,0.1);text-align:center;">
+          <a href="javascript:void(0)" onclick="promptHostPasscode()"
+            style="font-size:12px;color:#64748b;text-decoration:none;transition:color 0.2s;"
+            onmouseover="this.style.color='#38bdf8'" onmouseout="this.style.color='#64748b'">
+            🖥️ Mở Giao Diện Máy Chiếu (Dành cho Người Thuyết Trình)
+          </a>
+        </div>
       </div>
 
       <!-- Player Waiting in Room -->
       <div id="player-waiting-card" class="mobile-card" style="display:none">
-        <div style="font-size:48px;margin-bottom:12px;">🛡️</div>
-        <div style="font-family:var(--font-display);font-size:24px;font-weight:800;color:var(--primary)" id="player-greet-name">Xin chào!</div>
-        <div style="font-size:14px;color:var(--secondary);font-weight:700;margin-bottom:20px;">Trạng thái: Đã kết nối vào đấu trường</div>
-        <div style="background:rgba(56,189,248,0.1);border:1px solid rgba(56,189,248,0.3);border-radius:16px;padding:18px;margin-bottom:20px;">
-          <div style="font-weight:700;color:#fff;margin-bottom:6px;font-size:15px;">SẴN SÀNG CHIẾN ĐẤU!</div>
-          <div style="font-size:13.5px;color:var(--text-sub);line-height:1.6;">Toàn bộ 30 câu hỏi, 4 đáp án đầy đủ và Rương Ma Trận sẽ hiển thị trực tiếp ngay trên màn hình này khi MC bắt đầu!</div>
+        <div class="waiting-shield-badge">🛡️</div>
+        <div style="font-family:var(--font-display);font-size:24px;font-weight:800;color:var(--primary)"
+          id="player-greet-name">Xin chào!</div>
+        <div class="waiting-conn-pill">
+          <span class="player-status-dot"></span>
+          <span>Đã kết nối vào đấu trường</span>
+        </div>
+        <div class="waiting-info-box">
+          <div
+            style="font-weight:800;color:#fff;margin-bottom:6px;font-size:15px;display:flex;align-items:center;justify-content:center;gap:6px;">
+            <span>⚡</span> SẴN SÀNG CHIẾN ĐẤU!
+          </div>
+          <div style="font-size:13px;color:var(--text-sub);line-height:1.6;">Toàn bộ 30 câu hỏi, 4 đáp án đầy đủ và
+            Rương Ma Trận sẽ hiển thị trực tiếp ngay trên màn hình này khi MC bắt đầu!</div>
+        </div>
+        <div class="waiting-live-pulse">
+          <span style="font-size:12.5px;color:var(--text-muted);font-weight:600;">⏳ Đang chờ MC bấm bắt đầu trên máy
+            chiếu...</span>
         </div>
       </div>
 
@@ -1753,13 +2142,16 @@
         </div>
 
         <!-- Feedback Message -->
-        <div id="player-feedback-msg" style="margin:12px 0;font-size:14px;font-weight:700;min-height:26px;color:var(--text-sub);line-height:1.5;">
+        <div id="player-feedback-msg"
+          style="margin:12px 0;font-size:14px;font-weight:700;min-height:26px;color:var(--text-sub);line-height:1.5;">
           Chọn nhanh đáp án đúng để tích điểm và mở Rương Bí Ẩn!
         </div>
 
         <!-- 3 MYSTERY CHESTS MODAL (XUẤT HIỆN TRÊN ĐIỆN THOẠI KHI TRẢ LỜI ĐÚNG) -->
-        <div id="player-chests-modal" style="display:none;margin-top:16px;padding-top:16px;border-top:1.5px dashed rgba(255,255,255,0.2);">
-          <div style="font-family:var(--font-display);font-size:16px;font-weight:900;color:var(--secondary);margin-bottom:4px;">
+        <div id="player-chests-modal"
+          style="display:none;margin-top:16px;padding-top:16px;border-top:1.5px dashed rgba(255,255,255,0.2);">
+          <div
+            style="font-family:var(--font-display);font-size:16px;font-weight:900;color:var(--secondary);margin-bottom:4px;">
             🎁 CHỌN 1 TRONG 3 RƯƠNG BÍ ẨN
           </div>
           <div style="font-size:13px;color:var(--text-sub);margin-bottom:14px;">
@@ -1791,19 +2183,25 @@
       <!-- Player Game Finish Card -->
       <div id="player-finish-card" class="mobile-card" style="display:none;padding:24px 20px;">
         <div style="font-size:52px;margin-bottom:10px;">🏆</div>
-        <div style="font-family:var(--font-display);font-size:24px;font-weight:900;color:var(--secondary);margin-bottom:6px;">
+        <div
+          style="font-family:var(--font-display);font-size:24px;font-weight:900;color:var(--secondary);margin-bottom:6px;">
           HOÀN THÀNH 30 CÂU!
         </div>
         <div style="font-size:14px;color:var(--text-sub);margin-bottom:18px;">
           Đấu trường MLN131 đã chính thức kết thúc
         </div>
 
-        <div style="background:rgba(56,189,248,0.1);border:1.5px solid rgba(56,189,248,0.3);border-radius:18px;padding:18px;margin-bottom:18px;">
-          <div style="font-size:12px;color:var(--text-sub);text-transform:uppercase;letter-spacing:0.04em;">Vị Trí Chung Cuộc Của Bạn</div>
-          <div style="font-family:var(--font-display);font-size:36px;font-weight:900;color:#fff;margin:6px 0;" id="player-final-rank">
+        <div
+          style="background:rgba(56,189,248,0.1);border:1.5px solid rgba(56,189,248,0.3);border-radius:18px;padding:18px;margin-bottom:18px;">
+          <div style="font-size:12px;color:var(--text-sub);text-transform:uppercase;letter-spacing:0.04em;">Vị Trí Chung
+            Cuộc Của Bạn</div>
+          <div style="font-family:var(--font-display);font-size:36px;font-weight:900;color:#fff;margin:6px 0;"
+            id="player-final-rank">
             HẠNG #1
           </div>
-          <div style="font-family:var(--font-display);font-size:20px;font-weight:800;color:var(--primary);margin-bottom:8px;" id="player-final-score">
+          <div
+            style="font-family:var(--font-display);font-size:20px;font-weight:800;color:var(--primary);margin-bottom:8px;"
+            id="player-final-score">
             0 pts
           </div>
           <div style="font-size:13px;color:var(--text-sub);margin-bottom:10px;" id="player-final-correct">
@@ -1814,134 +2212,49 @@
           </div>
         </div>
 
-        <div style="font-family:var(--font-display);font-size:15px;font-weight:800;color:#ffffff;margin-bottom:10px;text-align:left;">
+        <div
+          style="font-family:var(--font-display);font-size:15px;font-weight:800;color:#ffffff;margin-bottom:10px;text-align:left;">
           👑 VINH DANH TOP 5 ĐẠT BONUS
         </div>
-        <div id="player-mobile-top5-list" style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px;text-align:left;">
+        <div id="player-mobile-top5-list"
+          style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px;text-align:left;">
           <!-- Populated dynamically -->
         </div>
       </div>
     </section>
 
     <!-- ═══════════════════════════════════════════════
-         SCREEN 5: HOST REMOTE CONTROLLER (ĐIỀU KHIỂN TỪ XA TRÊN ĐT CỦA MC)
+         MODAL: HOST PASSCODE AUTHENTICATION
          ═══════════════════════════════════════════════ -->
-    <section id="screen-host-remote" class="screen-view remote-wrap">
-      <div class="remote-card">
-        <div class="remote-header-box">
-          <div style="font-size:38px;margin-bottom:6px;">🕹️</div>
-          <div style="font-family:var(--font-display);font-size:20px;font-weight:900;color:#fff;">
-            REMOTE ĐIỀU KHIỂN MC
-          </div>
-          <div style="font-size:12.5px;color:var(--text-sub);margin-top:2px;">
-            MLN131 · Điều khiển máy chiếu không dây
-          </div>
-          <div class="remote-status-pill" id="remote-conn-status">
-            <span>🟢</span> Đã kết nối Máy Chiếu
-          </div>
-        </div>
-
-        <!-- Live Stats on Phone -->
-        <div class="remote-stat-grid">
-          <div class="remote-stat-tile">
-            <div class="remote-stat-val" id="remote-stat-q">01/30</div>
-            <div class="remote-stat-lbl">Câu hỏi</div>
-          </div>
-          <div class="remote-stat-tile">
-            <div class="remote-stat-val" id="remote-stat-timer">20s</div>
-            <div class="remote-stat-lbl">Đồng hồ</div>
-          </div>
-          <div class="remote-stat-tile">
-            <div class="remote-stat-val" id="remote-stat-submitted">0 / 0</div>
-            <div class="remote-stat-lbl">Đã nộp bài</div>
-          </div>
-          <div class="remote-stat-tile">
-            <div class="remote-stat-val" id="remote-stat-top1" style="font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">-</div>
-            <div class="remote-stat-lbl">Top 1 Tạm thời</div>
-          </div>
-        </div>
-
-        <!-- Dynamic Context-Aware Action Buttons -->
-        <div id="remote-actions-box">
-          <button class="remote-big-btn remote-btn-start" id="remote-btn-start" onclick="sendRemoteCmd('START')">
-            <span>🚀 BẮT ĐẦU ĐẠI CHIẾN</span>
-            <span style="font-size:12px;font-weight:600;opacity:0.9;">Bấm để kích hoạt 30 câu trên máy chiếu</span>
-          </button>
-
-          <button class="remote-big-btn remote-btn-reveal" id="remote-btn-reveal" onclick="sendRemoteCmd('REVEAL')" style="display:none;">
-            <span>💡 HIỆN ĐÁP ÁN & MỞ RƯƠNG</span>
-            <span style="font-size:12px;font-weight:600;opacity:0.9;">Chốt giờ và mở kho báu cướp/đổi điểm</span>
-          </button>
-
-          <button class="remote-big-btn remote-btn-next" id="remote-btn-next" onclick="sendRemoteCmd('NEXT')" style="display:none;">
-            <span>TIẾP THEO ➔</span>
-            <span style="font-size:12px;font-weight:600;opacity:0.9;" id="remote-next-subtext">Chuyển sang câu hỏi kế tiếp</span>
-          </button>
-
-          <button class="remote-big-btn remote-btn-restart" id="remote-btn-restart" onclick="sendRemoteCmd('RESTART')" style="display:none;">
-            <span>🔄 CHƠI LẠI TRẬN MỚI</span>
-            <span style="font-size:12px;font-weight:600;opacity:0.9;">Khởi động lại đấu trường</span>
-          </button>
-        </div>
-
-        <div style="margin-top:16px;font-size:12px;color:var(--text-muted);line-height:1.5;">
-          💡 Bạn có thể tự do đi lại trong lớp. Mỗi nút bạn chạm trên màn hình này sẽ kích hoạt máy chiếu ngay lập tức!
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══════════════════════════════════════════════
-         MODAL 1: HOST PIN AUTHENTICATION (MÃ 111)
-         ═══════════════════════════════════════════════ -->
-    <div id="modal-host-pin" class="modal-backdrop">
+    <div id="modal-host-passcode" class="modal-backdrop">
       <div class="modal-card">
-        <button class="modal-close-btn" onclick="closeHostPINModal()">✕</button>
-        <div style="font-size:42px;margin-bottom:8px;">🔒</div>
+        <button class="modal-close-btn" onclick="closeHostPasscodeModal()">✕</button>
+        <div style="font-size:42px;margin-bottom:8px;">📺</div>
         <div style="font-family:var(--font-display);font-size:20px;font-weight:900;color:#fff;margin-bottom:6px;">
-          XÁC THỰC QUẢN TRỊ HOST
+          KÍCH HOẠT MÁY CHIẾU HOST
         </div>
         <div style="font-size:13.5px;color:var(--text-sub);line-height:1.5;">
-          Nhập mã PIN bí mật của nhóm bạn để mở khóa quyền Host và bấm Bắt đầu trên máy này.
+          Nhập mã bảo vệ Host của nhóm bạn để mở giao diện Máy Chiếu trên thiết bị này:
+        </div>
+        <div
+          style="font-size:12px;color:var(--text-muted);margin-top:6px;background:rgba(255,255,255,0.05);padding:6px 12px;border-radius:8px;border:1px dashed rgba(255,255,255,0.15);">
+          💡 Mật mã mặc định: <strong style="color:var(--primary)">2026</strong>
         </div>
 
         <div class="pin-input-group">
-          <input type="password" id="host-pin-input" class="pin-code-input" maxlength="6" placeholder="•••" autofocus onkeydown="if(event.key==='Enter')submitHostPIN()">
+          <input type="password" id="host-passcode-input" class="pin-code-input" maxlength="10" placeholder="••••"
+            autofocus onkeydown="if(event.key==='Enter')submitHostPasscode()">
         </div>
 
-        <div id="host-pin-error" style="display:none;color:#ef4444;font-size:13px;font-weight:700;margin-bottom:14px;">
-          ❌ Mã PIN không chính xác! Vui lòng thử lại.
+        <div id="host-passcode-error"
+          style="display:none;color:#ef4444;font-size:13px;font-weight:700;margin-bottom:14px;">
+          ❌ Mã bảo mật không chính xác!
         </div>
 
-        <button class="btn-primary-action" style="width:100%;padding:16px;margin-top:8px;" onclick="submitHostPIN()">
-          <span>XÁC NHẬN MỞ KHÓA</span> ➔
+        <button class="btn-primary-action" style="width:100%;padding:16px;margin-top:8px;"
+          onclick="submitHostPasscode()">
+          <span>XÁC NHẬN MỞ MÁY CHIẾU</span> ➔
         </button>
-      </div>
-    </div>
-
-    <!-- ═══════════════════════════════════════════════
-         MODAL 2: HOST REMOTE QR CODE (DÀNH RIÊNG CHO MC)
-         ═══════════════════════════════════════════════ -->
-    <div id="modal-remote-qr" class="modal-backdrop">
-      <div class="modal-card">
-        <button class="modal-close-btn" onclick="closeRemoteQRModal()">✕</button>
-        <div style="font-size:42px;margin-bottom:8px;">📱</div>
-        <div style="font-family:var(--font-display);font-size:20px;font-weight:900;color:var(--secondary);margin-bottom:6px;">
-          REMOTE ĐIỀU KHIỂN KHÔNG DÂY
-        </div>
-        <div style="font-size:13.5px;color:var(--text-sub);line-height:1.5;margin-bottom:18px;">
-          Dùng camera điện thoại của bạn quét mã này để biến điện thoại thành chiếc Remote cầm tay:
-        </div>
-
-        <div style="display:flex;justify-content:center;margin-bottom:16px;">
-          <div id="remote-qrcode-box" style="padding:10px;background:#fff;border-radius:16px;box-shadow:0 8px 25px rgba(0,0,0,0.5);"></div>
-        </div>
-
-        <button class="btn-secondary-action" style="width:100%;margin-bottom:8px;" onclick="copyRemoteLink()">
-          <span>🔗</span> Sao Chép Link Remote MC
-        </button>
-        <div style="font-size:12px;color:var(--text-muted);">
-          Mã này đã tích hợp sẵn khóa bảo mật cho điện thoại của bạn.
-        </div>
       </div>
     </div>
   </main>
@@ -1950,16 +2263,50 @@
     /* ═══════════════════════════════════════════════
        30 QUESTIONS DATA (CHƯƠNG V)
        ═══════════════════════════════════════════════ */
-    const QUESTIONS_DATA = [{"id":1,"question":"Cơ cấu xã hội được định nghĩa là gì?","options":["Tổng thể các giai cấp và tầng lớp tồn tại trong một chế độ xã hội.","Mối liên hệ vững chắc của các thành tố trong hệ thống xã hội.","Hệ thống các chính sách phát triển kinh tế - xã hội của Nhà nước.","Tập hợp các cộng đồng dân cư theo địa giới hành chính."],"correct":1,"stage":1},{"id":2,"question":"Yếu tố nào là căn cứ cơ bản để xây dựng chính sách phát triển kinh tế, văn hóa, xã hội trong từng giai đoạn lịch sử cụ thể?","options":["Cơ cấu xã hội – dân cư.","Cơ cấu xã hội – nghề nghiệp.","Cơ cấu xã hội – giai cấp.","Cơ cấu xã hội – tôn giáo."],"correct":2,"stage":1},{"id":3,"question":"Cơ cấu xã hội – giai cấp là tổng thể các giai cấp, tầng lớp xã hội tồn tại khách quan thông qua những mối quan hệ nào?","options":["Mối quan hệ về sở hữu tư liệu sản xuất, tổ chức quản lý sản xuất và địa vị chính trị – xã hội.","Mối quan hệ về thu nhập, mức sống và hoàn cảnh gia đình.","Mối quan hệ về địa lý cư trú, ngôn ngữ và tập quán sinh hoạt.","Mối quan hệ về trình độ chuyên môn và bằng cấp giáo dục."],"correct":0,"stage":1},{"id":4,"question":"Xu hướng biến đổi chủ yếu của cơ cấu xã hội – giai cấp trong thời kỳ quá độ lên chủ nghĩa xã hội là gì?","options":["Sự phân hóa ngày càng sâu sắc giữa các tầng lớp xã hội.","Sự xích lại gần nhau từng bước giữa các giai cấp, tầng lớp về mối quan hệ với tư liệu sản xuất.","Sự biến mất ngay lập tức của tất cả các tầng lớp bóc thợ.","Sự cô lập vai trò của giai cấp công nhân đối với các giai cấp khác."],"correct":1,"stage":1},{"id":5,"question":"Sự biến đổi của cơ cấu xã hội – giai cấp trong thời kỳ quá độ gắn liền và bị quy định bởi yếu tố nào?","options":["Cơ cấu chính trị của nhà nước.","Cơ cấu kinh tế của thời kỳ quá độ lên chủ nghĩa xã hội.","Trình độ phát triển văn hóa và giáo dục.","Tình hình quan hệ quốc tế."],"correct":1,"stage":1},{"id":6,"question":"Trong thời kỳ quá độ lên chủ nghĩa xã hội, sự biến đổi phức tạp, đa dạng của cơ cấu xã hội – giai cấp làm xuất hiện thêm các tầng lớp xã hội mới nào?","options":["Doanh nhân, tiểu chủ, tầng lớp người giàu có và trung lưu.","Địa chủ, phong kiến, tư sản mại bản.","Tăng ni, phật tử, giáo dân.","Quý tộc, thương gia nước ngoài."],"correct":0,"stage":1},{"id":7,"question":"Theo C. Mác và Ph. Ăngghen, nguyên nhân chủ yếu khiến các cuộc đấu tranh của công nhân ở Châu Âu cuối thế kỷ XIX thất bại là gì?","options":["Thiếu nguồn tài chính và vũ khí.","Không tổ chức liên minh với \"người bạn đồng minh tự nhiên\" là nông dân.","Bị giai cấp tư sản mua chuộc.","Chưa có tổ chức Đảng Cộng sản lãnh đạo."],"correct":1,"stage":1},{"id":8,"question":"C. Mác và Ph. Ăngghen đã ví cách mạng vô sản trở thành \"bài ca ai điếu\" khi rơi vào tình cảnh nào?","options":["Bị thất bại trước sự can thiệp của nước ngoài.","Giai cấp công nhân đơn độc do không liên minh với nông dân.","Khối liên minh công nông bị chia rẽ bởi tư sản.","Giai cấp công nhân bị suy giảm về số lượng."],"correct":1,"stage":1},{"id":9,"question":"V.I. Lênin đã vận dụng và phát triển lý luận liên minh giai cấp để tổ chức khối liên minh công nông trong sự kiện lịch sử nào?","options":["Công xã Pari 1871.","Cách mạng Tháng Mười Nga.","Cách mạng Tư sản Pháp 1789.","Phong trào Hiến chương Anh."],"correct":1,"stage":1},{"id":10,"question":"Xét dưới góc độ chính trị – xã hội, liên minh giai cấp, tầng lớp được xác định là gì?","options":["Nguyên tắc cao nhất của chuyên chính vô sản.","Giải pháp tình thế trong giai đoạn giành chính quyền.","Sự thỏa thuận tạm thời về mặt lợi ích kinh tế.","Biện pháp duy nhất để quản lý xã hội."],"correct":0,"stage":1},{"id":11,"question":"Xét dưới góc độ kinh tế, sự cần thiết của liên minh giai cấp, tầng lớp xuất phát từ yêu cầu nào?","options":["Xây dựng nền kinh tế quốc dân thống nhất (nông nghiệp, công nghiệp, dịch vụ) và đẩy mạnh CNH, HĐH.","Tăng cường xuất khẩu tài nguyên thô ra thị trường quốc tế.","Xóa bỏ hoàn toàn thành phần kinh tế tư nhân.","Tập trung phát triển độc tôn ngành công nghiệp nặng."],"correct":0,"stage":2},{"id":12,"question":"Nhằm thỏa mãn nhu cầu, lợi ích kinh tế của giai cấp công nhân, nông dân, trí thức và các tầng lớp khác là mục tiêu của nội dung liên minh nào?","options":["Nội dung chính trị.","Nội dung kinh tế.","Nội dung văn hóa – xã hội.","Nội dung an ninh – quốc phòng."],"correct":1,"stage":2},{"id":13,"question":"Nội dung chính trị của khối liên minh giữa giai cấp công nhân với giai cấp nông dân và tầng lớp trí thức tạo cơ sở vững chắc cho điều gì?","options":["Khối đại đoàn kết toàn dân, củng cố nhà nước XHCN và bảo vệ vai trò lãnh đạo của Đảng Cộng sản.","Sự giải thể của các tổ chức xã hội phi chính phủ.","Việc thay thế hoàn toàn nền kinh tế thị trường bằng kinh tế bao cấp.","Sự độc tôn tuyệt đối của giai cấp nông dân trong quản lý nhà nước."],"correct":0,"stage":2},{"id":14,"question":"Trong nội dung văn hóa – xã hội của liên minh, nhiệm vụ quan trọng đối với công tác tư tưởng là đấu tranh khắc phục các tư tưởng nào?","options":["Tư tưởng tiến bộ và hội nhập.","Tư tưởng lạc hậu, bảo thủ, trì trệ, thói cửa quyền, quan liêu.","Tinh thần tiếp thu giá trị văn hóa nhân loại.","Yêu cầu nâng cao dân trí và pháp luật."],"correct":1,"stage":2},{"id":15,"question":"Đặc điểm của cơ cấu xã hội – giai cấp ở Việt Nam trong thời kỳ quá độ lên chủ nghĩa xã hội là gì?","options":["Vừa đảm bảo tính quy luật phổ biến, vừa mang tính đặc thù chuyển từ đơn giản sang phức tạp hơn.","Hoàn toàn giống hệt cơ cấu xã hội – giai cấp của các nước tư bản phát triển.","Chỉ bao gồm duy nhất hai giai cấp là công nhân và nông dân.","Không chịu sự chi phối của các biến đổi trong cơ cấu kinh tế."],"correct":0,"stage":2},{"id":16,"question":"Giai cấp nào ở Việt Nam đóng vai trò là lực lượng lãnh đạo cách mạng và là lực lượng nòng cốt trong khối liên minh?","options":["Giai cấp nông dân.","Tầng lớp trí thức.","Giai cấp công nhân.","Tầng lớp doanh nhân."],"correct":2,"stage":2},{"id":17,"question":"Đội ngũ doanh nhân ở Việt Nam phát triển nhanh chóng và có vai trò to lớn trong việc gì?","options":["Phát triển kinh tế – xã hội, giải quyết việc làm và tham gia an sinh xã hội.","Lãnh đạo hệ thống chính trị và quản lý nhà nước.","Định hướng phát triển nền văn hóa xã hội chủ nghĩa.","Thay thế giai cấp công nhân làm lực lượng nòng cốt cách mạng."],"correct":0,"stage":2},{"id":18,"question":"Khái niệm \"Liên minh giai cấp, tầng lớp\" được định nghĩa là gì?","options":["Sự kết hợp, hỗ trợ nhau giữa các giai cấp, tầng lớp nhằm thực hiện nhu cầu, lợi ích và tạo động lực xây dựng CNXH.","Sự hợp nhất tất cả các giai cấp thành một giai cấp duy nhất.","Sự đấu tranh loại trừ lẫn nhau giữa giai cấp công nhân và tư sản.","Thỏa thuận chia sẻ lợi nhuận giữa các tập đoàn kinh tế."],"correct":0,"stage":2},{"id":19,"question":"Sự phát triển của các nhóm lao động phi truyền thống như freelancer, bán hàng online, tài xế công nghệ, streamer/KOL đang tác động thế nào đến mô hình truyền thống?","options":["Phá vỡ mô hình \"Giai cấp công nhân – Chủ doanh nghiệp\" nhị phân.","Tăng cường tính cố định của quan hệ lao động truyền thống.","Xóa bỏ hoàn toàn nhu cầu sử dụng công nghệ trong lao động.","Biến tất cả người lao động thành công chức nhà nước."],"correct":0,"stage":2},{"id":20,"question":"Dù tự sở hữu tư liệu sản xuất vi mô (xe máy, kênh bán hàng, thiết bị), người lao động công nghệ thực chất vẫn phụ thuộc vào yếu tố nào?","options":["Thuật toán và chính sách chiết khấu của các nền tảng công nghệ lớn.","Sự quản lý trực tiếp của các cơ quan chính quyền địa phương.","Bằng cấp từ các trường đại học hàn lâm.","Các bản hợp đồng lao động dài hạn truyền thống."],"correct":0,"stage":2},{"id":21,"question":"Thuật ngữ \"Precariat\" trong phân tích cơ cấu xã hội nền kinh tế số chỉ nhóm đối tượng nào?","options":["Tầng lớp tinh hoa số giàu có.","Tầng lớp \"tiền trung lưu\" bấp bênh, chịu rủi ro cao vì thiếu an sinh xã hội.","Đội ngũ kỹ sư công nghệ có biên chế cố định.","Ban lãnh đạo của các tập đoàn công nghệ lớn."],"correct":1,"stage":3},{"id":22,"question":"Nhóm nào sau đây thuộc tầng lớp \"Digital Elite\" (tinh hoa số mới)?","options":["Tài xế Grab chạy xe thuê theo giờ.","Người bán hàng online nhỏ lẻ chịu thua lỗ.","Streamer/KOL thành công và high-end freelancer tích lũy tài sản lớn nhanh chóng.","Lao động thủ công trong các làng nghề."],"correct":2,"stage":3},{"id":23,"question":"Trong \"Nền kinh tế chú ý\" (Attention Economy), tiêu chí định vị địa vị xã hội của nhóm Streamer/KOL dịch chuyển sang yếu tố nào?","options":["Bằng cấp hàn lâm và thâm niên công tác.","\"Vốn chú ý\", lượng người theo dõi và khả năng tạo ảnh hưởng.","Chức vụ hành chính trong hệ thống công sở.","Nguồn gốc gia thế và địa vị dòng họ."],"correct":1,"stage":3},{"id":24,"question":"Sự thành công của các freelancer và người bán hàng online dựa vào khả năng tự học và kỹ năng thực chiến cho thấy xu hướng gì?","options":["Phi chính thống hóa học thức (dịch chuyển từ bằng cấp truyền thống sang kỹ năng thực tế).","Tăng cường vai trò độc tôn của hệ thống bằng cấp giáo dục hàn lâm.","Sự suy giảm nhu cầu học tập trong toàn xã hội.","Bắt buộc mọi lao động phải có bằng tiến sĩ mới thành công."],"correct":0,"stage":3},{"id":25,"question":"Sự bùng nổ của các nhóm lao động nền tảng (Gig Economy) đặt ra thách thức lớn nào cho quản lý vĩ mô của Nhà nước?","options":["Khủng hoảng mô hình thuế và pháp lý đối với lao động phi định chuẩn.","Tình trạng thừa ngân sách thu từ thuế doanh nghiệp.","Sự biến mất của các giao dịch tiền tệ.","Việc bồi thường bảo hiểm xã hội quá tải cho lao động công sở."],"correct":0,"stage":3},{"id":26,"question":"Khối liên minh giai cấp, tầng lớp trong thời kỳ quá độ lên CNXH ở Việt Nam gồm mấy nội dung cơ bản?","options":["2 nội dung (Kinh tế, Chính trị).","3 nội dung (Kinh tế, Chính trị, Văn hóa – xã hội).","4 nội dung (Kinh tế, Chính trị, Văn hóa, Tôn giáo).","5 nội dung (Kinh tế, Chính trị, Văn hóa, Quốc phòng, Đối ngoại)."],"correct":1,"stage":3},{"id":27,"question":"Đâu là cơ sở để giai cấp công nhân giữ vững vai trò lãnh đạo xã hội thông qua khối liên minh?","options":["Tập hợp được lực lượng đông đảo nhân dân lao động phấn đấu cho mục tiêu CNXH.","Tự cô lập giai cấp công nhân khỏi các tầng lớp khác.","Sử dụng quyền lực quân sự để áp đặt tư tưởng.","Duy trì mô hình sản xuất nhỏ lẻ, tự cung tự cấp."],"correct":0,"stage":3},{"id":28,"question":"Trong thời kỳ quá độ lên chủ nghĩa xã hội, cơ cấu xã hội – giai cấp biến đổi trong mối quan hệ nào?","options":["Tách biệt tuyệt đối, không giao thoa.","Vừa đấu tranh vừa liên minh dẫn đến sự xích lại gần nhau.","Xung đột triệt tiêu lẫn nhau.","Hòa tan hoàn toàn không còn ranh giới."],"correct":1,"stage":3},{"id":29,"question":"Sự dịch chuyển lối sống và cộng đồng trong nền kinh tế số làm giảm sự gắn kết công sở truyền thống và thay bằng điều gì?","options":["Các cộng đồng mạng và hội nhóm nghề nghiệp phi tập trung.","Các đơn vị hành chính khép kín.","Các mô hình hợp tác xã nông nghiệp cũ.","Sự cách ly tuyệt đối giữa những người lao động."],"correct":0,"stage":3},{"id":30,"question":"Cơ cấu xã hội – giai cấp biến đổi phức tạp, đa dạng trong thời kỳ quá độ do nguyên nhân cốt lõi nào?","options":["Do sự biến đổi của cơ cấu kinh tế nhiều thành phần trong thời kỳ quá độ.","Do tác động duy nhất từ văn hóa ngoại nhập.","Do sự gia tăng dân số tự nhiên.","Do sự thay đổi địa giới hành chính các tỉnh thành."],"correct":0,"stage":3}];
+    const QUESTIONS_DATA = [{ "id": 1, "question": "Cơ cấu xã hội được định nghĩa là gì?", "options": ["Tổng thể các giai cấp và tầng lớp tồn tại trong một chế độ xã hội.", "Mối liên hệ vững chắc của các thành tố trong hệ thống xã hội.", "Hệ thống các chính sách phát triển kinh tế - xã hội của Nhà nước.", "Tập hợp các cộng đồng dân cư theo địa giới hành chính."], "correct": 1, "stage": 1 }, { "id": 2, "question": "Yếu tố nào là căn cứ cơ bản để xây dựng chính sách phát triển kinh tế, văn hóa, xã hội trong từng giai đoạn lịch sử cụ thể?", "options": ["Cơ cấu xã hội – dân cư.", "Cơ cấu xã hội – nghề nghiệp.", "Cơ cấu xã hội – giai cấp.", "Cơ cấu xã hội – tôn giáo."], "correct": 2, "stage": 1 }, { "id": 3, "question": "Cơ cấu xã hội – giai cấp là tổng thể các giai cấp, tầng lớp xã hội tồn tại khách quan thông qua những mối quan hệ nào?", "options": ["Mối quan hệ về sở hữu tư liệu sản xuất, tổ chức quản lý sản xuất và địa vị chính trị – xã hội.", "Mối quan hệ về thu nhập, mức sống và hoàn cảnh gia đình.", "Mối quan hệ về địa lý cư trú, ngôn ngữ và tập quán sinh hoạt.", "Mối quan hệ về trình độ chuyên môn và bằng cấp giáo dục."], "correct": 0, "stage": 1 }, { "id": 4, "question": "Xu hướng biến đổi chủ yếu của cơ cấu xã hội – giai cấp trong thời kỳ quá độ lên chủ nghĩa xã hội là gì?", "options": ["Sự phân hóa ngày càng sâu sắc giữa các tầng lớp xã hội.", "Sự xích lại gần nhau từng bước giữa các giai cấp, tầng lớp về mối quan hệ với tư liệu sản xuất.", "Sự biến mất ngay lập tức của tất cả các tầng lớp bóc thợ.", "Sự cô lập vai trò của giai cấp công nhân đối với các giai cấp khác."], "correct": 1, "stage": 1 }, { "id": 5, "question": "Sự biến đổi của cơ cấu xã hội – giai cấp trong thời kỳ quá độ gắn liền và bị quy định bởi yếu tố nào?", "options": ["Cơ cấu chính trị của nhà nước.", "Cơ cấu kinh tế của thời kỳ quá độ lên chủ nghĩa xã hội.", "Trình độ phát triển văn hóa và giáo dục.", "Tình hình quan hệ quốc tế."], "correct": 1, "stage": 1 }, { "id": 6, "question": "Trong thời kỳ quá độ lên chủ nghĩa xã hội, sự biến đổi phức tạp, đa dạng của cơ cấu xã hội – giai cấp làm xuất hiện thêm các tầng lớp xã hội mới nào?", "options": ["Doanh nhân, tiểu chủ, tầng lớp người giàu có và trung lưu.", "Địa chủ, phong kiến, tư sản mại bản.", "Tăng ni, phật tử, giáo dân.", "Quý tộc, thương gia nước ngoài."], "correct": 0, "stage": 1 }, { "id": 7, "question": "Theo C. Mác và Ph. Ăngghen, nguyên nhân chủ yếu khiến các cuộc đấu tranh của công nhân ở Châu Âu cuối thế kỷ XIX thất bại là gì?", "options": ["Thiếu nguồn tài chính và vũ khí.", "Không tổ chức liên minh với \"người bạn đồng minh tự nhiên\" là nông dân.", "Bị giai cấp tư sản mua chuộc.", "Chưa có tổ chức Đảng Cộng sản lãnh đạo."], "correct": 1, "stage": 1 }, { "id": 8, "question": "C. Mác và Ph. Ăngghen đã ví cách mạng vô sản trở thành \"bài ca ai điếu\" khi rơi vào tình cảnh nào?", "options": ["Bị thất bại trước sự can thiệp của nước ngoài.", "Giai cấp công nhân đơn độc do không liên minh với nông dân.", "Khối liên minh công nông bị chia rẽ bởi tư sản.", "Giai cấp công nhân bị suy giảm về số lượng."], "correct": 1, "stage": 1 }, { "id": 9, "question": "V.I. Lênin đã vận dụng và phát triển lý luận liên minh giai cấp để tổ chức khối liên minh công nông trong sự kiện lịch sử nào?", "options": ["Công xã Pari 1871.", "Cách mạng Tháng Mười Nga.", "Cách mạng Tư sản Pháp 1789.", "Phong trào Hiến chương Anh."], "correct": 1, "stage": 1 }, { "id": 10, "question": "Xét dưới góc độ chính trị – xã hội, liên minh giai cấp, tầng lớp được xác định là gì?", "options": ["Nguyên tắc cao nhất của chuyên chính vô sản.", "Giải pháp tình thế trong giai đoạn giành chính quyền.", "Sự thỏa thuận tạm thời về mặt lợi ích kinh tế.", "Biện pháp duy nhất để quản lý xã hội."], "correct": 0, "stage": 1 }, { "id": 11, "question": "Xét dưới góc độ kinh tế, sự cần thiết của liên minh giai cấp, tầng lớp xuất phát từ yêu cầu nào?", "options": ["Xây dựng nền kinh tế quốc dân thống nhất (nông nghiệp, công nghiệp, dịch vụ) và đẩy mạnh CNH, HĐH.", "Tăng cường xuất khẩu tài nguyên thô ra thị trường quốc tế.", "Xóa bỏ hoàn toàn thành phần kinh tế tư nhân.", "Tập trung phát triển độc tôn ngành công nghiệp nặng."], "correct": 0, "stage": 2 }, { "id": 12, "question": "Nhằm thỏa mãn nhu cầu, lợi ích kinh tế của giai cấp công nhân, nông dân, trí thức và các tầng lớp khác là mục tiêu của nội dung liên minh nào?", "options": ["Nội dung chính trị.", "Nội dung kinh tế.", "Nội dung văn hóa – xã hội.", "Nội dung an ninh – quốc phòng."], "correct": 1, "stage": 2 }, { "id": 13, "question": "Nội dung chính trị của khối liên minh giữa giai cấp công nhân với giai cấp nông dân và tầng lớp trí thức tạo cơ sở vững chắc cho điều gì?", "options": ["Khối đại đoàn kết toàn dân, củng cố nhà nước XHCN và bảo vệ vai trò lãnh đạo của Đảng Cộng sản.", "Sự giải thể của các tổ chức xã hội phi chính phủ.", "Việc thay thế hoàn toàn nền kinh tế thị trường bằng kinh tế bao cấp.", "Sự độc tôn tuyệt đối của giai cấp nông dân trong quản lý nhà nước."], "correct": 0, "stage": 2 }, { "id": 14, "question": "Trong nội dung văn hóa – xã hội của liên minh, nhiệm vụ quan trọng đối với công tác tư tưởng là đấu tranh khắc phục các tư tưởng nào?", "options": ["Tư tưởng tiến bộ và hội nhập.", "Tư tưởng lạc hậu, bảo thủ, trì trệ, thói cửa quyền, quan liêu.", "Tinh thần tiếp thu giá trị văn hóa nhân loại.", "Yêu cầu nâng cao dân trí và pháp luật."], "correct": 1, "stage": 2 }, { "id": 15, "question": "Đặc điểm của cơ cấu xã hội – giai cấp ở Việt Nam trong thời kỳ quá độ lên chủ nghĩa xã hội là gì?", "options": ["Vừa đảm bảo tính quy luật phổ biến, vừa mang tính đặc thù chuyển từ đơn giản sang phức tạp hơn.", "Hoàn toàn giống hệt cơ cấu xã hội – giai cấp của các nước tư bản phát triển.", "Chỉ bao gồm duy nhất hai giai cấp là công nhân và nông dân.", "Không chịu sự chi phối của các biến đổi trong cơ cấu kinh tế."], "correct": 0, "stage": 2 }, { "id": 16, "question": "Giai cấp nào ở Việt Nam đóng vai trò là lực lượng lãnh đạo cách mạng và là lực lượng nòng cốt trong khối liên minh?", "options": ["Giai cấp nông dân.", "Tầng lớp trí thức.", "Giai cấp công nhân.", "Tầng lớp doanh nhân."], "correct": 2, "stage": 2 }, { "id": 17, "question": "Đội ngũ doanh nhân ở Việt Nam phát triển nhanh chóng và có vai trò to lớn trong việc gì?", "options": ["Phát triển kinh tế – xã hội, giải quyết việc làm và tham gia an sinh xã hội.", "Lãnh đạo hệ thống chính trị và quản lý nhà nước.", "Định hướng phát triển nền văn hóa xã hội chủ nghĩa.", "Thay thế giai cấp công nhân làm lực lượng nòng cốt cách mạng."], "correct": 0, "stage": 2 }, { "id": 18, "question": "Khái niệm \"Liên minh giai cấp, tầng lớp\" được định nghĩa là gì?", "options": ["Sự kết hợp, hỗ trợ nhau giữa các giai cấp, tầng lớp nhằm thực hiện nhu cầu, lợi ích và tạo động lực xây dựng CNXH.", "Sự hợp nhất tất cả các giai cấp thành một giai cấp duy nhất.", "Sự đấu tranh loại trừ lẫn nhau giữa giai cấp công nhân và tư sản.", "Thỏa thuận chia sẻ lợi nhuận giữa các tập đoàn kinh tế."], "correct": 0, "stage": 2 }, { "id": 19, "question": "Sự phát triển của các nhóm lao động phi truyền thống như freelancer, bán hàng online, tài xế công nghệ, streamer/KOL đang tác động thế nào đến mô hình truyền thống?", "options": ["Phá vỡ mô hình \"Giai cấp công nhân – Chủ doanh nghiệp\" nhị phân.", "Tăng cường tính cố định của quan hệ lao động truyền thống.", "Xóa bỏ hoàn toàn nhu cầu sử dụng công nghệ trong lao động.", "Biến tất cả người lao động thành công chức nhà nước."], "correct": 0, "stage": 2 }, { "id": 20, "question": "Dù tự sở hữu tư liệu sản xuất vi mô (xe máy, kênh bán hàng, thiết bị), người lao động công nghệ thực chất vẫn phụ thuộc vào yếu tố nào?", "options": ["Thuật toán và chính sách chiết khấu của các nền tảng công nghệ lớn.", "Sự quản lý trực tiếp của các cơ quan chính quyền địa phương.", "Bằng cấp từ các trường đại học hàn lâm.", "Các bản hợp đồng lao động dài hạn truyền thống."], "correct": 0, "stage": 2 }, { "id": 21, "question": "Thuật ngữ \"Precariat\" trong phân tích cơ cấu xã hội nền kinh tế số chỉ nhóm đối tượng nào?", "options": ["Tầng lớp tinh hoa số giàu có.", "Tầng lớp \"tiền trung lưu\" bấp bênh, chịu rủi ro cao vì thiếu an sinh xã hội.", "Đội ngũ kỹ sư công nghệ có biên chế cố định.", "Ban lãnh đạo của các tập đoàn công nghệ lớn."], "correct": 1, "stage": 3 }, { "id": 22, "question": "Nhóm nào sau đây thuộc tầng lớp \"Digital Elite\" (tinh hoa số mới)?", "options": ["Tài xế Grab chạy xe thuê theo giờ.", "Người bán hàng online nhỏ lẻ chịu thua lỗ.", "Streamer/KOL thành công và high-end freelancer tích lũy tài sản lớn nhanh chóng.", "Lao động thủ công trong các làng nghề."], "correct": 2, "stage": 3 }, { "id": 23, "question": "Trong \"Nền kinh tế chú ý\" (Attention Economy), tiêu chí định vị địa vị xã hội của nhóm Streamer/KOL dịch chuyển sang yếu tố nào?", "options": ["Bằng cấp hàn lâm và thâm niên công tác.", "\"Vốn chú ý\", lượng người theo dõi và khả năng tạo ảnh hưởng.", "Chức vụ hành chính trong hệ thống công sở.", "Nguồn gốc gia thế và địa vị dòng họ."], "correct": 1, "stage": 3 }, { "id": 24, "question": "Sự thành công của các freelancer và người bán hàng online dựa vào khả năng tự học và kỹ năng thực chiến cho thấy xu hướng gì?", "options": ["Phi chính thống hóa học thức (dịch chuyển từ bằng cấp truyền thống sang kỹ năng thực tế).", "Tăng cường vai trò độc tôn của hệ thống bằng cấp giáo dục hàn lâm.", "Sự suy giảm nhu cầu học tập trong toàn xã hội.", "Bắt buộc mọi lao động phải có bằng tiến sĩ mới thành công."], "correct": 0, "stage": 3 }, { "id": 25, "question": "Sự bùng nổ của các nhóm lao động nền tảng (Gig Economy) đặt ra thách thức lớn nào cho quản lý vĩ mô của Nhà nước?", "options": ["Khủng hoảng mô hình thuế và pháp lý đối với lao động phi định chuẩn.", "Tình trạng thừa ngân sách thu từ thuế doanh nghiệp.", "Sự biến mất của các giao dịch tiền tệ.", "Việc bồi thường bảo hiểm xã hội quá tải cho lao động công sở."], "correct": 0, "stage": 3 }, { "id": 26, "question": "Khối liên minh giai cấp, tầng lớp trong thời kỳ quá độ lên CNXH ở Việt Nam gồm mấy nội dung cơ bản?", "options": ["2 nội dung (Kinh tế, Chính trị).", "3 nội dung (Kinh tế, Chính trị, Văn hóa – xã hội).", "4 nội dung (Kinh tế, Chính trị, Văn hóa, Tôn giáo).", "5 nội dung (Kinh tế, Chính trị, Văn hóa, Quốc phòng, Đối ngoại)."], "correct": 1, "stage": 3 }, { "id": 27, "question": "Đâu là cơ sở để giai cấp công nhân giữ vững vai trò lãnh đạo xã hội thông qua khối liên minh?", "options": ["Tập hợp được lực lượng đông đảo nhân dân lao động phấn đấu cho mục tiêu CNXH.", "Tự cô lập giai cấp công nhân khỏi các tầng lớp khác.", "Sử dụng quyền lực quân sự để áp đặt tư tưởng.", "Duy trì mô hình sản xuất nhỏ lẻ, tự cung tự cấp."], "correct": 0, "stage": 3 }, { "id": 28, "question": "Trong thời kỳ quá độ lên chủ nghĩa xã hội, cơ cấu xã hội – giai cấp biến đổi trong mối quan hệ nào?", "options": ["Tách biệt tuyệt đối, không giao thoa.", "Vừa đấu tranh vừa liên minh dẫn đến sự xích lại gần nhau.", "Xung đột triệt tiêu lẫn nhau.", "Hòa tan hoàn toàn không còn ranh giới."], "correct": 1, "stage": 3 }, { "id": 29, "question": "Sự dịch chuyển lối sống và cộng đồng trong nền kinh tế số làm giảm sự gắn kết công sở truyền thống và thay bằng điều gì?", "options": ["Các cộng đồng mạng và hội nhóm nghề nghiệp phi tập trung.", "Các đơn vị hành chính khép kín.", "Các mô hình hợp tác xã nông nghiệp cũ.", "Sự cách ly tuyệt đối giữa những người lao động."], "correct": 0, "stage": 3 }, { "id": 30, "question": "Cơ cấu xã hội – giai cấp biến đổi phức tạp, đa dạng trong thời kỳ quá độ do nguyên nhân cốt lõi nào?", "options": ["Do sự biến đổi của cơ cấu kinh tế nhiều thành phần trong thời kỳ quá độ.", "Do tác động duy nhất từ văn hóa ngoại nhập.", "Do sự gia tăng dân số tự nhiên.", "Do sự thay đổi địa giới hành chính các tỉnh thành."], "correct": 0, "stage": 3 }];
 
     /* ═══════════════════════════════════════════════
-       GAME STATE & HOST AUTH (MÃ PIN 111)
+       ANTI-HIJACK SECURITY: HOST MASTER TOKEN & PIN
        ═══════════════════════════════════════════════ */
-    const HOST_PIN = '111';
+    function getOrCreateHostSecretToken() {
+      let token = sessionStorage.getItem('mln131_host_secret_token');
+      if (!token) {
+        token = 'hst_' + Math.random().toString(36).substring(2, 10) + '_' + Date.now().toString(36) + '_' + Math.random().toString(36).substring(2, 10);
+        sessionStorage.setItem('mln131_host_secret_token', token);
+      }
+      return token;
+    }
+
+    function getHostPIN() {
+      let p = localStorage.getItem('mln131_host_pin_custom');
+      if (!p) {
+        p = '2026'; // PIN mặc định dễ nhớ cho nhóm thuyết trình MLN131
+        localStorage.setItem('mln131_host_pin_custom', p);
+      }
+      return p;
+    }
+
+    function setCustomHostPIN(newPin) {
+      if (newPin && newPin.length >= 4) {
+        localStorage.setItem('mln131_host_pin_custom', newPin);
+        gameState.currentHostPIN = newPin;
+        return true;
+      }
+      return false;
+    }
+
+    function getOrCreateRoomCode() {
+      const urlParams = new URLSearchParams(window.location.search);
+      let r = urlParams.get('room') || sessionStorage.getItem('mln131_active_room') || 'mln131_arena';
+      sessionStorage.setItem('mln131_active_room', r);
+      return r;
+    }
 
     const gameState = {
-      role: 'host',
+      role: 'player', // Default role is ALWAYS Player for everyone (mobile and desktop)
       isHostAuth: false,
+      currentHostPIN: getHostPIN(),
+      activeRoomId: getOrCreateRoomCode(),
       currentPhase: 'lobby', // 'lobby' | 'answering' | 'revealed' | 'finished'
       timePerQuestion: 20,
       currentQuestionIdx: 0,
@@ -1967,10 +2314,10 @@
       timerInterval: null,
       isAnsweringPhase: false,
       soundEnabled: true,
-      
+
       // Real Players List (empty on start)
       players: [],
-      
+
       // Real player local state
       myPlayerId: null,
       myNickname: '',
@@ -1996,7 +2343,7 @@
         try {
           const data = JSON.parse(e.newValue);
           handleMeshMessage(data);
-        } catch (err) {}
+        } catch (err) { }
       }
     });
 
@@ -2005,11 +2352,11 @@
         if (conn && conn.open) conn.send(msg);
       });
       if (meshChannel) {
-        try { meshChannel.postMessage(msg); } catch(e){}
+        try { meshChannel.postMessage(msg); } catch (e) { }
       }
       try {
         localStorage.setItem('mln131_event', JSON.stringify({ ...msg, _t: Date.now() }));
-      } catch(e){}
+      } catch (e) { }
     }
 
     function handleMeshMessage(msg) {
@@ -2043,26 +2390,6 @@
         } else if (msg.type === 'CHEST_ACTION') {
           handleHostChestAction(msg);
           broadcastHostState();
-        } else if (msg.type === 'REMOTE_CMD') {
-          if (msg.action === 'START') {
-            startGame();
-          } else if (msg.action === 'REVEAL') {
-            revealAnswer();
-          } else if (msg.action === 'NEXT') {
-            nextQuestion();
-          } else if (msg.action === 'RESTART') {
-            restartGame();
-          }
-        }
-      } else if (gameState.role === 'remote') {
-        if (msg.type === 'HOST_STATE_SYNC') {
-          onHostStateSyncToRemote(msg);
-        } else if (msg.type === 'QUESTION_START') {
-          onQuestionStartToRemote(msg);
-        } else if (msg.type === 'QUESTION_END') {
-          onQuestionEndToRemote(msg);
-        } else if (msg.type === 'GAME_OVER') {
-          onGameOverToRemote(msg);
         }
       } else if (gameState.role === 'player') {
         if (msg.type === 'QUESTION_START') {
@@ -2262,52 +2589,31 @@
     }
 
     /* ═══════════════════════════════════════════════
-       HOST SECURITY & AUTHENTICATION (MÃ 111)
+       HOST SECURITY & PASSCODE AUTHENTICATION (DEFAULT: 2026)
        ═══════════════════════════════════════════════ */
-    let hostPinSuccessCallback = null;
+    let hostPasscodeSuccessCallback = null;
 
     function checkHostAuth() {
-      const params = new URLSearchParams(window.location.search);
-      const pinParam = params.get('pin');
-      if (pinParam === HOST_PIN) {
-        try { localStorage.setItem('mln131_host_pin', HOST_PIN); } catch(e){}
-        gameState.isHostAuth = true;
-        return true;
-      }
       try {
-        if (localStorage.getItem('mln131_host_pin') === HOST_PIN) {
+        if (sessionStorage.getItem('mln131_host_auth_status') === '1') {
           gameState.isHostAuth = true;
           return true;
         }
-      } catch(e){}
+      } catch (e) { }
       gameState.isHostAuth = false;
       return false;
     }
 
     function updateHostUI() {
-      const hostActions = document.getElementById('lobby-actions-host');
-      const displayActions = document.getElementById('lobby-actions-display-only');
-      const remoteQrBtn = document.getElementById('btn-host-remote-qr');
-      const toggleRoleBtn = document.getElementById('btn-toggle-role');
-
-      if (gameState.isHostAuth) {
-        if (hostActions) hostActions.style.display = 'flex';
-        if (displayActions) displayActions.style.display = 'none';
-        if (remoteQrBtn) remoteQrBtn.style.display = 'inline-flex';
-        if (toggleRoleBtn) toggleRoleBtn.textContent = '📱 Chế độ Player';
-      } else {
-        if (hostActions) hostActions.style.display = 'none';
-        if (displayActions) displayActions.style.display = 'block';
-        if (remoteQrBtn) remoteQrBtn.style.display = 'none';
-        if (toggleRoleBtn) toggleRoleBtn.textContent = '🔒 Chuyển Máy Chiếu / ĐT';
-      }
+      const pinLabel = document.getElementById('host-current-pin-label');
+      if (pinLabel) pinLabel.textContent = gameState.currentHostPIN;
     }
 
-    function promptHostPIN(onSuccess) {
-      hostPinSuccessCallback = onSuccess || null;
-      const modal = document.getElementById('modal-host-pin');
-      const err = document.getElementById('host-pin-error');
-      const input = document.getElementById('host-pin-input');
+    function promptHostPasscode(onSuccess) {
+      hostPasscodeSuccessCallback = onSuccess || null;
+      const modal = document.getElementById('modal-host-passcode');
+      const err = document.getElementById('host-passcode-error');
+      const input = document.getElementById('host-passcode-input');
       if (err) err.style.display = 'none';
       if (input) {
         input.value = '';
@@ -2316,29 +2622,32 @@
       if (modal) modal.classList.add('active');
     }
 
-    function closeHostPINModal() {
-      const modal = document.getElementById('modal-host-pin');
+    function closeHostPasscodeModal() {
+      const modal = document.getElementById('modal-host-passcode');
       if (modal) modal.classList.remove('active');
     }
 
-    function submitHostPIN() {
-      const input = document.getElementById('host-pin-input');
-      const err = document.getElementById('host-pin-error');
+    function submitHostPasscode() {
+      const input = document.getElementById('host-passcode-input');
+      const err = document.getElementById('host-passcode-error');
       const val = input ? input.value.trim() : '';
 
-      if (val === HOST_PIN) {
-        try { localStorage.setItem('mln131_host_pin', HOST_PIN); } catch(e){}
+      if (val === gameState.currentHostPIN) {
+        try { sessionStorage.setItem('mln131_host_auth_status', '1'); } catch (e) { }
         gameState.isHostAuth = true;
-        closeHostPINModal();
+        closeHostPasscodeModal();
         playSound('correct');
-        updateHostUI();
-        if (typeof hostPinSuccessCallback === 'function') {
-          hostPinSuccessCallback();
-          hostPinSuccessCallback = null;
+        setRoleHost();
+        if (typeof hostPasscodeSuccessCallback === 'function') {
+          hostPasscodeSuccessCallback();
+          hostPasscodeSuccessCallback = null;
         }
       } else {
         playSound('wrong');
-        if (err) err.style.display = 'block';
+        if (err) {
+          err.textContent = '❌ Mật mã Host không chính xác! Vui lòng thử lại.';
+          err.style.display = 'block';
+        }
         if (input) {
           input.value = '';
           input.focus();
@@ -2346,33 +2655,13 @@
       }
     }
 
-    function onHostAuthSuccess() {
-      alert('🎉 Xác thực Host thành công! Quyền bấm Bắt Đầu Đại Chiến đã được mở khóa trên máy này.');
-    }
-
-    /* ═══════════════════════════════════════════════
-       REMOTE QR CODE MODAL (DÀNH CHO MC)
-       ═══════════════════════════════════════════════ */
-    function openRemoteQRModal() {
-      const modal = document.getElementById('modal-remote-qr');
-      if (!modal) return;
-      const remoteUrl = `${window.location.origin}${window.location.pathname}?role=remote&pin=${HOST_PIN}`;
-      renderQRCode(remoteUrl, 'remote-qrcode-box');
-      modal.classList.add('active');
-    }
-
-    function closeRemoteQRModal() {
-      const modal = document.getElementById('modal-remote-qr');
-      if (modal) modal.classList.remove('active');
-    }
-
-    function copyRemoteLink() {
-      const remoteUrl = `${window.location.origin}${window.location.pathname}?role=remote&pin=${HOST_PIN}`;
-      navigator.clipboard.writeText(remoteUrl).then(() => {
-        alert('Đã sao chép link Remote MC vào bộ nhớ tạm: ' + remoteUrl);
-      }).catch(() => {
-        prompt('Link Remote MC của bạn:', remoteUrl);
-      });
+    function promptChangeHostPIN() {
+      const newPin = prompt('Nhập mã Passcode Host mới ', gameState.currentHostPIN);
+      if (newPin && newPin.trim().length >= 4) {
+        setCustomHostPIN(newPin.trim());
+        alert('✅ Đã đổi mã Passcode Host thành công: ' + newPin.trim());
+        updateHostUI();
+      }
     }
 
     /* ═══════════════════════════════════════════════
@@ -2381,11 +2670,11 @@
     function toggleFullscreen() {
       if (!document.fullscreenElement) {
         const el = document.documentElement;
-        if (el.requestFullscreen) el.requestFullscreen().catch(() => {});
+        if (el.requestFullscreen) el.requestFullscreen().catch(() => { });
         else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
         else if (el.msRequestFullscreen) el.msRequestFullscreen();
       } else {
-        if (document.exitFullscreen) document.exitFullscreen().catch(() => {});
+        if (document.exitFullscreen) document.exitFullscreen().catch(() => { });
         else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
         else if (document.msExitFullscreen) document.msExitFullscreen();
       }
@@ -2410,126 +2699,101 @@
     }
 
     /* ═══════════════════════════════════════════════
-       REMOTE CONTROLLER LOGIC (ĐIỆN THOẠI MC)
-       ═══════════════════════════════════════════════ */
-    function sendRemoteCmd(action) {
-      broadcastEvent({
-        type: 'REMOTE_CMD',
-        action: action
-      });
-      playSound('tick');
-    }
-
-    function onHostStateSyncToRemote(data) {
-      if (gameState.role !== 'remote') return;
-      
-      const qNum = (data.currentQuestionIdx !== undefined ? data.currentQuestionIdx + 1 : 1);
-      const statQ = document.getElementById('remote-stat-q');
-      const statTimer = document.getElementById('remote-stat-timer');
-      const statSub = document.getElementById('remote-stat-submitted');
-      const statTop1 = document.getElementById('remote-stat-top1');
-
-      if (statQ) statQ.textContent = String(qNum).padStart(2, '0') + '/30';
-      if (statTimer && data.timerRemaining !== undefined) statTimer.textContent = data.timerRemaining + 's';
-      if (statSub) statSub.textContent = `${data.submittedCount || 0} / ${data.totalPlayers || 0}`;
-      if (statTop1) statTop1.textContent = data.top1 ? `${data.top1.name} (${data.top1.score.toLocaleString()}đ)` : '-';
-
-      const btnStart = document.getElementById('remote-btn-start');
-      const btnReveal = document.getElementById('remote-btn-reveal');
-      const btnNext = document.getElementById('remote-btn-next');
-      const btnRestart = document.getElementById('remote-btn-restart');
-      const nextSubtext = document.getElementById('remote-next-subtext');
-
-      if (data.phase === 'lobby') {
-        if (btnStart) btnStart.style.display = 'flex';
-        if (btnReveal) btnReveal.style.display = 'none';
-        if (btnNext) btnNext.style.display = 'none';
-        if (btnRestart) btnRestart.style.display = 'none';
-      } else if (data.phase === 'answering') {
-        if (btnStart) btnStart.style.display = 'none';
-        if (btnReveal) btnReveal.style.display = 'flex';
-        if (btnNext) btnNext.style.display = 'none';
-        if (btnRestart) btnRestart.style.display = 'none';
-      } else if (data.phase === 'revealed') {
-        if (btnStart) btnStart.style.display = 'none';
-        if (btnReveal) btnReveal.style.display = 'none';
-        if (btnNext) {
-          btnNext.style.display = 'flex';
-          if (nextSubtext) nextSubtext.textContent = (qNum < 30) ? `Chuyển sang Câu ${qNum + 1}` : 'Mở Lễ Vinh Danh Top 5';
-        }
-        if (btnRestart) btnRestart.style.display = 'none';
-      } else if (data.phase === 'finished') {
-        if (btnStart) btnStart.style.display = 'none';
-        if (btnReveal) btnReveal.style.display = 'none';
-        if (btnNext) btnNext.style.display = 'none';
-        if (btnRestart) btnRestart.style.display = 'flex';
-      }
-    }
-
-    function onQuestionStartToRemote(msg) {
-      if (gameState.role !== 'remote') return;
-      onHostStateSyncToRemote({
-        phase: 'answering',
-        currentQuestionIdx: msg.idx,
-        timerRemaining: msg.time || 20,
-        submittedCount: 0,
-        totalPlayers: gameState.players.length
-      });
-    }
-
-    function onQuestionEndToRemote(msg) {
-      if (gameState.role !== 'remote') return;
-      onHostStateSyncToRemote({
-        phase: 'revealed',
-        currentQuestionIdx: gameState.currentQuestionIdx
-      });
-    }
-
-    function onGameOverToRemote(msg) {
-      if (gameState.role !== 'remote') return;
-      onHostStateSyncToRemote({
-        phase: 'finished'
-      });
-    }
-
-    /* ═══════════════════════════════════════════════
-       INITIALIZATION
+       INITIALIZATION: UNIVERSAL PLAYER DEFAULT
        ═══════════════════════════════════════════════ */
     window.addEventListener('DOMContentLoaded', () => {
       const params = new URLSearchParams(window.location.search);
-      const isPlayerJoin = params.get('join') || params.get('role') === 'player';
-      const isRemote = params.get('role') === 'remote' || params.get('remote') === '1';
+      const wantsHost = params.get('host') === '1' || params.get('role') === 'host';
+      const isHostAuthed = sessionStorage.getItem('mln131_host_auth_status') === '1';
 
-      if (isRemote) {
-        if (checkHostAuth()) {
-          gameState.role = 'remote';
-          switchScreen('screen-host-remote');
+      if (wantsHost) {
+        if (isHostAuthed) {
+          setRoleHost();
         } else {
-          promptHostPIN(() => {
-            gameState.role = 'remote';
-            switchScreen('screen-host-remote');
+          setRolePlayer();
+          promptHostPasscode(() => {
+            setRoleHost();
           });
         }
-      } else if (isPlayerJoin) {
-        gameState.role = 'player';
-        switchScreen('screen-player');
       } else {
-        gameState.role = 'host';
-        checkHostAuth();
-        switchScreen('screen-host-lobby');
-        initHost();
-        updateHostUI();
+        // Mặc định 100% người dùng (kể cả máy tính, laptop, điện thoại) vào giao diện Player
+        setRolePlayer();
       }
     });
 
+    function setRolePlayer() {
+      gameState.role = 'player';
+      document.body.classList.add('role-player');
+      document.body.classList.remove('role-host');
+      switchScreen('screen-player');
+      updateHeaderPlayerInfo();
+    }
+
+    function setRoleHost() {
+      if (sessionStorage.getItem('mln131_host_auth_status') !== '1') {
+        promptHostPasscode(() => setRoleHost());
+        return;
+      }
+      gameState.role = 'host';
+      gameState.isHostAuth = true;
+      document.body.classList.add('role-host');
+      document.body.classList.remove('role-player');
+      switchScreen('screen-host-lobby');
+      initHost();
+      updateHostUI();
+      updateHeaderPlayerInfo();
+    }
+
+    function updateHeaderPlayerInfo() {
+      const headerInfo = document.getElementById('player-header-info');
+      const headerName = document.getElementById('player-header-name');
+      if (!headerInfo) return;
+      if (gameState.role === 'player' && gameState.myNickname) {
+        headerInfo.style.display = 'inline-flex';
+        if (headerName) headerName.textContent = gameState.myNickname;
+      } else {
+        headerInfo.style.display = 'none';
+      }
+    }
+
+    /* ═══════════════════════════════════════════════
+       INIT HOST: STRICT SINGLE HOST ENFORCEMENT
+       ═══════════════════════════════════════════════ */
     function initHost() {
-      // Always generate QR code that joins as Player so students cannot mess with host controls
-      const joinUrl = window.location.origin + window.location.pathname + '?join=1';
+      const activeRoom = 'mln131_arena';
+      gameState.activeRoomId = activeRoom;
+      sessionStorage.setItem('mln131_active_room', activeRoom);
+
+      // Join URL defaults to Player view
+      const joinUrl = window.location.origin + window.location.pathname + '?join=1&room=' + encodeURIComponent(activeRoom);
       renderQRCode(joinUrl, 'qrcode-box');
 
       try {
         if (typeof Peer !== 'undefined') {
-          peer = new Peer('mln131_host_room', { debug: 1 });
+          if (peer) {
+            try { peer.destroy(); } catch (e) { }
+          }
+          const peerConfig = {
+            debug: 1,
+            config: {
+              iceServers: [
+                { urls: 'stun:stun.l.google.com:19302' },
+                { urls: 'stun:stun1.l.google.com:19302' }
+              ]
+            }
+          };
+          peer = new Peer(activeRoom, peerConfig);
+          peer.on('open', (id) => {
+            console.log('Host P2P Room Ready:', id);
+          });
+          peer.on('error', (err) => {
+            console.warn('Host Peer error:', err);
+            // DUPLICATE HOST DETECTION: Only 1 Host allowed!
+            if (err.type === 'unavailable-id') {
+              alert('⚠️ ĐÃ CÓ 1 MÁY CHIẾU LÀM HOST!\n\nPhòng thi đấu "mln131_arena" hiện đang được trình chiếu bởi một máy khác. Để tránh xung đột, thiết bị này sẽ được chuyển sang chế độ Thí sinh.');
+              setRolePlayer();
+            }
+          });
           peer.on('connection', (conn) => {
             peerConns.push(conn);
             conn.on('data', (data) => {
@@ -2547,28 +2811,12 @@
 
     function toggleRole() {
       if (gameState.role === 'host') {
-        gameState.role = 'player';
-        switchScreen('screen-player');
+        setRolePlayer();
       } else {
-        // Switching to Host REQUIRES PIN 111
-        if (checkHostAuth()) {
-          gameState.role = 'host';
-          if (gameState.currentQuestionIdx === 0 && !gameState.isAnsweringPhase) {
-            switchScreen('screen-host-lobby');
-          } else {
-            switchScreen('screen-host-arena');
-          }
-          updateHostUI();
+        if (sessionStorage.getItem('mln131_host_auth_status') === '1') {
+          setRoleHost();
         } else {
-          promptHostPIN(() => {
-            gameState.role = 'host';
-            if (gameState.currentQuestionIdx === 0 && !gameState.isAnsweringPhase) {
-              switchScreen('screen-host-lobby');
-            } else {
-              switchScreen('screen-host-arena');
-            }
-            updateHostUI();
-          });
+          promptHostPasscode(() => setRoleHost());
         }
       }
     }
@@ -2577,6 +2825,15 @@
       document.querySelectorAll('.screen-view').forEach(s => s.classList.remove('active'));
       const target = document.getElementById(screenId);
       if (target) target.classList.add('active');
+
+      if (screenId === 'screen-player') {
+        document.body.classList.add('role-player');
+        document.body.classList.remove('role-host');
+      } else {
+        document.body.classList.add('role-host');
+        document.body.classList.remove('role-player');
+      }
+      updateHeaderPlayerInfo();
     }
 
     /* ═══════════════════════════════════════════════
@@ -2610,7 +2867,7 @@
     });
 
     function copyJoinLink() {
-      const joinUrl = window.location.origin + window.location.pathname + '?join=1';
+      const joinUrl = window.location.origin + window.location.pathname + '?join=1&room=' + encodeURIComponent(gameState.activeRoomId);
       navigator.clipboard.writeText(joinUrl).then(() => {
         alert('Đã sao chép link tham gia vào bộ nhớ tạm: ' + joinUrl);
       }).catch(() => {
@@ -2692,6 +2949,7 @@
       gameState.players.forEach(p => {
         p.lastAnswer = null;
         p.answerTime = 0;
+        p.hasClaimedChestThisRound = false;
       });
 
       document.getElementById('arena-current-q').textContent = String(idx + 1).padStart(2, '0');
@@ -2704,7 +2962,7 @@
         const bar = document.getElementById('opt-bar-' + i);
         const pct = document.getElementById('opt-pct-' + i);
 
-        card.className = `option-card opt-${['a','b','c','d'][i]}`;
+        card.className = `option-card opt-${['a', 'b', 'c', 'd'][i]}`;
         text.textContent = q.options[i];
         bar.style.width = '0%';
         pct.style.display = 'none';
@@ -2724,7 +2982,7 @@
           options: q.options
         }
       });
-      broadcastHostState();
+
 
       startTimer();
     }
@@ -2842,8 +3100,26 @@
     }
 
     function handleHostChestAction(msg) {
+      if (gameState.currentPhase !== 'revealed') {
+        console.warn('🚨 BẢO MẬT: Rương chỉ được mở trong giai đoạn hiện kết quả!');
+        return;
+      }
       const player = gameState.players.find(p => p.id === msg.playerId);
       if (!player) return;
+
+      const currentQ = QUESTIONS_DATA[gameState.currentQuestionIdx];
+      // 1. Chỉ người trả lời ĐÚNG mới được mở rương:
+      if (player.lastAnswer !== currentQ.correct) {
+        console.warn(`🚨 BẢO MẬT: Thí sinh [${player.name}] trả lời sai nhưng cố mở rương!`);
+        return;
+      }
+
+      // 2. Mỗi câu chỉ được mở rương tối đa 1 lần:
+      if (player.hasClaimedChestThisRound) {
+        console.warn(`🚨 BẢO MẬT: Thí sinh [${player.name}] đã mở rương trong lượt này!`);
+        return;
+      }
+      player.hasClaimedChestThisRound = true;
 
       const banner = document.getElementById('battle-feed-text');
 
@@ -2862,7 +3138,7 @@
         }
 
         if (target && target.id !== player.id) {
-          const stolenAmount = Math.min(target.score, msg.amount || 350);
+          const stolenAmount = Math.min(target.score, 350);
           target.score = Math.max(0, target.score - stolenAmount);
           player.score += stolenAmount;
 
@@ -2910,16 +3186,18 @@
           });
         }
       } else if (msg.action === 'BONUS') {
-        player.score += msg.amount;
-        if (banner) banner.textContent = `💎 [${player.name}] mở trúng Kho Báu nhận +${msg.amount} điểm thưởng!`;
+        const bonusAmount = 200;
+        player.score += bonusAmount;
+        if (banner) banner.textContent = `💎 [${player.name}] mở trúng Kho Báu nhận +${bonusAmount} điểm thưởng!`;
         broadcastEvent({
           type: 'SCORE_SYNC',
           playerId: player.id,
           newScore: player.score
         });
       } else if (msg.action === 'TRAP') {
-        player.score = Math.max(0, player.score - msg.amount);
-        if (banner) banner.textContent = `💣 [${player.name}] giẫm phải Bẫy Virus (- ${msg.amount} điểm)!`;
+        const trapAmount = 150;
+        player.score = Math.max(0, player.score - trapAmount);
+        if (banner) banner.textContent = `💣 [${player.name}] giẫm phải Bẫy Virus (- ${trapAmount} điểm)!`;
         broadcastEvent({
           type: 'SCORE_SYNC',
           playerId: player.id,
@@ -3100,11 +3378,20 @@
       gameState.myPlayerId = 'real_' + Math.random().toString(36).substring(2, 9);
       gameState.myNickname = nickname;
 
+      const targetRoom = new URLSearchParams(window.location.search).get('room') || sessionStorage.getItem('mln131_active_room') || gameState.activeRoomId;
+
       try {
         if (typeof Peer !== 'undefined') {
-          const clientPeer = new Peer();
+          const clientPeer = new Peer({
+            config: {
+              iceServers: [
+                { urls: 'stun:stun.l.google.com:19302' },
+                { urls: 'stun:stun1.l.google.com:19302' }
+              ]
+            }
+          });
           clientPeer.on('open', () => {
-            playerPeerConn = clientPeer.connect('mln131_host_room');
+            playerPeerConn = clientPeer.connect(targetRoom);
             playerPeerConn.on('open', () => {
               playerPeerConn.send({
                 type: 'PLAYER_JOIN',
@@ -3130,9 +3417,13 @@
       document.getElementById('player-join-card').style.display = 'none';
       document.getElementById('player-waiting-card').style.display = 'block';
       document.getElementById('player-greet-name').textContent = 'Xin chào, ' + nickname + '!';
+      updateHeaderPlayerInfo();
 
+      if (navigator.vibrate) { try { navigator.vibrate(40); } catch (e) { } }
       playSound('correct');
     }
+
+
 
     let playerTimerInterval = null;
 
@@ -3151,7 +3442,7 @@
       let remaining = duration;
       const bar = document.getElementById('player-timer-bar');
       const text = document.getElementById('player-timer-text');
-      
+
       function updateUI() {
         if (text) text.textContent = remaining + 's';
         if (bar) {
@@ -3203,7 +3494,7 @@
         if (btn) {
           btn.style.opacity = '1';
           btn.disabled = false;
-          btn.className = `player-option-card player-opt-${['a','b','c','d'][i]}`;
+          btn.className = `player-option-card player-opt-${['a', 'b', 'c', 'd'][i]}`;
         }
         if (txt) {
           txt.textContent = options[i] || '';
@@ -3222,6 +3513,8 @@
     function submitPlayerAnswer(optIdx) {
       if (gameState.mySelectedOpt !== null) return;
       gameState.mySelectedOpt = optIdx;
+
+      if (navigator.vibrate) { try { navigator.vibrate(40); } catch (e) { } }
 
       for (let i = 0; i < 4; i++) {
         const btn = document.getElementById('player-btn-' + i);
@@ -3284,6 +3577,7 @@
       }
 
       if (isCorrect) {
+        if (navigator.vibrate) { try { navigator.vibrate([60, 50, 60]); } catch (e) { } }
         document.getElementById('player-feedback-msg').innerHTML = '<span style="color:#10b981;font-size:15px;font-weight:800;">🎉 CHÍNH XÁC! Bạn được mở Rương Bí Ẩn bên dưới!</span>';
         playSound('correct');
 
@@ -3296,6 +3590,7 @@
           document.getElementById('player-chests-modal').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }, 150);
       } else {
+        if (navigator.vibrate) { try { navigator.vibrate(100); } catch (e) { } }
         const correctLetter = ['A', 'B', 'C', 'D'][correctIdx];
         document.getElementById('player-feedback-msg').innerHTML = `<span style="color:#ef4444;font-size:14px;font-weight:700;">❌ CHƯA CHÍNH XÁC! Đáp án đúng là [${correctLetter}]. Sẵn sàng cho câu kế tiếp!</span>`;
         document.getElementById('player-chests-modal').style.display = 'none';
@@ -3307,6 +3602,7 @@
        MYSTERY CHEST LOGIC (CƯỚP / ĐỔI / KHO BÁU / BẪY)
        ═══════════════════════════════════════════════ */
     function openChest(chestNumber) {
+      if (navigator.vibrate) { try { navigator.vibrate(50); } catch (e) { } }
       document.getElementById('chests-row').style.display = 'none';
       const resultBox = document.getElementById('chest-action-result');
       resultBox.style.display = 'block';
@@ -3368,6 +3664,7 @@
     }
 
     function executePlayerChestAction(action, targetId, amount, targetName, targetScore) {
+      if (navigator.vibrate) { try { navigator.vibrate([40, 40, 80]); } catch (e) { } }
       let feedbackHtml = '';
       let updatedScore = gameState.myScore || 0;
 
@@ -3499,4 +3796,5 @@
     }
   </script>
 </body>
+
 </html>
