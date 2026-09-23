@@ -1965,7 +1965,7 @@
           <div class="podium-medal">🥈</div>
           <div class="podium-name" id="pod-name-2">Đang tính...</div>
           <div class="podium-mssv" id="pod-mssv-2">Á Quân 1</div>
-          <div class="podium-score" id="pod-score-2">0 pts</div>
+          <div class="podium-score" id="pod-score-2">0 điểm</div>
           <div class="podium-bonus-tag">BONUS +1.5 ĐIỂM</div>
         </div>
 
@@ -1975,7 +1975,7 @@
           <div class="podium-medal">🥇</div>
           <div class="podium-name" id="pod-name-1">Đang tính...</div>
           <div class="podium-mssv" id="pod-mssv-1">Quán Quân Ma Trận</div>
-          <div class="podium-score" id="pod-score-1">0 pts</div>
+          <div class="podium-score" id="pod-score-1">0 điểm</div>
           <div class="podium-bonus-tag"
             style="background:linear-gradient(135deg,#f59e0b,#ef4444);font-size:15px;padding:8px 24px;">BONUS +2.0 ĐIỂM
             QUÁN QUÂN</div>
@@ -1986,7 +1986,7 @@
           <div class="podium-medal">🥉</div>
           <div class="podium-name" id="pod-name-3">Đang tính...</div>
           <div class="podium-mssv" id="pod-mssv-3">Á Quân 2</div>
-          <div class="podium-score" id="pod-score-3">0 pts</div>
+          <div class="podium-score" id="pod-score-3">0 điểm</div>
           <div class="podium-bonus-tag">BONUS +1.5 ĐIỂM</div>
         </div>
       </div>
@@ -1997,7 +1997,7 @@
           <div class="sub-rank-badge">#4</div>
           <div>
             <div style="font-weight:800;color:#fff;" id="pod-name-4">Hạng 4</div>
-            <div style="font-size:12px;color:var(--text-muted);" id="pod-mssv-4"><span id="pod-score-4">0</span> pts
+            <div style="font-size:12px;color:var(--text-muted);" id="pod-mssv-4"><span id="pod-score-4">0</span> điểm
             </div>
             <div style="color:#10b981;font-size:12px;font-weight:700;margin-top:2px;">Bonus +1.0 Điểm</div>
           </div>
@@ -2007,24 +2007,11 @@
           <div class="sub-rank-badge">#5</div>
           <div>
             <div style="font-weight:800;color:#fff;" id="pod-name-5">Hạng 5</div>
-            <div style="font-size:12px;color:var(--text-muted);" id="pod-mssv-5"><span id="pod-score-5">0</span> pts
+            <div style="font-size:12px;color:var(--text-muted);" id="pod-mssv-5"><span id="pod-score-5">0</span> điểm
             </div>
             <div style="color:#10b981;font-size:12px;font-weight:700;margin-top:2px;">Bonus +1.0 Điểm</div>
           </div>
         </div>
-      </div>
-
-      <!-- Actions: Export CSV, Copy Top 5, Reset -->
-      <div class="podium-actions">
-        <button class="btn-primary-action" onclick="downloadResultsCSV()">
-          <span>📥</span> Tải Bảng Điểm (Excel/CSV)
-        </button>
-        <button class="btn-secondary-action" onclick="copyTop5BonusList()">
-          <span>📋</span> Sao Chép Danh Sách Top 5 Gửi Giảng Viên
-        </button>
-        <button class="btn-secondary-action" onclick="restartGame()">
-          <span>🔄</span> Chơi Lại Trận Mới
-        </button>
       </div>
 
       <!-- All Players Detailed Table -->
@@ -2121,7 +2108,7 @@
         <!-- Top Status Bar: Q Num & Score -->
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;padding:0 4px;">
           <span style="font-size:13.5px;font-weight:800;color:var(--secondary)" id="player-hud-qnum">CÂU 01 / 30</span>
-          <span style="font-size:14px;font-weight:800;color:var(--primary)" id="player-hud-score">0 pts (Hạng #1)</span>
+          <span style="font-size:14px;font-weight:800;color:var(--primary)" id="player-hud-score">0 điểm (Hạng #1)</span>
         </div>
 
         <!-- Mobile Question Box (Shows full question & countdown timer) -->
@@ -2226,7 +2213,7 @@
           <div
             style="font-family:var(--font-display);font-size:20px;font-weight:800;color:var(--primary);margin-bottom:8px;"
             id="player-final-score">
-            0 pts
+            0 điểm
           </div>
           <div style="font-size:13px;color:var(--text-sub);margin-bottom:10px;" id="player-final-correct">
             0 / 30 câu đúng
@@ -2558,7 +2545,7 @@
           if (gameCard) gameCard.style.display = 'none';
           if (waitCard) waitCard.style.display = 'block';
           const scoreBadge = document.getElementById('player-hud-score');
-          if (scoreBadge) scoreBadge.textContent = '0 pts';
+          if (scoreBadge) scoreBadge.textContent = '0 điểm';
         } else if (msg.type === 'QUESTION_START') {
           onHostStartQuestion(msg.idx, msg.qData, msg.time);
         } else if (msg.type === 'QUESTION_END') {
@@ -2571,7 +2558,7 @@
             gameState.myScore = msg.newScore;
             savePlayerState();
             const scoreBadge = document.getElementById('player-hud-score');
-            if (scoreBadge) scoreBadge.textContent = msg.newScore.toLocaleString() + ' pts' + (gameState.myRank ? ` (Hạng #${gameState.myRank})` : '');
+            if (scoreBadge) scoreBadge.textContent = msg.newScore.toLocaleString() + ' điểm' + (gameState.myRank ? ` (Hạng #${gameState.myRank})` : '');
             playSound('wrong');
           }
         } else if (msg.type === 'SCORE_SYNC') {
@@ -2579,12 +2566,12 @@
             gameState.myScore = msg.newScore;
             savePlayerState();
             const scoreBadge = document.getElementById('player-hud-score');
-            if (scoreBadge) scoreBadge.textContent = msg.newScore.toLocaleString() + ' pts' + (gameState.myRank ? ` (Hạng #${gameState.myRank})` : '');
+            if (scoreBadge) scoreBadge.textContent = msg.newScore.toLocaleString() + ' điểm' + (gameState.myRank ? ` (Hạng #${gameState.myRank})` : '');
           } else if (msg.targetId === gameState.myPlayerId && msg.targetScore !== undefined) {
             gameState.myScore = msg.targetScore;
             savePlayerState();
             const scoreBadge = document.getElementById('player-hud-score');
-            if (scoreBadge) scoreBadge.textContent = msg.targetScore.toLocaleString() + ' pts' + (gameState.myRank ? ` (Hạng #${gameState.myRank})` : '');
+            if (scoreBadge) scoreBadge.textContent = msg.targetScore.toLocaleString() + ' điểm' + (gameState.myRank ? ` (Hạng #${gameState.myRank})` : '');
           }
         }
       }
@@ -2913,7 +2900,7 @@
           if (joinCard) joinCard.style.display = 'none';
           if (waitCard) waitCard.style.display = 'block';
           if (greetName) greetName.textContent = 'Xin chào, ' + savedNick + '!';
-          if (scoreBadge) scoreBadge.textContent = savedScore.toLocaleString() + ' pts' + (gameState.myRank ? ` (Hạng #${gameState.myRank})` : '');
+          if (scoreBadge) scoreBadge.textContent = savedScore.toLocaleString() + ' điểm' + (gameState.myRank ? ` (Hạng #${gameState.myRank})` : '');
           updateHeaderPlayerInfo();
 
           broadcastEvent({
@@ -3584,26 +3571,26 @@
       if (ranked[0]) {
         document.getElementById('pod-name-1').textContent = ranked[0].name;
         document.getElementById('pod-mssv-1').textContent = 'Quán Quân Ma Trận';
-        document.getElementById('pod-score-1').textContent = ranked[0].score.toLocaleString() + ' pts (' + ranked[0].correctCount + '/30)';
+        document.getElementById('pod-score-1').textContent = ranked[0].score.toLocaleString() + ' điểm (' + ranked[0].correctCount + '/30)';
       }
       if (ranked[1]) {
         document.getElementById('pod-name-2').textContent = ranked[1].name;
         document.getElementById('pod-mssv-2').textContent = 'Á Quân 1';
-        document.getElementById('pod-score-2').textContent = ranked[1].score.toLocaleString() + ' pts (' + ranked[1].correctCount + '/30)';
+        document.getElementById('pod-score-2').textContent = ranked[1].score.toLocaleString() + ' điểm (' + ranked[1].correctCount + '/30)';
       }
       if (ranked[2]) {
         document.getElementById('pod-name-3').textContent = ranked[2].name;
         document.getElementById('pod-mssv-3').textContent = 'Á Quân 2';
-        document.getElementById('pod-score-3').textContent = ranked[2].score.toLocaleString() + ' pts (' + ranked[2].correctCount + '/30)';
+        document.getElementById('pod-score-3').textContent = ranked[2].score.toLocaleString() + ' điểm (' + ranked[2].correctCount + '/30)';
       }
       if (ranked[3]) {
         document.getElementById('pod-name-4').textContent = ranked[3].name;
-        document.getElementById('pod-mssv-4').textContent = ranked[3].score.toLocaleString() + ' pts';
+        document.getElementById('pod-mssv-4').textContent = ranked[3].score.toLocaleString() + ' điểm';
         document.getElementById('pod-score-4').textContent = ranked[3].score.toLocaleString();
       }
       if (ranked[4]) {
         document.getElementById('pod-name-5').textContent = ranked[4].name;
-        document.getElementById('pod-mssv-5').textContent = ranked[4].score.toLocaleString() + ' pts';
+        document.getElementById('pod-mssv-5').textContent = ranked[4].score.toLocaleString() + ' điểm';
         document.getElementById('pod-score-5').textContent = ranked[4].score.toLocaleString();
       }
 
@@ -3919,7 +3906,7 @@
         gameState.myScore = myResult.score;
         gameState.myRank = myResult.rank;
         savePlayerState();
-        document.getElementById('player-hud-score').textContent = myResult.score.toLocaleString() + ' pts (Hạng #' + myResult.rank + ')';
+        document.getElementById('player-hud-score').textContent = myResult.score.toLocaleString() + ' điểm (Hạng #' + myResult.rank + ')';
       }
 
       if (isCorrect) {
@@ -4025,7 +4012,7 @@
             Bạn đã cướp thành công <strong>+${amount} điểm</strong> từ <strong>${targetName}</strong>!
           </div>
           <div style="font-size:13px;font-weight:700;color:var(--secondary);">
-            Điểm hiện tại của bạn: <span style="font-size:17px;color:#38bdf8;font-weight:900;">${updatedScore.toLocaleString()} pts</span>
+            Điểm hiện tại của bạn: <span style="font-size:17px;color:#38bdf8;font-weight:900;">${updatedScore.toLocaleString()} điểm</span>
           </div>
         `;
         playSound('correct');
@@ -4040,7 +4027,7 @@
             Bạn đã hoán đổi vị trí và điểm số với <strong>${targetName}</strong>!
           </div>
           <div style="font-size:13px;font-weight:700;color:var(--secondary);">
-            Điểm mới của bạn: <span style="font-size:17px;color:#38bdf8;font-weight:900;">${updatedScore.toLocaleString()} pts (Top 1)</span>
+            Điểm mới của bạn: <span style="font-size:17px;color:#38bdf8;font-weight:900;">${updatedScore.toLocaleString()} điểm (Top 1)</span>
           </div>
         `;
         playSound('fanfare');
@@ -4055,7 +4042,7 @@
             Bạn nhận được <strong>+${amount} điểm thưởng</strong>!
           </div>
           <div style="font-size:13px;font-weight:700;color:var(--secondary);">
-            Điểm hiện tại của bạn: <span style="font-size:17px;color:#38bdf8;font-weight:900;">${updatedScore.toLocaleString()} pts</span>
+            Điểm hiện tại của bạn: <span style="font-size:17px;color:#38bdf8;font-weight:900;">${updatedScore.toLocaleString()} điểm</span>
           </div>
         `;
         playSound('correct');
@@ -4070,7 +4057,7 @@
             Rất tiếc! Bạn bị trừ <strong>${amount} điểm</strong>!
           </div>
           <div style="font-size:13px;font-weight:700;color:var(--secondary);">
-            Điểm hiện tại của bạn: <span style="font-size:17px;color:#38bdf8;font-weight:900;">${updatedScore.toLocaleString()} pts</span>
+            Điểm hiện tại của bạn: <span style="font-size:17px;color:#38bdf8;font-weight:900;">${updatedScore.toLocaleString()} điểm</span>
           </div>
         `;
         playSound('wrong');
@@ -4080,7 +4067,7 @@
       savePlayerState();
       const scoreBadge = document.getElementById('player-hud-score');
       if (scoreBadge) {
-        scoreBadge.textContent = updatedScore.toLocaleString() + ' pts' + (gameState.myRank ? ` (Hạng #${gameState.myRank})` : '');
+        scoreBadge.textContent = updatedScore.toLocaleString() + ' điểm' + (gameState.myRank ? ` (Hạng #${gameState.myRank})` : '');
       }
 
       const resultBox = document.getElementById('chest-action-result');
@@ -4115,7 +4102,7 @@
       finishCard.style.display = 'block';
 
       document.getElementById('player-final-rank').textContent = `HẠNG #${rank}`;
-      document.getElementById('player-final-score').textContent = `${score.toLocaleString()} pts`;
+      document.getElementById('player-final-score').textContent = `${score.toLocaleString()} điểm`;
       document.getElementById('player-final-correct').textContent = `${correct} / 30 câu đúng`;
 
       let bonusText = 'Cảm ơn bạn đã tham gia thi đấu hết mình!';
