@@ -485,6 +485,16 @@
       visibility: visible;
     }
 
+    #inspect-card.pos-top {
+      top: 86px !important;
+      bottom: auto !important;
+    }
+
+    #inspect-card.pos-bottom {
+      bottom: 90px !important;
+      top: auto !important;
+    }
+
     .inspect-top {
       display: flex;
       align-items: center;
@@ -492,6 +502,34 @@
       margin-bottom: 10px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       padding-bottom: 8px;
+      user-select: none;
+    }
+
+    .inspect-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .inspect-btn-action {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: rgba(255, 255, 255, 0.7);
+      cursor: pointer;
+      font-size: 13px;
+      padding: 3px 8px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+
+    .inspect-btn-action:hover {
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      border-color: var(--theme-primary);
     }
 
     .inspect-badge {
@@ -739,12 +777,15 @@
 
   <!-- INSPECT TOOLTIP CARD (HIỆN KHI RÊ CHUỘT / TAP VÀO VẬT THỂ) -->
   <div id="inspect-card">
-    <div class="inspect-top">
+    <div class="inspect-top" title="Kéo để di chuyển vị trí">
       <div class="inspect-badge">
         <span id="ins-icon">🔍</span>
         <span id="ins-badge">GIẢI MÃ LÝ LUẬN & THỰC TIỄN</span>
       </div>
-      <button class="inspect-close" onclick="closeInspect()">✕</button>
+      <div class="inspect-actions">
+        <button class="inspect-btn-action" id="ins-pos-btn" onclick="toggleInspectPosition(event)" title="Đổi vị trí Lên / Xuống (Tránh che điểm)">⇅ Đổi vị trí</button>
+        <button class="inspect-close" onclick="closeInspect()" title="Đóng">✕</button>
+      </div>
     </div>
     <h3 class="inspect-title" id="ins-title">Tiêu đề vật thể</h3>
     <div class="inspect-body" id="ins-body">Nội dung học thuật chi tiết của vật thể...</div>
@@ -1251,6 +1292,7 @@
       window.addEventListener('resize', onWindowResize);
       window.addEventListener('pointermove', onPointerMove);
       window.addEventListener('keydown', onKeyDown);
+      setupCardDrag();
 
       switchStationScene(0, false);
       animate();
@@ -1365,14 +1407,14 @@
           e.stopPropagation();
           const inspectInfo = INSPECT_DATA[node.key];
           if (inspectInfo) {
-            showInspect(inspectInfo, e.clientX, e.clientY);
+            showInspect(inspectInfo, e.clientX, e.clientY, node.key);
           }
         });
 
         el.addEventListener('mouseenter', (e) => {
           const inspectInfo = INSPECT_DATA[node.key];
           if (inspectInfo) {
-            showInspect(inspectInfo, e.clientX, e.clientY);
+            showInspect(inspectInfo, e.clientX, e.clientY, node.key);
           }
         });
 
@@ -1385,6 +1427,8 @@
        ═══════════════════════════════════════════════════════════ */
     function switchStationScene(targetIndex, animateCam = true) {
       currentStation = targetIndex;
+      isCardManuallyMoved = false;
+      closeInspect();
       const sData = STATIONS[targetIndex];
 
       // 1. Body class kept constant (single theme)
@@ -1477,7 +1521,51 @@
       }
     }
 
-    function showInspect(data) {
+    let isCardManuallyMoved = false;
+
+    function updateInspectCardPosition(nodeKey) {
+      const card = document.getElementById('inspect-card');
+      if (!card || isCardManuallyMoved) return;
+
+      const currentDots = (STATION_HOTSPOTS && STATION_HOTSPOTS[currentStation]) ? STATION_HOTSPOTS[currentStation] : [];
+      const activeDot = currentDots.find(d => d.key === nodeKey);
+
+      // Kiểm tra xem trên trạm hiện tại có điểm tương tác nào nằm ở góc dưới-phải (x >= 65% và y >= 45%) không
+      const hasBottomRightDot = currentDots.some(d => d.x >= 65 && d.y >= 45);
+
+      let placeAtTop = false;
+
+      if (activeDot) {
+        if (activeDot.x >= 60 && activeDot.y >= 45) {
+          // Điểm đang bấm/soi nằm ở góc dưới-phải: đưa thẻ lên GÓC TRÊN-PHẢI để không che điểm
+          placeAtTop = true;
+        } else if (activeDot.x >= 60 && activeDot.y < 45) {
+          // Điểm ở góc trên-phải: đưa thẻ xuống GÓC DƯỚI-PHẢI để không che điểm
+          placeAtTop = false;
+        } else {
+          // Điểm ở giữa hoặc bên trái (ví dụ Cầu Lao Động).
+          // Nếu trạm này có điểm ở góc dưới-phải (như Tháp Trí Thức), đưa thẻ lên TRÊN để tránh che điểm đó!
+          placeAtTop = hasBottomRightDot;
+        }
+      } else {
+        placeAtTop = hasBottomRightDot;
+      }
+
+      card.classList.remove('pos-top', 'pos-bottom');
+      card.style.left = '';
+      card.style.right = '32px';
+      if (placeAtTop) {
+        card.classList.add('pos-top');
+        card.style.top = '86px';
+        card.style.bottom = 'auto';
+      } else {
+        card.classList.add('pos-bottom');
+        card.style.bottom = '90px';
+        card.style.top = 'auto';
+      }
+    }
+
+    function showInspect(data, clientX, clientY, nodeKey) {
       const card = document.getElementById('inspect-card');
       if (!card || !data) return;
       document.getElementById('ins-icon').textContent = data.icon;
@@ -1485,7 +1573,79 @@
       document.getElementById('ins-title').textContent = data.title;
       document.getElementById('ins-body').innerHTML = data.body;
       document.getElementById('ins-footer').innerHTML = '💡 ' + data.footer;
+
+      updateInspectCardPosition(nodeKey);
       card.classList.add('active');
+    }
+
+    function toggleInspectPosition(e) {
+      if (e) e.stopPropagation();
+      const card = document.getElementById('inspect-card');
+      if (!card) return;
+      isCardManuallyMoved = false; // Reset kéo thủ công khi bấm nút chuyển đổi
+      card.style.left = '';
+      card.style.right = '32px';
+      if (card.classList.contains('pos-top') || card.style.top === '86px') {
+        card.classList.remove('pos-top');
+        card.classList.add('pos-bottom');
+        card.style.top = 'auto';
+        card.style.bottom = '90px';
+      } else {
+        card.classList.remove('pos-bottom');
+        card.classList.add('pos-top');
+        card.style.bottom = 'auto';
+        card.style.top = '86px';
+      }
+    }
+
+    function setupCardDrag() {
+      const card = document.getElementById('inspect-card');
+      const header = card ? card.querySelector('.inspect-top') : null;
+      if (!card || !header) return;
+
+      header.style.cursor = 'grab';
+
+      let isDragging = false;
+      let startX, startY, origLeft, origTop;
+
+      header.addEventListener('mousedown', (e) => {
+        if (e.target.tagName === 'BUTTON' || e.target.closest('button')) return;
+        isDragging = true;
+        isCardManuallyMoved = true;
+        header.style.cursor = 'grabbing';
+        const rect = card.getBoundingClientRect();
+        startX = e.clientX;
+        startY = e.clientY;
+        origLeft = rect.left;
+        origTop = rect.top;
+
+        // Chuyển sang định vị tuyệt đối theo px để người dùng kéo thả tự do
+        card.style.left = origLeft + 'px';
+        card.style.top = origTop + 'px';
+        card.style.right = 'auto';
+        card.style.bottom = 'auto';
+        card.classList.remove('pos-top', 'pos-bottom');
+
+        const onMouseMove = (ev) => {
+          if (!isDragging) return;
+          const dx = ev.clientX - startX;
+          const dy = ev.clientY - startY;
+          const newLeft = Math.max(10, Math.min(window.innerWidth - card.offsetWidth - 10, origLeft + dx));
+          const newTop = Math.max(10, Math.min(window.innerHeight - card.offsetHeight - 10, origTop + dy));
+          card.style.left = newLeft + 'px';
+          card.style.top = newTop + 'px';
+        };
+
+        const onMouseUp = () => {
+          isDragging = false;
+          header.style.cursor = 'grab';
+          window.removeEventListener('mousemove', onMouseMove);
+          window.removeEventListener('mouseup', onMouseUp);
+        };
+
+        window.addEventListener('mousemove', onMouseMove);
+        window.addEventListener('mouseup', onMouseUp);
+      });
     }
 
     function closeInspect() {
